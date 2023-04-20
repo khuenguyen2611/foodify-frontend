@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/service/user.service';
-import { User } from 'src/app/shared/tables/User';
+import { User } from 'src/app/shared/tables/user';
 
 @Component({
   selector: 'app-profile',
