@@ -86,7 +86,8 @@ export class EditVendorComponent implements OnInit {
   }
 
   ngOnInit() {
-    const shopId = +this.route.snapshot.paramMap.get('id')!;
+    const shopId = +this.route.snapshot.paramMap.get("id")!;
+    console.log(shopId);
     this.getAllDistrict().then(() => {
       this.shopService.getShopById(shopId).subscribe((data => this.fillFormToUpdate(data)))
     }).catch(error => { });
@@ -120,6 +121,7 @@ export class EditVendorComponent implements OnInit {
   }
 
   fillFormToUpdate(response: Shop) {
+    console.log(response)
     this.isHaveDistrict = false;
     this.isEnabled = response.isEnabled;
     this.userImg = response.user.imageUrl;

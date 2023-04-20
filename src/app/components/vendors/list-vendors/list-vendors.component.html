@@ -6,7 +6,7 @@
 </div>
 
 <!-- Container-fluid starts-->
-<div class="container-fluid" *ngIf="shops.length">
+<div class="container-fluid" *ngIf="shops?.length">
     <div class="card">
         <!-- <div class="card-header">
             <h5>Vendor Details</h5>
@@ -35,13 +35,13 @@
                             <tr *ngFor="let shop of shops, let idx = index">
                                 <th>{{ idx + 1}}</th>
                                 <td scope="row">
-                                    <img [src]="shop.imageUrl" class="imgTable" style="width: 20px">
+                                    <img [src]="shop?.imageUrl" class="imgTable" style="width: 20px">
                                 </td>
                                 <td scope="row">
-                                    <span>{{shop.name}}</span>
+                                    <span>{{shop?.name}}</span>
                                 </td>
                                 <td>
-                                    {{shop.description}}
+                                    {{shop?.description}}
                                 </td>
                                 <td>
                                     <span class="text-size"
@@ -49,7 +49,7 @@
                                         {{ shop.isEnabled ? 'Đang hoạt động' : 'Đang tạm ngưng' }}
                                     </span>
                                 </td>
-                                <td>{{ shop.isStudent ? 'Cửa hàng sinh viên' : 'Cửa hàng thường' }}</td>
+                                <td>{{ shop?.isStudent ? 'Cửa hàng sinh viên' : 'Cửa hàng thường' }}</td>
                                 <!-- <td>{{shop.userId}}</td> -->
                                 <td>
                                     <a style="cursor: pointer" title="Xem">
@@ -58,7 +58,7 @@
                                         </a>
                                     </a>&nbsp;
                                     <a style="cursor: pointer">
-                                        <a title="Chỉnh sửa" [routerLink]="['/vendors','edit',shop.id]">
+                                        <a title="Chỉnh sửa" [routerLink]="['/vendors','edit', shop.id]">
                                             <i class='fa fa-edit f-12'></i>
                                         </a>
                                     </a>&nbsp;
