@@ -1,0 +1,182 @@
+<div class="d-flex justify-content-start align-items-center px-4 py-2">
+    <div class="btn-popup pull-left m-0">
+        <input [(ngModel)]="searchName" class="form-control search-input" type="text" placeholder="Tìm kiếm"
+            (change)="searchShop()" />
+    </div>
+</div>
+
+<!-- Container-fluid starts-->
+<div class="container-fluid" *ngIf="shops.length">
+    <div class="card">
+        <!-- <div class="card-header">
+            <h5>Vendor Details</h5>
+        </div> -->
+        <div class="card-body vendor-table">
+            <!-- <div class="btn-popup pull-left">
+                <input [(ngModel)]="searchName" class="form-control" type="text" placeholder="Tìm kiếm"
+                    (change)="searchShop()" />
+            </div> -->
+            <div id="batchDelete" class="custom-datatable vendor-list">
+                <div class="table-responsive ">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ảnh cửa hàng</th>
+                                <th scope="col">Tên cửa hàng</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col" sortable="name">Trạng thái</th>
+                                <th scope="col" sortable="name">Loại cửa hàng</th>
+                                <!-- <th scope="col" sortable="name">Id người dùng</th> -->
+                                <th scope="col" sortable="name"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let shop of shops, let idx = index">
+                                <th>{{ idx + 1}}</th>
+                                <td scope="row">
+                                    <img [src]="shop.imageUrl" class="imgTable" style="width: 20px">
+                                </td>
+                                <td scope="row">
+                                    <span>{{shop.name}}</span>
+                                </td>
+                                <td>
+                                    {{shop.description}}
+                                </td>
+                                <td>
+                                    <span class="text-size"
+                                        [ngClass]="{badge: true,'badge-success': shop.isEnabled, 'badge-primary': !shop.isEnabled}">
+                                        {{ shop.isEnabled ? 'Đang hoạt động' : 'Đang tạm ngưng' }}
+                                    </span>
+                                </td>
+                                <td>{{ shop.isStudent ? 'Cửa hàng sinh viên' : 'Cửa hàng thường' }}</td>
+                                <!-- <td>{{shop.userId}}</td> -->
+                                <td>
+                                    <a style="cursor: pointer" title="Xem">
+                                        <a [routerLink]="['/vendors','details',shop.id]">
+                                            <i style="color: lightseagreen;" class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </a>&nbsp;
+                                    <a style="cursor: pointer">
+                                        <a title="Chỉnh sửa" [routerLink]="['/vendors','edit',shop.id]">
+                                            <i class='fa fa-edit f-12'></i>
+                                        </a>
+                                    </a>&nbsp;
+                                    <a title="Xoá" style="cursor: pointer"
+                                        (click)="openDeleteModal(deleteModal, shop?.id)"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center p-2">
+                        <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                            [collectionSize]="theTotalElements" [maxSize]="5" (pageChange)="listAllShops()"
+                            [boundaryLinks]="true">
+                        </ngb-pagination>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <select [(ngModel)]="thePageSize" class="form-select" style="width: auto" name="pageSize"
+                            (change)="listAllShops()">
+                            <option [value]="10" [selected]="true" [ngValue]="10">10 cửa hàng / trang</option>
+                            <option [ngValue]="20">20 cửa hàng / trang</option>
+                            <option [ngValue]="30">30 cửa hàng / trang</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="!shops.length">
+    <div class="d-flex justify-content-center p-2">
+        <img src="../../../../assets/images/error/no-user.png" alt="" srcset="">
+    </div>
+    <div class="d-flex justify-content-center p-2">
+        <h4 style="color: #ff8084;">Không tìm thấy người bán</h4>
+    </div>
+</div>
+
+<ng-template #deleteModal>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắn muốn xoá người bán này chứ ?</h5>
+        <button type="button" class="btn btn-primary" (click)="confirm(deleteSuccess)">Tiếp tục
+        </button>&nbsp;
+        <button type="button" class="btn btn-secondary" (click)="decline()">Quay lại
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #deleteSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Xoá người bán thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="continue()">Tiếp tục
+        </button>
+    </div>
+</ng-template>
+
+<!-- <ng-template #formEditTemplate>
+    <div id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Vendor Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="input-group">
+                            <div class="col-xl-3 col-sm-4">
+                                <span class="input-group-addon"><label for="vendor" class="mb-0">Vendors</label></span>
+                            </div>
+                            <input type="text" class="form-control" name="vendor" id="vendor" autocomplete="off"
+                                formControlName="vendor" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="input-group">
+                            <div class="col-xl-3 col-sm-4">
+                                <span class="input-group-addon"><label for="products"
+                                        class="mb-0">Products</label></span>
+                            </div>
+                            <input type="text" class="form-control" name="products" id="products" autocomplete="off"
+                                formControlName="products" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="input-group">
+                            <div class="col-xl-3 col-sm-4">
+                                <span class="input-group-addon"><label for="storeName" class="mb-0">Store
+                                        Name</label></span>
+                            </div>
+                            <input type="text" class="form-control" name="storeName" id="storeName" autocomplete="off"
+                                formControlName="storeName" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="input-group">
+                            <div class="col-xl-3 col-sm-4">
+                                <span class="input-group-addon"><label for="date" class="mb-0">Date</label></span>
+                            </div>
+                            <input type="date" class="form-control" name="date" id="date" autocomplete="off"
+                                formControlName="date" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template> -->

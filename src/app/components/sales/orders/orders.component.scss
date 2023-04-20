@@ -1,0 +1,59 @@
+th, td {
+    text-align: center;
+}
+
+.modal-change-status {
+    // width: 1000px;
+    .modal-confirm-text {
+        text-align: center;
+        padding: 20px 8px;
+        font-weight: 600;
+    }
+
+    .modal-select-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+
+        select {
+            padding: 12px 20px;
+        }
+    }
+
+    .modal-btn-option {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 20px;
+
+        .width-btn {
+            width: 110px;
+        }
+    }
+}
+
+.modal-confirm-delete {
+    // width: 1000px;
+    .modal-confirm-text {
+        text-align: center;
+        padding: 20px 8px;
+        font-weight: 600;
+    }
+    .modal-btn-option {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 20px;
+
+        .width-btn {
+            width: 110px;
+        }
+    }
+}
+
+.modal-confirm-text {
+    font-weight: 600;
+}

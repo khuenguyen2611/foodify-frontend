@@ -1,0 +1,185 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5>Thông tin shipper</h5>
+                </div> -->
+                <div class="card-body">
+                    <div class="row product-adding">
+                        <div class="col-xl-5">
+                            <div class="add-product">
+                                <div class="row">
+                                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                        <img src="{{ shipper.user.imageUrl }}" alt="" class="img-fluid image_zoom_1">
+                                    </div>
+                                    <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                        <!-- <ul class="file-upload-product">
+                                            <li *ngFor="let item of url; let i=index">
+                                                <div class="box-input-file">
+                                                    <input class="upload" type="file" (change)="readUrl($event,i)">
+                                                    <img class="imgUpload" alt="" [src]="item.img">
+                                                </div>
+                                            </li>
+                                        </ul> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-7">
+
+                            <!-- Shipper Name -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Họ và tên:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.user.fullName }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipper Shop -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Shipper của cửa hàng:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.shop.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipper Dob -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Ngày sinh:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.user.dateOfBirth }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipper iCode -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">CMND/CCCD:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.user.identifiedCode }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipper Email -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Email:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.user.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipper Phone Number -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Số điện thoại:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.user.phoneNumber }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipper Orders -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Tổng đơn hàng:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <p class="mb-0 text-size text-dark">{{ shipper.orders.length }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Active -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Trạng thái:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <i *ngIf="shipper.isActive == true" style="color: green; font-size: 20px;"
+                                            class="fa fa-power-off" aria-hidden="true"></i>
+                                        <i *ngIf="shipper.isActive == false" style="color: #FF6347; font-size: 20px;"
+                                            class="fa fa-power-off" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipping -->
+                            <div class="add-product-form">
+                                <div class="form-group row">
+                                    <div class="col-xl-3 col-sm-4">
+                                        <label class="mb-0">Đang giao hàng:</label>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-7">
+                                        <i *ngIf="shipper.isShipping == false" style="color: #FF6347; font-size: 20px;"
+                                            class="fa fa-motorcycle" aria-hidden="true"></i>
+                                        <i *ngIf="shipper.isShipping == true" style="color: green; font-size: 20px;"
+                                            class="fa fa-motorcycle" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row mb-0">
+                                <div class="col-sm-8 offset-xl-3 offset-sm-4">
+                                    <div class="product-buttons">
+
+                                        <!-- <button type="button" class="btn btn-light" (click)="openModal(add_product)">
+                                            Discard
+                                        </button> -->
+                                        <!-- <ng-template #add_product>
+                                            <div class="modal-body text-center">
+                                                <p>Bạn chắc chắc muốn thêm sản phẩm này chứ ?</p>
+                                                <button type="button" class="btn btn-default"
+                                                    (click)="confirm(complete)">Có
+                                                </button>
+                                                <button type="button" class="btn btn-primary" (click)="decline()">Không
+                                                </button>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template #complete>
+                                            <div class="modal-body text-center">
+                                                <p>Thêm sản phẩm thành công</p>
+                                                <button type="button" class="btn btn-primary" (click)="completed()">Tiếp
+                                                    tục
+                                                </button>
+                                            </div>
+                                        </ng-template> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"
+                                [routerLink]="['/shippers', 'edit', shipper.id]">Chỉnh sửa
+                                thông tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends -->

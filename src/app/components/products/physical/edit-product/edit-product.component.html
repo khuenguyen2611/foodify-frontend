@@ -1,0 +1,375 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Chỉnh sửa sản phẩm</h5>
+                </div>
+
+                <div class="card-body tab2-card">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Sản phẩm</a>
+                            <ng-template ngbNavContent>
+                                <div class="row product-adding">
+                                    <div class="col-xl-5">
+                                        <div class="add-product">
+                                            <div class="row">
+                                                <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                                    <img src="{{ oldRandomImg }}" alt="" class="img-fluid image_zoom_1">
+                                                </div>
+                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-7">
+
+                                        <!-- Form Start -->
+                                        <form class="needs-validation" [formGroup]="editProductForm" novalidate>
+
+                                            <!-- Product Name -->
+                                            <div class="add-product-form">
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom01" class="mb-0">Tên sản
+                                                            phẩm</label>
+                                                    </div>
+                                                    <div class="col-xl-8 col-sm-7">
+                                                        <input class="form-control" id="validationCustom01" type="text"
+                                                            [formControl]="editProductForm.controls['name']">
+                                                        <!-- <div *ngIf="editProductForm.controls.name.touched && editProductForm.controls.name.errors?.required"
+                                                            class="text text-danger">
+                                                            Tên sản phẩm không được bỏ trống.
+                                                        </div> -->
+                                                        <div *ngIf="productName?.invalid && (productName?.dirty || productName?.touched)"
+                                                            class="alert alert-danger mt-1">
+                                                            <div *ngIf="productName?.errors?.['required']">Tên sản phẩm
+                                                                không được bỏ trống.</div>
+                                                            <div *ngIf="productName?.errors?.['minlength']">Tên sản phẩm
+                                                                phải có ít nhất 2 kí tự.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Price -->
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom02" class="mb-0">Giá sản
+                                                            phẩm</label>
+                                                    </div>
+                                                    <div class="col-xl-8 col-sm-7">
+                                                        <input class="form-control" id="validationCustom02"
+                                                            type="number"
+                                                            [formControl]="editProductForm.controls['price']">
+                                                        <!-- <div *ngIf="editProductForm.controls.price.touched && editProductForm.controls.price.errors?.required"
+                                                            class="text text-danger">
+                                                            Giá sản phẩm không được bỏ trống.
+                                                        </div> -->
+                                                        <div *ngIf="productPrice?.invalid && (productPrice?.dirty || productPrice?.touched)"
+                                                            class="alert alert-danger mt-1">
+                                                            <div *ngIf="productPrice?.errors?.['required']">Giá sản phẩm
+                                                                không được bỏ trống.</div>
+                                                            <div *ngIf="productPrice?.errors?.['pattern']">Giá sản phẩm
+                                                                phải là ký tự số.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Categories -->
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom03" class="mb-0">Loại sản
+                                                            phẩm</label>
+                                                    </div>
+
+                                                    <div class="col-xl-8 col-sm-7" formArrayName="categories">
+                                                        <div *ngFor="let item of categories.controls; let i = index">
+                                                            <div formGroupName="{{i}}">
+                                                                <!-- <input class="form-control" id="validationCustom03"
+                                                                    formControlName="categoryName" required="">
+                                                                <div
+                                                                    *ngIf="categories.controls[i].get('categoryName').invalid &&
+                                                        (categories.controls[i].get('categoryName').dirty || categories.controls[i].get('categoryName').touched)">
+                                                                    <div
+                                                                        *ngIf="categories.controls[i].get('categoryName').errors.required">
+                                                                        Category Name is required
+                                                                    </div>
+                                                                </div>
+
+                                                                <button type="button" class="btn btn-light"
+                                                                    (click)="deleteCategory(i)">
+                                                                    Xoá
+                                                                </button> -->
+                                                                <div class="d-flex mb-2 mt-2">
+                                                                    <input class="form-control" id="validationCustom03"
+                                                                        formControlName="categoryName">
+                                                                    <button type="button" class="btn btn-light ml-2"
+                                                                        (click)="deleteCategory(i)">
+                                                                        Xoá
+                                                                    </button>
+                                                                </div>
+                                                                <div *ngIf="categories.controls[i].get('categoryName').invalid &&
+                                                                    (categories.controls[i].get('categoryName').dirty || categories.controls[i].get('categoryName').touched)"
+                                                                    class="alert alert-danger mt-1">
+                                                                    <div
+                                                                        *ngIf="categories.controls[i].get('categoryName')?.errors?.['required']">
+                                                                        Không được để trống loại sản phẩm
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-primary me-1"
+                                                            (click)="addNewCategory()">
+                                                            Thêm loại
+                                                        </button>
+                                                    </div>
+
+
+
+                                                    <!-- <div class="col-xl-8 col-sm-7">
+                                            <input class="form-control" id="validationCustom03"
+                                                [formControl]="productForm.controls['category']" required="">
+                                            <div *ngIf="productForm.controls.category.touched && productForm.controls.category.errors?.required"
+                                                class="text text-danger">
+                                                Loại sản phẩm không được bỏ trống.
+                                            </div>
+                                        </div> -->
+                                                </div>
+                                                <!--                  <div class="form-group row">-->
+                                                <!--                    <div class="col-xl-3 col-sm-4">-->
+                                                <!--                      <label for="exampleFormControlSelect1" class="mb-0">Select-->
+                                                <!--                        Size-->
+                                                <!--                        :</label>-->
+                                                <!--                    </div>-->
+                                                <!--                    <div class="col-xl-8 col-sm-7">-->
+                                                <!--                      <select class="form-control digits" id="exampleFormControlSelect1">-->
+                                                <!--                        <option>Small</option>-->
+                                                <!--                        <option>Medium</option>-->
+                                                <!--                        <option>Large</option>-->
+                                                <!--                        <option>Extra Large</option>-->
+                                                <!--                      </select>-->
+                                                <!--                    </div>-->
+                                                <!--                  </div>-->
+
+                                                <!-- Product Description -->
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom02" class="mb-0">Mô tả sản
+                                                            phẩm</label>
+                                                    </div>
+                                                    <div class="col-xl-8 col-sm-7">
+                                                        <textarea class="form-control" id="validationCustom02"
+                                                            type="number" formControlName="descriptions"></textarea>
+                                                        <div *ngIf="descriptions?.invalid && (descriptions?.dirty || descriptions?.touched)"
+                                                            class="alert alert-danger mt-1">
+                                                            <div *ngIf="descriptions?.errors?.['required']">Mô tả sản
+                                                                phẩm không được bỏ trống.</div>
+                                                            <div *ngIf="descriptions?.errors?.['minlength']">Mô tả sản
+                                                                phẩm phải có ít nhất 8 kí tự.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Enabled -->
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom03" class="mb-0">Trạng thái</label>
+                                                    </div>
+                                                    <div class="col-xl-8 col-sm-7">
+                                                        <button *ngIf="isEnabled" type="button"
+                                                            class="btn btn-secondary" (click)="swap()">Được mở bán
+                                                        </button>
+                                                        <button *ngIf="!isEnabled" type="button" class="btn btn-primary"
+                                                            (click)="swap()">Không mở bán
+                                                        </button>
+                                                        <!-- <input class="form-control" id="validationCustom03"
+                                                [formControl]="editProductForm.controls['shopId']" required="">
+                                            <div *ngIf="editProductForm.controls.shopId.touched && editProductForm.controls.shopId.errors?.required"
+                                                class="text text-danger">
+                                                Id shop không được bỏ trống.
+                                            </div> -->
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Discount Percent -->
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom02" class="mb-0">Giảm giá
+                                                            (%)</label>
+                                                    </div>
+                                                    <div class="col-xl-8 col-sm-7">
+                                                        <input class="form-control" id="validationCustom02"
+                                                            type="number"
+                                                            [formControl]="editProductForm.controls['discountPercent']">
+                                                        <div *ngIf="discountPercent?.invalid && (discountPercent?.dirty || discountPercent?.touched)"
+                                                            class="alert alert-danger mt-1">
+                                                            <div *ngIf="discountPercent?.errors?.['required']">Mã giảm
+                                                                giá (%) không được bỏ trống.</div>
+                                                            <div *ngIf="discountPercent?.errors?.['pattern']">Mã giảm
+                                                                giá (%) phải là ký tự số.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Shop Id -->
+                                                <div class="form-group row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label for="validationCustom03" class="mb-0">Id shop</label>
+                                                    </div>
+                                                    <div class="col-xl-8 col-sm-7">
+                                                        <input class="form-control" id="validationCustom03"
+                                                            [formControl]="editProductForm.controls['shopId']">
+                                                        <div *ngIf="productShopId?.invalid && (productShopId?.dirty || productShopId?.touched)"
+                                                            class="alert alert-danger mt-1">
+                                                            <div *ngIf="productShopId?.errors?.['required']">Id shop
+                                                                không được bỏ trống.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="form-group row mb-0">
+                                            <div class="col-sm-8 offset-xl-3 offset-sm-4">
+                                                <div class="product-buttons">
+                                                    <button type="button" class="btn btn-primary me-1"
+                                                        (click)="openModal(add_product)">
+                                                        Cập nhật sản phẩm
+                                                    </button>
+                                                    <!-- <button type="button" class="btn btn-light" (click)="openModal(add_product)">
+                                            Discard
+                                        </button> -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Ảnh</a>
+                            <ng-template ngbNavContent>
+                                <div class="row products-admin ratio_asos">
+                                    <div class="col-xl-3 col-sm-6" *ngFor="let image of product.images">
+                                        <div class="card">
+                                            <div class="card-body product-box shadow-box">
+                                                <div class="img-wrapper">
+                                                    <div class="front">
+                                                        <a href="javascript:void(0)">
+                                                            <img src="{{image.imageUrl}}"
+                                                                class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <div class="product-hover">
+                                                            <ul>
+                                                                <li>
+                                                                    <button class="btn" type="button" title="Thêm"
+                                                                        (click)="openImgModal(image.id, addImg)"><i
+                                                                            class="fa fa-plus"></i></button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="btn" type="button"
+                                                                        (click)="openImgModal(image.id, updateImg)"
+                                                                        title="Chỉnh sửa"><i
+                                                                            class="icon-pencil-alt"></i></button>
+                                                                </li>
+                                                                <li *ngIf="product.images.length > 1">
+                                                                    <button (click)="openImgModal(image.id, deleteImg)"
+                                                                        class="btn" type="button" title="Xoá"><i
+                                                                            class="icon-trash"></i></button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                    <div class="pull-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!-- Modal -->
+<ng-template #add_product>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắc muốn chỉnh sửa sản phẩm này chứ ?</h5>
+        <button type="button" class="btn btn-secondary" (click)="confirm(success)">Đồng ý
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="closeLayer1()">Không
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #success>
+    <div class="justify-content-center p-2">
+        <h5 class="modal-title f-w-600" id="exampleModalLabel" style="text-align: center;">Cập nhật sản phẩm thành công
+        </h5>
+        <hr>
+        <div>
+            <button type="button" class="btn btn-default" (click)="list()">Danh sách
+            </button>&nbsp;&nbsp;&nbsp;
+            <button type=" button" class="btn btn-primary" (click)="closeLayer1()">Tiếp
+                tục
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #success>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Chỉnh sửa sản phẩm thành công</h5>
+        <button type="button" class="btn btn-default" (click)="list()">Danh sách
+        </button>
+        <button type=" button" class="btn btn-primary" (click)="closeLayer1()">Tiếp
+            tục
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #addImg>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Thêm ảnh</h5>
+        <input class="input-image mb-4" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <button type="button" class="btn btn-primary" (click)="uploadNewImage(imageSuccess)">Tiếp tục
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #updateImg>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Chỉnh sửa ảnh</h5>
+        <input class="input-image mb-4" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <button type="button" class="btn btn-primary" (click)="updateImage(imageSuccess)">Tiếp tục
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #deleteImg>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắc muốn xoá ảnh này chứ ?</h5>
+        <button type="button" class="btn btn-primary" (click)="deleteImage(imageSuccess)">Tiếp tục
+        </button>&nbsp;&nbsp;&nbsp;
+        <button type=" button" class="btn btn-primary">Quay lại
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #imageSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">{{ imageContent }} thành công</h5>
+        <button type=" button" class="btn btn-primary" (click)="closeLayer1AndReload()">Tiếp
+            tục
+        </button>
+    </div>
+</ng-template>

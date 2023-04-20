@@ -1,0 +1,55 @@
+.input-id {
+    background-color: #ccc;
+    cursor: default;
+  }
+  
+  .input-image {
+    height: 50px;
+    border: 0px;
+    overflow: visible;
+    background: 0;
+    text-indent: -1000000px;
+    color: transparent;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .input-image::before {
+    content: " Chọn ảnh đại diện";
+    position: absolute;
+    text-indent: 10px;
+    color: #fff;
+    opacity: 1;
+    font-size: 130%;
+    padding: 12px 0px 0px 10px;
+    border: solid 2px #ff8084;
+    text-shadow: 1px 1px 1px #999;
+    box-sizing: border-box;
+    background-image: linear-gradient(#ff8084, #ff8084);
+    border-radius: 8px;
+    display: block;
+    width: 194px;
+    height: 50px;
+    left: 0px;
+  
+    // &:hover::before {
+    //   box-shadow: 1px 1px 1px #ccc;
+    //   cursor: pointer;
+    //   background-image: linear-gradient(#09ace6, #63d9f3);
+    //   transition: all 0.1s ease;
+    // }
+  }
+
+  .input-password-holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .input-password {
+      border: none;
+      width: 100%;
+    }
+    .icon-holder-eye {
+      color: #999a9b;
+    }
+  }

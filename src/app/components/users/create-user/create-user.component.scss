@@ -1,0 +1,124 @@
+// .input-image {
+//     height: 50px;
+//     border: 0px;
+//     overflow: visible;
+//     background: 0;
+//     text-indent: -1000000px;
+//     color: transparent;
+//     box-sizing: border-box;
+//     position: relative;
+//     cursor: pointer;
+// }
+
+// .input-image::before {
+//     content: " Chọn ảnh";
+//     position: absolute;
+//     text-indent: 10px;
+//     color: #fff;
+//     opacity: 1;
+//     font-size: 100%;
+//     padding: 10px 10px;
+//     border: solid 2px #FF8084;
+//     text-shadow: 1px 1px 1px #999;
+//     box-sizing: border-box;
+//     background-image: linear-gradient(#FF8084, #FF8084);
+//     border-radius: 8px;
+//     display: block;
+//     // width: 194px;
+//     // height: 50px;
+//     left: 0px;
+// }
+
+.address-form {
+
+    .address-cover {
+        display: flex;
+    }
+
+    .address-holder {
+        width: 100%;
+
+        .address-street {
+            .address-input {
+                margin-bottom: 5px;
+            }
+        }
+
+        .address-location {
+            display: flex;
+
+            .location-district {
+                width: 100%;
+                margin-right: 10px;
+
+                .district {
+                    padding: 8px 16px;
+                    border: 1.5px solid #ced4da;
+                    border-radius: 5px;
+                    width: 100%;
+                }
+            }
+
+            .location-ward {
+                width: 100%;
+
+                .ward {
+                    padding: 8px 16px;
+                    border: 1.5px solid #ced4da;
+                    border-radius: 5px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .icon-holder {
+        margin-left: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .fa-trash-o {
+            color: rgb(233, 4, 4);
+            font-size: 24px;
+            cursor: pointer;
+
+            &:hover {
+                color: rgba(134, 6, 6, 0.822);
+            }
+        }
+    }
+}
+
+.btn-green {
+    background-color: #41c300;
+    color: #fff;
+}
+
+.input-password-holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .input-password {
+        border: none;
+        width: 100%;
+    }
+
+    .icon-holder-eye {
+        color: #999a9b;
+    }
+}
+
+.input-password-holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .input-password {
+      border: none;
+      width: 100%;
+    }
+    .icon-holder-eye {
+      color: #999a9b;
+    }
+  }

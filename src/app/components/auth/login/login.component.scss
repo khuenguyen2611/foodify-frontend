@@ -1,0 +1,39 @@
+.backgound-food {
+    background-image: url('../../../../assets/images/background-login.jpg');
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -99;
+
+
+    @media (max-width:768px)  { 
+      .disable-pink {
+        display: none;
+      }
+     }
+
+    .login-img-box {
+      width: 100%;
+      padding-bottom: 20px;
+
+      .login-img {
+        max-width: 442px;
+      }
+    }
+
+    .input-password-holder {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .input-password {
+          border: none;
+          width: 100%;
+        }
+        .icon-holder-eye {
+          color: #999a9b;
+        }
+      }
+}
+

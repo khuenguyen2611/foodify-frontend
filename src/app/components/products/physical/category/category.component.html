@@ -1,0 +1,131 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Thể loại sản phẩm</h5>
+                </div>
+                <div class="card-body">
+                    <!--                    <div class="btn-popup pull-right">-->
+                    <!--                        <button-->
+                    <!--                                type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"-->
+                    <!--                                data-target="#exampleModal" (click)="open(content)">Add Category-->
+                    <!--                        </button>-->
+
+                    <!--                    </div>-->
+                    <div id="batchDelete" class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <!-- <form>
+                                <div class="mb-3 row">
+                                    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+                                    <div class="col-xs-3 col-sm-auto">
+                                      <input id="table-complete-search" type="text" class="form-control" name="searchTerm"  [(ngModel)]="searchText" autocomplete="off">
+                                    </div>
+                                </div>
+                              </form> -->
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th class="d-flex justify-content-center align-items-center" scope="col">
+                                            <span>Ảnh</span></th>
+                                        <th scope="col">Tên loại</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor='let category of categories; let i = index'>
+                                        <th scope="row">
+                                            <div>{{ i + 1 }}</div>
+                                        </th>
+                                        <td class="d-flex justify-content-center align-items-center ">
+                                            <img [src]="category.imageUrl" class="imgTable" style="width: 20px"
+                                                [routerLink]="['/products','category',category.id]">
+                                        </td>
+                                        <td>{{ category.name }}</td>
+                                        <td>
+                                            <a style="cursor: pointer;"
+                                                [routerLink]="['/products','category',category.id]"><i
+                                                    style="color: lightseagreen;" class='fa fa-eye f-12'></i></a>&nbsp;
+                                            <a style="cursor: pointer;"
+                                                (click)="editCategory(productCategoryTemplate, category)"><i
+                                                    class='fa fa-edit f-12'></i></a>&nbsp;
+                                            <a style="cursor: pointer;"
+                                                (click)="openModal(deleteCategory, category.id)"><i
+                                                    class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div class="d-flex justify-content-center p-2">
+                                <ngb-pagination>
+                                </ngb-pagination>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<ng-template #productCategoryTemplate>
+    <form formGroup="categoryForm">
+        <div class="modal-header">
+            <h5 class="modal-title f-w-600" id="exampleModalLabel">Edit Product Category</h5>
+            <button type="button" class="close" aria-label="Close" (click)="decline()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="form-group">
+                    <label for="validationCustom01" class="mb-1">Tên loại :</label>
+                    <input class="form-control" id="validationCustom01" type="text"
+                        [formControl]="categoryForm.controls['categoryName']" required>
+                </div>
+                <div class="form-group mb-0">
+                    <label for="image" class="mb-1">Ảnh :</label>
+                    <input class="form-control" id="image" [formControl]="categoryForm.controls['categoryImage']"
+                        type="file" autocomplete="off" (change)="onFileSelected($event)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onSaveCategory($event, updateSuccess)">Lưu
+                </button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="decline()">Đóng
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #deleteCategory>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn muốn xoá thể loại này chứ ?<br>
+            Tất cả những sản phẩm liên quan sẽ bị xoá ?</h5>
+        <button type="button" class="btn btn-secondary" (click)="confirm(categoryId, deleteSuccess)">
+            Đồng ý
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="decline()">Không
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #updateSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Cập nhật thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="success()">Tiếp tục
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #deleteSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Cập nhật thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="success()">Tiếp tục
+        </button>
+    </div>
+</ng-template>

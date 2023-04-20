@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5>Danh sách địa chỉ</h5>
+                </div> -->
+                <div class="card-body">
+                    <div class="btn-popup pull-left">
+                        <input [(ngModel)]="searchName" class="form-control" type="text" placeholder="Tìm kiếm"
+                            (change)="searchAddress()" />
+                    </div>
+
+                    <div id="batchDelete" class="custom-datatable" *ngIf="addresses.length > 0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Địa chỉ cụ thể</th>
+                                        <th scope="col">Quận</th>
+                                        <th scope="col">Phường</th>
+                                        <th scope="col">Đang sử dụng</th>
+                                        <th scope="col" sortable="action"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let addr of addresses; let i = index">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ addr?.address }}</td>
+                                        <td>{{ addr?.district }}</td>
+                                        <td>{{ addr?.ward}}</td>
+                                        <td>{{ addr?.users.length}}</td>
+                                        <td>
+                                            <a *ngIf="addr?.users.length" style="cursor: not-allowed;"><i
+                                                    title="Không thể xoá địa chỉ đang sử dụng" style="color: gray;"
+                                                    class="fa fa-trash-o"></i></a>
+                                            <a *ngIf="!addr?.users.length" style="cursor: pointer;" title="Xoá địa chỉ"
+                                                (click)="confirmDeleted(confirmDelete, addr?.id)"><i
+                                                    class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center p-2">
+                                <ngb-pagination [collectionSize]="theTotalElements" [(page)]="thePageNumber"
+                                    [pageSize]="thePageSize" [maxSize]="4" [rotate]="true" [boundaryLinks]="true"
+                                    (pageChange)="listAllAddress()">
+                                </ngb-pagination>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <select class="form-select" style="width: auto" name="pageSize"
+                                    (change)="listAllAddress()" [(ngModel)]="thePageSize">
+                                    <option [value]="10" [selected]="true" [ngValue]="10">10 địa chỉ / trang</option>
+                                    <option [ngValue]="15">15 địa chỉ / trang</option>
+                                    <option [ngValue]="20">20 địa chỉ / trang</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <div *ngIf="addresses.length == 0" class="d-flex justify-content-center p-2">
+                            <h4 style="color: lightcoral;">Không tìm thấy địa chỉ <i class="fa fa-exclamation"
+                                    aria-hidden="true"></i></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #confirmDelete>
+    <div class="modal-body text-center">
+        <p>Bạn có chắc muốn xoá địa chỉ này ?</p>
+        <button type="button" class="btn btn-secondary" (click)="confirm(complete)">Đồng ý
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="decline()">Không
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #complete>
+    <div class="modal-body text-center">
+        <p>Xoá địa chỉ thành công</p>
+        <button type="button" class="btn btn-primary" (click)="completed()">Tiếp
+            tục
+        </button>
+    </div>
+</ng-template>

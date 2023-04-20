@@ -1,0 +1,382 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Chỉnh sửa người dùng</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Tài khoản</a>
+                            <ng-template ngbNavContent>
+                                <form [formGroup]="editUserForm" class="needs-validation user-add" novalidate>
+                                    <h4>Chi tiết tài khoản</h4>
+                                    <!-- avatar -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom0"><span>*</span> Ảnh đại diện</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <button *ngIf="!edited" type="submit" class="btn btn-success"
+                                                (click)="chooseImg(chooseUserImage)">
+                                                Chọn ảnh
+                                            </button>
+                                            <button *ngIf="edited" type="submit" class="btn btn-secondary"
+                                                (click)="chooseImg(chooseUserImage)">
+                                                Thay đổi ảnh
+                                            </button>
+                                            <img *ngIf="!edited" class="rounded-circle border border-dark"
+                                                src="{{ oldImg }}"
+                                                style="width: 160px; height: 160px; margin-left: 20px" />
+                                            <img class="rounded-circle border border-dark" [src]="avatar" *ngIf="avatar"
+                                                style="width: 160px; height: 160px; margin-left: 20px" />
+                                        </div>
+                                    </div>
+
+                                    <!-- full name -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom0"><span>*</span> Họ và tên</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input formControlName="fullName" class="form-control" type="text"
+                                                placeholder="Họ và tên" />
+                                            <div *ngIf="userFullName?.invalid && (userFullName?.dirty || userFullName?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="userFullName?.errors?.['required']">Vui lòng không được bỏ
+                                                    trống
+                                                    tên.</div>
+                                                <div *ngIf="userFullName?.errors?.['minlength']">Tên phải có ít nhất 2
+                                                    kí tự
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- email -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom2"><span>*</span> Email</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input formControlName="email" class="form-control" type="email"
+                                                placeholder="Email" />
+                                            <div *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="userEmail?.errors?.['required']">Vui lòng không được bỏ
+                                                    trống
+                                                    email.</div>
+                                                <div *ngIf="userEmail?.errors?.email">Email không hợp lệ, vui lòng nhập
+                                                    lại
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- date of birth -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom2"><span>*</span> Ngày Sinh</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input formControlName="dob" class="form-control" type="date" />
+                                            <div *ngIf="userDateOfBirth?.invalid && (userDateOfBirth?.dirty || userDateOfBirth?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="userDateOfBirth?.errors?.['required']">Vui lòng không được
+                                                    bỏ
+                                                    trống ngày sinh.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- phone number -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom2"><span>*</span> Số Điện Thoại</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input formControlName="phoneNumber" class="form-control" type="tel"
+                                                placeholder="Số điện thoại" />
+                                            <div *ngIf="userPhoneNumber?.invalid && (userPhoneNumber?.dirty || userPhoneNumber?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="userPhoneNumber?.errors?.['required']">Vui lòng không được
+                                                    bỏ
+                                                    trống số điện thoại.</div>
+                                                <div *ngIf="userPhoneNumber?.errors?.['pattern']">Số điện thoại phải có
+                                                    tối
+                                                    đa 10 số</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- identified code -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom2"><span>*</span> CMND/CCCD</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input formControlName="identifiedCode" class="form-control" type="number"
+                                                placeholder="Số CMND/CCCD" />
+                                            <div *ngIf="userIdentifiedCode?.invalid && (userIdentifiedCode?.dirty || userIdentifiedCode?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="userIdentifiedCode?.errors?.['required']">Vui lòng không
+                                                    được bỏ
+                                                    trống CMND/CCCD.</div>
+                                                <div *ngIf="userIdentifiedCode?.errors?.['pattern']">CMND phải có tối đa
+                                                    9
+                                                    số hoặc CCCD phải có tối đa 12 số</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Trạng thái Shop  -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom2"><span>*</span> Trạng thái</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <button *ngIf="isLocked" type="button" class="btn btn-primary"
+                                                (click)="swapLocked()">Bị khoá
+                                            </button>
+                                            <button *ngIf="!isLocked" type="button" class="btn btn-secondary"
+                                                (click)="swapLocked()">Đang hoạt động
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="pull-left">
+                                        <button type="submit" class="btn btn-primary"
+                                            (click)="openResetPassword(user.email)">
+                                            Đặt lại mật khẩu</button>
+                                    </div> -->
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary"
+                                            (click)="editUser(updateSuccess)">Chỉnh
+                                            sửa</button>
+                                    </div>
+                                </form>
+                            </ng-template>
+                        </li>
+                        <!-- --------- ADDRESS ----------- -->
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Địa chỉ</a>
+                            <ng-template ngbNavContent>
+                                <div id="batchDelete" class="category-table custom-datatable">
+                                    <div *ngIf="user.addresses" class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Địa chỉ</th>
+                                                    <th scope="col">Quận</th>
+                                                    <th scope="col">Phường</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let address of user.addresses; let i = index">
+                                                    <th scope="row">{{ i + 1 }}</th>
+                                                    <td>{{ address.address }}</td>
+                                                    <td>{{ address.district }}</td>
+                                                    <td>{{ address.ward }}</td>
+                                                    <td>
+                                                        <a *ngIf="address.id == user.defaultAddress"><i
+                                                                style="color: dodgerblue;" class="fa fa-home"
+                                                                aria-hidden="true"></i></a>
+                                                        <a *ngIf="address.id != user.defaultAddress"><i
+                                                                style="color: gray; cursor: pointer;" class="fa fa-home"
+                                                                aria-hidden="true"
+                                                                (click)="openChangeModal(address.id)"></i></a>&nbsp;
+                                                        <a style="cursor: pointer;"
+                                                            (click)="openEditAddress(address.id, editAddressTemplate)"><i
+                                                                class='fa fa-edit f-12'></i></a>&nbsp;
+                                                        <a style="cursor: pointer;"
+                                                            *ngIf="address.id != user.defaultAddress"><i
+                                                                class="fa fa-trash-o"
+                                                                (click)="openDeleteModal(address.id, confirmDelete)"></i></a>
+                                                        <a style="cursor: not-allowed;"
+                                                            *ngIf="address.id == user.defaultAddress"><i
+                                                                style="color: gray;" class="fa fa-trash-o"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary"
+                                            (click)="openAddressForm(addAddressTemplate)">
+                                            Thêm địa chỉ</button>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                    <div class="pull-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<ng-template #chooseUserImage>
+    <div class="modal-body text-center">
+        <p>Vui lòng chọn 1 ảnh</p>
+        <input class="input-image" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+</ng-template>
+
+<ng-template #updateSuccess>
+    <div class="modal-body text-center">
+        <p>Cập nhật thông tin thành công</p>
+        <button type="button" class="btn btn-primary" (click)="continue()">Tiếp tục</button>
+    </div>
+</ng-template>
+
+<ng-template #addAddressTemplate>
+    <form [formGroup]="newAddressForm">
+        <div class="d-flex justify-content-center p-2">
+            <h5 class="modal-title f-w-600" id="exampleModalLabel">Tạo địa chỉ mới</h5>
+        </div>
+        <div class="modal-body">
+            <div>
+                <div class="form-group">
+                    <label class="mb-1">Địa chỉ :</label>
+                    <input class="form-control" id="validationCustom01" type="text" formControlName="address" required>
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label class="mb-1">Quận : </label>
+                    <select class="form-control" formControlName="district" (change)="onDistrictSelected()">
+                        <option selected=true>--- Chọn quận ---</option>
+                        <option *ngFor="let district of districts">{{ district.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="form-group" *ngIf="isHaveDistrict">
+                    <label class="mb-1">Phường: </label>
+                    <select class="form-control" formControlName="ward">
+                        <option selected=true>--- Chọn phường ---</option>
+                        <option *ngFor="let ward of wards">{{ ward.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center p-2">
+                <button type="button" class="btn btn-primary"
+                    (click)="addNewAddress(addAddressSuccess, addAddressFailure)">Lưu
+                </button>&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-secondary" data-dismiss="modal" (click)="closeLayer1()">Đóng</button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #editAddressTemplate>
+
+    <div class="d-flex justify-content-center p-2">
+        <h5 class="modal-title f-w-600" id="exampleModalLabel">Tạo địa chỉ mới</h5>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="newAddressForm">
+            <div class="form-group">
+                <label class="mb-1 text-dark font-weight-bold">Địa chỉ :</label>
+                <input class="form-control" id="validationCustom01" type="text" formControlName="address" required>
+            </div>
+        </form>
+
+
+        <div>
+            <div class="form-group">
+                <label class="mb-1 text-dark font-weight-bold">Quận : </label>
+                <select class="form-control" [(ngModel)]="district" (change)="onDistrictSelected()">
+                    <option *ngFor="let district of districts" [ngValue]="district.name">{{ district.name }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group" *ngIf="isHaveDistrict">
+                <label class="mb-1 text-dark font-weight-bold">Phường: </label>
+                <select class="form-control" [(ngModel)]="ward">
+                    <option *ngFor="let ward of wards" [ngValue]="ward.name">{{ ward.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center p-2">
+            <button type="button" class="btn btn-primary"
+                (click)="editAddress(updateAddressSuccess, updateAddressFailure)">Cập
+                nhật
+            </button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-secondary" data-dismiss="modal" (click)="closeLayer1()">Đóng</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #addAddressSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Thêm địa chỉ thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+    </div>
+</ng-template>
+
+<ng-template #addAddressFailure>
+    <div class="modal-body text-center shadow-lg p-3 mb-5 bg-white rounded">
+        <h5 class="text-dark font-weight-bold mb-4">Thêm địa chỉ không thành công</h5>
+        <h5 class="text-dark font-weight-bold mb-4">Địa chỉ đã tồn tại</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+    </div>
+</ng-template>
+
+<ng-template #updateAddressSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Cập nhật địa chỉ thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+    </div>
+</ng-template>
+
+<ng-template #updateAddressFailure>
+    <div class="modal-body text-center shadow-lg p-3 mb-5 bg-white rounded">
+        <h5 class="text-dark font-weight-bold mb-4">Chỉnh sửa địa chỉ không thành công</h5>
+        <h5 class="text-dark font-weight-bold mb-4">Địa chỉ đã tồn tại hoặc chưa được chỉnh sửa</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+    </div>
+</ng-template>
+
+<ng-template #confirmDelete>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắn muốn xoá địa chỉ này ?</h5>
+        <button type="button" class="btn btn-primary" (click)="confirmDeleted(deleteSuccess)">Tiếp
+            tục</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" (click)="continue()">Quay lại</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Xoá địa chỉ thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="continue()">Tiếp tục</button>
+    </div>
+</ng-template>
+
+<ng-template #confirmDefault>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắn muốn cập nhật địa chỉ này thành mặc định ?</h5>
+        <button type="button" class="btn btn-primary" (click)="changeDefaultAddress()">Tiếp
+            tục</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" (click)="continue()">Quay lại</button>
+    </div>
+</ng-template>
+
+<ng-template #changeDefaultSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Thay đổi địa chỉ mặc định thành công ?</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer1()">Tiếp
+            tục</button>&nbsp;&nbsp;
+    </div>
+</ng-template>

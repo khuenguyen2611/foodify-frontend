@@ -1,0 +1,213 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <!-- <div class="card-header">
+                        <h5> Add User</h5>
+                    </div> -->
+        <form class="card-body tab2-card" [formGroup]="editShipperForm">
+          <!-- <div ngbNav #nav="ngbNav" class="nav-tabs">
+                <div [ngbNavItem]="1">
+                  <a ngbNavLink>Account</a>
+                  <ng-template ngbNavContent>
+                    
+                  </ng-template>
+                </div>
+              </div> -->
+          <!-- <div [ngbNavOutlet]="nav" class="mt-2"></div> -->
+          <div class="needs-validation user-add" novalida>
+            <!-- <h4>Cập nhật tài khoản</h4> -->
+
+            <!-- avatar -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom0"><span>*</span> Ảnh đại diện</label>
+              </div>
+              <div class="col-xl-8 col-md-7 ">
+                <div class="d-flex align-items-center">
+                  <button *ngIf="!edited" class="btn btn-success" (click)="chooseImg(chooseUserImage)">
+                    Chọn ảnh
+                  </button>
+                  <button *ngIf="edited" class="btn btn-secondary" (click)="chooseImg(chooseUserImage)">
+                    Thay đổi ảnh
+                  </button>
+                  <img *ngIf="!edited" class="rounded-circle border border-dark" src="{{ shipperImg }}"
+                    style="width: 160px; height: 160px; margin-left: 20px" />
+                  <img class="rounded-circle border border-dark" [src]="avatar" *ngIf="avatar"
+                    style="width: 160px; height: 160px; margin-left: 20px" />
+                </div>
+              </div>
+            </div>
+            <!-- full name -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom0"><span>*</span> Họ và tên</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <input formControlName="fullName" class="form-control" type="text" />
+                <div *ngIf="fullName?.invalid && (fullName?.dirty || fullName?.touched)"
+                  class="alert alert-danger mt-1">
+                  <div *ngIf="fullName?.errors?.['required']">Vui lòng không được bỏ trống tên</div>
+
+                  <div *ngIf="fullName?.errors?.['minlength']">Tên phải có ít nhất 2 kí tự</div>
+                </div>
+              </div>
+            </div>
+            <!-- date of birth -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom2"><span>*</span> Ngày Sinh</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <input formControlName="dateOfBirth" class="form-control" type="date" />
+                <div *ngIf="dateOfBirth?.invalid && (dateOfBirth?.dirty || dateOfBirth?.touched)"
+                  class="alert alert-danger mt-1">
+                  <div *ngIf="dateOfBirth?.errors?.['required']">Vui lòng không được bỏ trống ngày sinh.</div>
+                </div>
+              </div>
+            </div>
+            <!-- email -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom2"><span>*</span> Email</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <input formControlName="email" class="form-control" type="email" />
+                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger mt-1">
+                  <div *ngIf="email?.errors?.['required']">Vui lòng không được bỏ trống email</div>
+                  <div *ngIf="email?.errors?.email">Email không hợp lệ, vui lòng nhập lại</div>
+                </div>
+              </div>
+            </div>
+            <!-- phone number -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom2"><span>*</span> Số Điện Thoại</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <input formControlName="phoneNumber" class="form-control" type="tel" />
+                <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)"
+                  class="alert alert-danger mt-1">
+                  <div *ngIf="phoneNumber?.errors?.['required']">Vui lòng không được bỏ trống số điện thoại</div>
+                  <div *ngIf="phoneNumber?.errors?.['pattern']">Số điện thoại phải có tối đa 10 số</div>
+                </div>
+              </div>
+            </div>
+            <!-- identified code -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom2"><span>*</span> CMND/CCCD</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <input formControlName="identifiedCode" class="form-control" type="number"
+                  placeholder="Số CMNND/CCCD" />
+                <div *ngIf="identifiedCode?.invalid && (identifiedCode?.dirty || identifiedCode?.touched)"
+                  class="alert alert-danger mt-1">
+                  <div *ngIf="identifiedCode?.errors?.['required']">Vui lòng không được bỏ trống CMND/CCCD</div>
+                  <div *ngIf="identifiedCode?.errors?.['pattern']">CMND phải có tối đa 9 số hoặc CCCD phải có tối đa 12
+                    số</div>
+                </div>
+              </div>
+            </div>
+            <!-- is active -->
+            <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom2"><span>*</span> Trạng thái hoạt động</label>
+              </div>
+              <div class="col-xl-8 col-md-7 d-flex align-items-center">
+                <button *ngIf="isActive" type="button" class="btn btn-secondary" (click)="swapActive()">
+                  Đang hoạt động
+                </button>
+                <button *ngIf="!isActive" type="button" class="btn btn-primary" (click)="swapActive()">
+                  Không hoạt động
+                </button>
+              </div>
+            </div>
+            <!-- is shipping -->
+            <div class="form-group row" *ngIf="isActive">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom2"><span>*</span> Trạng thái giao hàng</label>
+              </div>
+              <div class="col-xl-8 col-md-7 d-flex align-items-center">
+                <button *ngIf="isShipping" type="button" class="btn btn-secondary" (click)="swapShipping()">
+                  Đang giao hàng
+                </button>
+                <button *ngIf="!isShipping && isActive" type="button" class="btn btn-primary" (click)="swapShipping()">
+                  Không giao hàng
+                </button>
+              </div>
+            </div>
+
+            <!-- password -->
+            <!-- <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom3"><span>*</span> Mật Khẩu mới</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <div class="form-control input-password-holder">
+                  <input formControlName="password" class="input-password"
+                    type="{{ showPassword ? 'text' : 'password' }}" placeholder="Mật khẩu" />
+                  <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                    <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
+                  </span>
+                </div>
+                <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                  class="alert alert-danger mt-1">
+                  <div *ngIf="password?.errors?.['required']">Vui lòng không được bỏ trống mật khẩu.</div>
+                  <div *ngIf="password?.errors?.['pattern']">
+                    Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một chữ hoa, một chữ thường và một ký
+                    tự đặc biệt.
+                    <br />
+                    Mật khẩu không được chứa khoảng trắng.
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- password confirm -->
+            <!-- <div class="form-group row">
+              <div class="col-xl-3 col-md-4">
+                <label for="validationCustom4"><span>*</span> Xác nhận mật khẩu mới</label>
+              </div>
+              <div class="col-xl-8 col-md-7">
+                <div class="form-control input-password-holder">
+                  <input formControlName="confirmPassword" class="input-password"
+                    type="{{ showPassword ? 'text' : 'password' }}" #pwc placeholder="Xác nhận mật khẩu" />
+                  <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                    <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
+                  </span>
+                </div>
+                <div *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)"
+                  class="alert alert-danger mt-1">
+                  <div *ngIf="confirmPassword?.errors?.['required']">Vui lòng xác nhận mật khẩu.</div>
+                  <div *ngIf="confirmPassword?.errors?.['pattern']">
+                    Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một chữ hoa, một chữ thường và một ký
+                    tự đặc biệt.
+                    <br />
+                    Mật khẩu không được chứa khoảng trắng.
+                  </div>
+                  <div *ngIf="confirmPassword?.errors?.['confirmedValidator']">
+                    Mật khẩu xác nhận phải giống với mật khẩu đã nhập
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+          <div class="pull-right d-flex justify-content-between" style="width: 22%">
+            <button type="submit" class="btn btn-danger" (click)="updateShipper()"
+              [disabled]="!editShipperForm.valid">Cập nhật</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+</div>
+
+<ng-template #chooseUserImage>
+  <div class="modal-body text-center">
+    <h4 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h4>
+    <input class="" type="file" accept="image/*" (change)="onFileSelected($event)" />
+  </div>
+</ng-template>

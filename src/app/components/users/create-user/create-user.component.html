@@ -1,0 +1,469 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <div class="card-header">
+          <h5>Thêm người dùng</h5>
+        </div>
+        <div class="card-body tab2-card">
+          <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>Tài khoản</a>
+              <ng-template ngbNavContent>
+                <form [formGroup]="addUserForm" class="needs-validation user-add" novalidate>
+                  <h4>
+                    Chi tiết tài khoản</h4>
+
+                  <!-- avatar -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom0"><span>*</span> Ảnh đại diện</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <button *ngIf="!userImageChoosen" type="submit" class="btn btn-success"
+                        (click)="chooseImg(chooseUserImage)">
+                        Chọn ảnh
+                      </button>
+                      <button *ngIf="userImageChoosen" type="submit" class="btn btn-secondary"
+                        (click)="chooseImg(chooseUserImage)">
+                        Thay đổi ảnh
+                      </button>
+                      <img class="rounded-circle border border-dark" [src]="avatar" *ngIf="avatar"
+                        style="width: 160px; height: 160px; margin-left: 20px" />
+                    </div>
+                  </div>
+
+                  <!-- full name -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom0"><span>*</span> Họ và tên</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <input formControlName="fullName" class="form-control" type="text" placeholder="Họ và tên" />
+                      <div *ngIf="userFullName?.invalid && (userFullName?.dirty || userFullName?.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="userFullName?.errors?.['required']">Vui lòng không được bỏ
+                          trống tên.</div>
+                        <div *ngIf="userFullName?.errors?.['minlength']">Tên phải có ít nhất 2
+                          kí tự</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- date of birth -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom2"><span>*</span> Ngày Sinh</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <input formControlName="dob" class="form-control" type="date" />
+                      <div *ngIf="userDateOfBirth?.invalid && (userDateOfBirth?.dirty || userDateOfBirth?.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="userDateOfBirth?.errors?.['required']">Vui lòng không được
+                          bỏ trống ngày sinh.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- email -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom2"><span>*</span> Email</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <input formControlName="email" class="form-control" type="email" placeholder="Email" />
+                      <div *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="userEmail?.errors?.['required']">Vui lòng không được bỏ
+                          trống email.</div>
+                        <div *ngIf="userEmail?.errors?.email">Email không hợp lệ, vui lòng nhập
+                          lại</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- phone number -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom2"><span>*</span> Số Điện Thoại</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <input formControlName="phoneNumber" class="form-control" type="tel"
+                        placeholder="Số điện thoại" />
+                      <div *ngIf="userPhoneNumber?.invalid && (userPhoneNumber?.dirty || userPhoneNumber?.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="userPhoneNumber?.errors?.['required']">Vui lòng không được
+                          bỏ trống số điện thoại.</div>
+                        <div *ngIf="userPhoneNumber?.errors?.['pattern']">Số điện thoại phải có
+                          tối đa 10 số</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- identified code -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom2"><span>*</span> CMND/CCCD</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <input formControlName="identifiedCode" class="form-control" type="number"
+                        placeholder="Số CMND/CCCD" />
+                      <div
+                        *ngIf="userIdentifiedCode?.invalid && (userIdentifiedCode?.dirty || userIdentifiedCode?.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="userIdentifiedCode?.errors?.['required']">Vui lòng không
+                          được bỏ trống CMND/CCCD.</div>
+                        <div *ngIf="userIdentifiedCode?.errors?.['pattern']">CMND phải có tối đa
+                          9 số hoặc CCCD phải có tối đa 12 số</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- address -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom2"><span>*</span>Địa chỉ</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <div class="address-form">
+                        <div class="address-cover">
+                          <div class="address-holder">
+                            <div class="address-street">
+                              <input formControlName="address" class="form-control address-input" type="text"
+                                placeholder="Địa chỉ" />
+                              <div *ngIf=" userAddress.invalid && (userAddress.dirty || userAddress.touched)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="userAddress?.errors?.['required']">
+                                  Vui lòng không được bỏ trống địa chỉ.
+                                </div>
+                                <div *ngIf="userAddress?.errors?.['minlength']">Địa chỉ phải có ít nhất 8
+                                  kí tự</div>
+                              </div>
+                            </div>
+
+                            <!-- District -->
+                            <div class="address-location">
+                              <div class="location-district">
+                                <select formControlName="district" class="district" (change)="onDistrictSelected()">
+                                  <option class="option-color" value="">-- Chọn quận
+                                    --</option>
+                                  <option *ngFor="let district of districts">
+                                    {{ district.name }}
+                                  </option>
+                                </select>
+                                <div *ngIf="userDistrict.invalid && (userDistrict?.dirty || userDistrict?.touched)"
+                                  class="alert alert-danger mt-1">
+                                  <div *ngIf="userDistrict?.errors?.['required']">
+                                    Vui lòng chọn Quận.</div>
+                                </div>
+                              </div>
+
+                              <!-- Ward -->
+                              <div class="location-ward" *ngIf="isHaveDistrict">
+                                <select formControlName="ward" class="ward" id="ward-select">
+                                  <option class="text-muted" value="">-- Chọn phường
+                                    --</option>
+                                  <option *ngFor="let ward of wards">
+                                    {{ ward.name }}
+                                  </option>
+                                </select>
+                                <div *ngIf="userWard.invalid && (userWard?.dirty || userWard?.touched)"
+                                  class="alert alert-danger mt-1">
+                                  <div *ngIf="userWard?.errors?.['required']">
+                                    Vui lòng chọn Phường.</div>
+                                </div>
+                              </div>
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- password -->
+                  <div class="form-group row">
+                    <div class="col-xl-3 col-md-4">
+                      <label for="validationCustom2"><span>*</span> Mật khẩu</label>
+                    </div>
+                    <div class="col-xl-8 col-md-7">
+                      <!-- <input formControlName="password" class="form-control" type="password" placeholder="Mật khẩu" /> -->
+                      <div class="form-control input-password-holder">
+                        <input formControlName="password" class="input-password"
+                            type="{{ showPassword ? 'text' : 'password' }}"
+                            placeholder="Mật khẩu" />
+                        <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                            <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
+                        </span>
+                      </div>
+                      <div *ngIf="userPassword?.invalid && (userPassword?.dirty || userPassword?.touched)"
+                        class="alert alert-danger mt-1">
+                        <div *ngIf="userPassword?.errors?.['required']">Vui lòng không
+                          được bỏ trống mật khẩu</div>
+                        <div *ngIf="userPassword?.errors?.['pattern']">
+                            Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một
+                            chữ hoa, một chữ thường và một ký
+                            tự đặc biệt.
+                            <br />
+                            Mật khẩu không được chứa khoảng trắng.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Password -->
+                  <!-- <div class="form-group row">
+                      <div class="col-xl-3 col-md-4">
+                        <label for="validationCustom3"><span>*</span> Mật Khẩu</label>
+                      </div>
+                      <div class="col-xl-8 col-md-7">
+                        <div class="form-control input-password-holder">
+                          <input
+                            formControlName="password"
+                            class="input-password"
+                            type="{{ showPassword ? 'text' : 'password' }}"
+                            placeholder="Mật khẩu"
+                          />
+                          <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                            <i class="{{ showPassword ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
+                          </span>
+                        </div>
+                        <div
+                          *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                          class="alert alert-danger mt-1"
+                        >
+                          <div *ngIf="password?.errors?.['required']">Vui lòng không được bỏ trống mật khẩu.</div>
+                          <div *ngIf="password?.errors?.['pattern']">
+                            Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một chữ hoa, một chữ thường và
+                            một ký tự đặc biệt.
+                            <br />
+                            Mật khẩu không được chứa khoảng trắng.
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  <!-- password confirm -->
+                  <!-- <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="validationCustom4"><span>*</span> Xác nhận mật khẩu</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <div class="form-control input-password-holder">
+                                                <input formControlName="confirmPassword" class="input-password"
+                                                    type="{{ showPassword ? 'text' : 'password' }}" #pwc
+                                                    placeholder="Xác nhận mật khẩu" />
+                                                <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                                                    <i class="{{ showPassword ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
+                                                </span>
+                                            </div>
+                                            <div *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="confirmPassword?.errors?.['required']">Vui lòng xác nhận mật
+                                                    khẩu.</div>
+                                                <div *ngIf="confirmPassword?.errors?.['pattern']">
+                                                    Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một
+                                                    chữ hoa, một chữ thường và
+                                                    một ký tự đặc biệt.
+                                                    <br />
+                                                    Mật khẩu không được chứa khoảng trắng.
+                                                </div>
+                                                <div *ngIf="confirmPassword?.errors?.['confirmedValidator']">
+                                                    Mật khẩu xác nhận phải giống với mật khẩu đã nhập
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                  <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" (click)="createUser(createSuccess, createFailure)">Tạo
+                      tài
+                      khoản</button>
+                  </div>
+                </form>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <!-- <a ngbNavLink>Permission</a>
+                <ng-template ngbNavContent>
+                  <form [formGroup]="permissionForm" class="needs-validation user-add" novalidate="">
+                    <div class="permission-block">
+                      <div class="attribute-blocks">
+                        <h5 class="f-w-600 mb-3">Product Related permission</h5>
+                        <div class="row mb-3">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Add Product</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani1">
+                                <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani" />
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani2">
+                                <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Update Product</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani3">
+                                <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani1" />
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani4">
+                                <input class="radio_animated" id="edo-ani4" type="radio" name="rdo-ani1" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Delete Product</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani5">
+                                <input class="radio_animated" id="edo-ani5" type="radio" name="rdo-ani2" />
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani6">
+                                <input class="radio_animated" id="edo-ani6" type="radio" name="rdo-ani2" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label class="mb-0 sm-label-radio">Apply discount</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated pb-0">
+                              <label class="d-block mb-0" for="edo-ani7">
+                                <input class="radio_animated" id="edo-ani7" type="radio" name="rdo-ani3" />
+                                Allow
+                              </label>
+                              <label class="d-block mb-0" for="edo-ani8">
+                                <input class="radio_animated" id="edo-ani8" type="radio" name="rdo-ani3" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="attribute-blocks">
+                        <h5 class="f-w-600 mb-3">Category Related permission</h5>
+                        <div class="row mb-3">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Add Category</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani9">
+                                <input class="radio_animated" id="edo-ani9" type="radio" name="rdo-ani4" />
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani10">
+                                <input class="radio_animated" id="edo-ani10" type="radio" name="rdo-ani4" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Update Category</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani11">
+                                <input class="radio_animated" id="edo-ani11" type="radio" name="rdo-ani5" />
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani12">
+                                <input class="radio_animated" id="edo-ani12" type="radio" name="rdo-ani5" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Delete Category</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani13">
+                                <input class="radio_animated" id="edo-ani13" type="radio" name="rdo-ani6" />
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani14">
+                                <input class="radio_animated" id="edo-ani14" type="radio" name="rdo-ani6" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label class="mb-0 sm-label-radio">Apply discount</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline custom-radio-ml d-flex radio-animated pb-0">
+                              <label class="d-block mb-0" for="edo-ani15">
+                                <input class="radio_animated" id="edo-ani15" type="radio" name="rdo-ani7" />
+                                Allow
+                              </label>
+                              <label class="d-block mb-0" for="edo-ani16">
+                                <input class="radio_animated" id="edo-ani16" type="radio" name="rdo-ani7" checked="" />
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </ng-template> -->
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+          <!-- <div class="pull-right">
+              <button type="button" class="btn btn-primary">Save</button>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<ng-template #chooseUserImage>
+  <div class="modal-body text-center">
+    <p>Vui lòng chọn 1 ảnh</p>
+    <input class="input-image" type="file" accept="image/*" (change)="onFileSelected($event)" />
+  </div>
+</ng-template>
+
+<ng-template #createSuccess>
+  <div class="modal-body text-center">
+    <h5 class="text-dark font-weight-bold mb-4">Tạo người dùng thành công</h5>
+    <button type="button" class="btn btn-primary" (click)="closeLayer1()">Tiếp tục
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #createFailure>
+  <div class="modal-body text-center">
+    <h5 class="text-dark font-weight-bold mb-4">{{ failureContent }} đã tồn tại. Vui lòng chọn {{ failureContent.toLowerCase() }} khác.</h5>
+    <button type="button" class="btn btn-primary" (click)="closeLayer1()">Tiếp tục
+    </button>
+  </div>
+</ng-template>

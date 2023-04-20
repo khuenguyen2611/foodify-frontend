@@ -1,0 +1,113 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-4">
+                <!-- <section>
+                    <ks-carousel [items]="imagesRect">
+                    </ks-carousel>
+                </section> -->
+                <img src="{{ product?.images[0].imageUrl }}" alt=""
+                    class="img-fluid image_zoom_1 rounded border border-secondary">
+            </div>
+            <div class="col-xl-8">
+                <div class="product-page-details product-right mb-0">
+                    <h1 class="product-name font-weight-bold mt-0">{{ product?.name }}</h1>
+                    <!-- <ngb-rating class="ratings-sec" [(rate)]="currentRate">
+                        <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"><i
+                                    class='fa fa-star'></i> </span>
+                        </ng-template>
+                    </ngb-rating> -->
+
+                    <div class="mt-3 mb-4 d-flex">
+                        <div class="pr-3">Giảm giá: <span class="font-weight-bold text-danger">{{
+                                product?.discountPercent}}%</span></div>
+                        <div class="px-3 border-right border-left text-success" *ngIf="product?.isEnabled == true">Đang
+                            được bán</div>
+                        <div class="px-3 border-right border-left text-danger" *ngIf="product?.isEnabled == false">Không
+                            được bán</div>
+                        <div class="pl-3">Đánh giá: <span class="font-weight-bold">{{ product?.averageRating }}</span>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <h3 class="font-weight-bold mb-0" style="color: lightcoral">
+                            <del *ngIf="product?.discountPercent > 0">{{ product?.cost | currency : "VND"}}</del>
+                            {{ product?.cost- (product?.cost * product?.discountPercent)/100 | currency : "VND"}}
+                        </h3>
+                    </div>
+
+                    <div class="my-4 font-weight-bold text-size">
+                        Đã bán: <span class="font-weight-normal">{{product?.sold}} sản phẩm</span>
+                    </div>
+
+                    <div class="my-4 font-weight-bold text-size">
+                        Mô tả sản phẩm:
+                        <span class="font-weight-normal">{{ product?.description }}</span>
+                    </div>
+
+                    <div class="my-4 d-flex justify-content-start align-items-center">
+                        <h6 class="product-title text-size mb-0 ">Thể loại: </h6>
+                        <span *ngFor="let category of product?.categories" class="badge badge-info font-category mx-2">
+                            {{ category?.name }}
+                        </span>
+                    </div>
+
+                    <div class="product-title text-size my-4">Shop: <span class="font-weight-normal">{{
+                            product?.shop.name }}</span></div>
+
+                    <table class="table table-striped" *ngIf="comments.length > 0">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên khách hàng</th>
+                                <th scope="col">Nội dung</th>
+                                <th scope="col">Đánh giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let comment of comments; let i = index">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td scope="row">{{ comment.user?.fullName }}</td>
+                                <td scope="row">{{ comment.content }}</td>
+                                <td scope="row">{{ comment.rating }} <i class="fa fa-star text-warning"
+                                        aria-hidden="true"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-center p-2" *ngIf="comments.length > 0">
+                        <ngb-pagination [collectionSize]="theTotalElements" [(page)]="thePageNumber" [maxSize]="5"
+                            [pageSize]="thePageSize" [rotate]="true" [boundaryLinks]="true"
+                            (pageChange)="listComments()">
+                        </ngb-pagination>
+                    </div>
+
+                    <div class="m-t-15">
+                        <button class="btn btn-primary m-r-10" type="button"
+                            [routerLink]="['/products', 'edit-product', product?.id]">Chỉnh sửa</button>
+                        <button class="btn btn-secondary" type="button"
+                            (click)="openModal(confirm_Delete, product?.id)">Xoá</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #confirm_Delete>
+        <div class="modal-body text-center">
+            <p>Bạn chắc chắc xoá sản phẩm này chứ ?</p>
+            <button type="button" class="btn btn-default" (click)="confirm(deleteProductId, success)">Đồng ý
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="decline()">Không
+            </button>
+        </div>
+    </ng-template>
+
+    <!--Delete success -->
+    <ng-template #success>
+        <div class="modal-body text-center">
+            <p>Xoá sản phẩm thành công</p>
+            <button type="button" class="btn btn-primary" (click)="successDelete()">Tiếp tục
+            </button>
+        </div>
+    </ng-template>
+</div>

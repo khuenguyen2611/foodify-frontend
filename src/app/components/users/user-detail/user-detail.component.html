@@ -1,0 +1,301 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <!-- <div class="card-header">
+                    <h5>Chỉnh sửa Shop</h5>
+                </div> -->
+                <div class="card-body tab2-card">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Tài khoản</a>
+                            <ng-template ngbNavContent>
+                                <div class="d-flex">
+                                    <div class="" style="margin-right: 20px">
+                                        <div class="add-product">
+                                            <div class="">
+                                                <div class="">
+                                                    <img src="{{ user.imageUrl }}" alt=""
+                                                        class="rounded-circle border border-dark"
+                                                        style="width: 300px; height: 300px">
+                                                </div>
+                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-7">
+
+                                        <!-- Shop User Name -->
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Họ và tên:</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0 text-size text-dark">{{ user.fullName }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Shipper Dob -->
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Ngày sinh:</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0 text-size text-dark">{{ user.dateOfBirth }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Shipper iCode -->
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">CMND/CCCD:</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0 text-size text-dark">{{ user.identifiedCode }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Email:</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0 text-size text-dark">{{ user.email }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Shipper Phone Number -->
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Số điện thoại:</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0 text-size text-dark">{{ user.phoneNumber }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Shipper Address
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Địa chỉ</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0" style="color: #F08080">{{
+                                                        shop.user.addresses[0].address
+                                                        }}</p>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <!-- <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Quận</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0" style="color: #F08080">{{
+                                                        shop.user.addresses[0].district
+                                                        }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="shop.user.addresses[0].district != 'Huyện Hoàng Sa'"
+                                            class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Phường</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <p class="mb-0" style="color: #F08080">{{
+                                                        shop.user.addresses[0].ward
+                                                        }}</p>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="add-product-form">
+                                            <div class="form-group row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0">Trạng thái thái khoản:</label>
+                                                </div>
+                                                <div class="col-xl-8 col-sm-7">
+                                                    <!-- <p *ngIf="user.isLocked" class="mb-0 text-size" style="color: #F08080">
+                                                        Bị cấm</p>
+                                                    <p *ngIf="!user.isLocked" class="mb-0 text-size" style="color: green">
+                                                        Hoạt động</p> -->
+                                                    <span *ngIf="user.isLocked"
+                                                        class="mb-0 text-size badge badge-primary">Bị cấm</span>
+                                                    <span *ngIf="!user.isLocked"
+                                                        class="mb-0 text-size badge badge-success">Hoạt động</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!-- <div class="form-group row mb-0">
+                                            <div class="col-sm-8 offset-xl-3 offset-sm-4">
+                                                <div class="product-buttons">
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <!-- --------- ADDRESS ----------- -->
+                        <li [ngbNavItem]="2">
+                            <a ngbNavLink>Địa chỉ</a>
+                            <ng-template ngbNavContent>
+                                <div *ngIf="user?.addresses.length > 0" class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Địa chỉ</th>
+                                                <th scope="col">Quận</th>
+                                                <th scope="col">Phường</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let address of user.addresses; let i = index">
+                                                <th scope="row">{{ i + 1 }}</th>
+                                                <td>{{ address.address }}</td>
+                                                <td>{{ address.district }}</td>
+                                                <td>{{ address.ward }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div *ngIf="user?.addresses.length == 0" class="table-responsive">
+                                    <div class="d-flex justify-content-center p-2">
+                                        <h4 style="color: lightcoral;">Không tìm thấy địa chỉ nào <i
+                                                class="fa fa-exclamation" aria-hidden="true"></i></h4>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+
+                        <!------- ORDERS ------->
+                        <li [ngbNavItem]="3">
+                            <a ngbNavLink>Đơn hàng</a>
+                            <ng-template ngbNavContent>
+                                <div class="card-body">
+                                    <div class="custom-datatable" *ngIf="orders.length > 0">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Mã đơn hàng</th>
+                                                    <th scope="col">Thời gian đặt hàng</th>
+                                                    <th scope="col">Tên shipper</th>
+                                                    <th scope="col">Địa chỉ</th>
+                                                    <th scope="col">Phương thức thanh toán</th>
+                                                    <th scope="col">Trạng thái đơn hàng</th>
+                                                    <th scope="col">Số tiền cần thanh toán</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let order of orders">
+                                                    <th scope="row">{{ order.orderTrackingNumber }}</th>
+                                                    <td>{{ order.orderTime }}</td>
+                                                    <td *ngIf="order?.shipper?.user?.fullName != null">{{
+                                                        order?.shipper?.user?.fullName }}</td>
+                                                    <td *ngIf="order?.shipper?.user?.fullName == null">Đang chờ...</td>
+                                                    <td>{{ order.address }}</td>
+                                                    <td>
+                                                        <span [ngClass]="{
+                                                  badge: true,
+                                                  'badge-info': order.paymentMethod === 'ZALO PAY',
+                                                  'badge-success': order.paymentMethod === 'CASH'
+                                                }">
+                                                            {{ order.paymentMethod === "CASH"
+                                                            ? "Tiền mặt"
+                                                            : order.paymentMethod === "ZALO PAY"
+                                                            ? "Zalo Pay"
+                                                            : ""
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span [ngClass]="{
+                                                  badge: true,
+                                                  'badge-dark': order.status === 'AWAITING',
+                                                  'badge-warning': order.status === 'CONFIRMED',
+                                                  'badge-info': order.status === 'SHIPPING',
+                                                  'badge-success': order.status === 'COMPLETED',
+                                                  'badge-primary': order.status === 'CANCELED'
+                                                }">
+                                                            {{
+                                                            order.status === "AWAITING"
+                                                            ? "Chờ xác nhận"
+                                                            : order.status === "CONFIRMED"
+                                                            ? "Đã xác nhận"
+                                                            : order.status === "SHIPPING"
+                                                            ? "Đang giao hàng"
+                                                            : order.status === "COMPLETED"
+                                                            ? "Giao thành công"
+                                                            : order.status === "CANCELED"
+                                                            ? "Đã huỷ đơn"
+                                                            : ""
+                                                            }}
+                                                        </span>
+                                                    </td>
+                                                    <td style="font-size: 16px;">{{ order.total | currency : "VND" }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="d-flex justify-content-center p-2">
+                                            <ngb-pagination [collectionSize]="theTotalElements" [(page)]="thePageNumber"
+                                                [pageSize]="thePageSize" [rotate]="true" [maxSize]="5"
+                                                [boundaryLinks]="true" (pageChange)="ngOnInit()">
+                                            </ngb-pagination>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                            <select [(ngModel)]="thePageSize" class="form-select"
+                                                style="width: auto; height: 38px;" name="pageSize"
+                                                (change)="ngOnInit()">
+                                                <option [value]="5" [selected]="true" [ngValue]="5">5 đơn hàng / trang
+                                                </option>
+                                                <option [ngValue]="10">10 đơn hàng / trang</option>
+                                                <option [ngValue]="15">15 đơn hàng / trang</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="custom-datatable" *ngIf="orders.length == 0">
+                                        <div class="d-flex justify-content-center p-2">
+                                            <h4 style="color: lightcoral;">Không tìm thấy đơn hàng</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" [routerLink]="['/users','edit', user?.id]"
+                            style="font-family: Metrophobic;">Chỉnh
+                            sửa
+                            thông tin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

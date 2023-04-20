@@ -1,0 +1,15 @@
+<!-- Container-fluid starts-->
+<div class="backgound-food d-flex justify-content-center align-items-center">
+    <div class="forbidden-box d-flex flex-column justify-content-center align-items-center responsive-box">
+        <img class="forbidden-img" src="../../../../assets/images/dashboard/403-forbidden.png">
+        <div class="forbidden-text"><span>403</span> Forbidden</div>
+        <div class="forbidden-desc mt-1 mb-4">
+            <div>Bạn không có quyền truy cập vào trang web này</div>
+            <div>hoặc tài khoản của bạn đã bị khoá.</div>  
+        </div>
+        <div class="forbidden-btn">
+            <button class="btn btn-primary return-btn" [routerLink]="['/auth', 'login']">Quay về</button>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

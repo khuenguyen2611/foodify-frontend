@@ -1,0 +1,60 @@
+.backgound-food {
+  background-image: url("../../../../assets/images/background-login.jpg");
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -99;
+
+  .forbidden-box {
+    width: 822px;
+    // height: 536px;
+    background-color: #fff;
+    padding: 16px 110px 40px;
+    border-radius: 10px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+    .forbidden-img {
+      max-width: 300px;
+    }
+
+    .forbidden-text {
+      font-family: 'Sedgwick Ave Display', cursive;
+      text-transform: uppercase;
+      font-size: 50px;
+
+      span {
+        color: rgb(128, 240, 186);
+        font-size: 60px;
+      }
+    }
+
+    .forbidden-desc {
+      font-size: 20px;
+      text-align: center;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .forbidden-btn {}
+  }
+}
+
+@media (max-width:768px) {
+  .backgound-food {
+    background-image: none;
+
+    .responsive-box {
+      width: 86%;
+      padding: 16px 20px 40px;
+
+      .forbidden-img {
+        max-width: 248px;
+      }
+
+      .forbidden-text {
+        text-align: center;
+      }
+    }
+  }
+}

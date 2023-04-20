@@ -1,0 +1,414 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Đăng ký Shipper</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Tài khoản</a>
+                            <ng-template ngbNavContent>
+                                <form [formGroup]="accountForm" class="needs-validation user-add" novalidate>
+                                    <h4>Thông tin tài khoản</h4>
+
+                                    <!-- Image -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom5"><span>*</span>
+                                                Ảnh</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <!-- <input class="form-control" autocomplete="off"
+                                                (change)="onFileSelected($event)" formControlName="image"
+                                                id="validationCustom5" type="file" required=""> -->
+
+                                            <!-- <input class="input-image" formControlName="url" type="file" accept="image/*" (change)="onFileChange($event)"/>
+                                            <img class="rounded-circle border border-dark" [src]="avatar" *ngIf="avatar" style="width: 160px; height: 160px; margin-left: 20px"/>
+                                            <div *ngIf="accountForm.get('url').invalid && (accountForm.get('url').dirty || accountForm.get('url').touched)" class="alert alert-danger mt-1">
+                                                <div *ngIf="accountForm.get('url').errors?.['required']">Vui lòng chọn ảnh đại diện.</div>
+                                            </div> -->
+
+                                            <div class="d-flex align-items-center">
+                                                <button *ngIf="!edited" class="btn btn-success"
+                                                    (click)="chooseImg(chooseUserImage)">
+                                                    Chọn ảnh
+                                                </button>
+                                                <button *ngIf="edited" class="btn btn-secondary"
+                                                    (click)="chooseImg(chooseUserImage)">
+                                                    Thay đổi ảnh
+                                                </button>
+                                                <img class="rounded-circle border border-dark" [src]="avatar"
+                                                    *ngIf="avatar"
+                                                    style="width: 160px; height: 160px; margin-left: 20px" />
+                                            </div>
+                                            <div *ngIf="!edited && (accountForm.get('url')?.dirty || accountForm.get('url')?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="accountForm.get('url').errors?.['required']">Vui lòng chọn
+                                                    ảnh đại diện.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Full Name -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom0"><span>*</span>
+                                                Họ và tên</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" formControlName="fullName"
+                                                placeholder="Họ và tên" id="validationCustom0" type="text">
+                                            <div *ngIf="shipperFullName?.invalid && (shipperFullName?.dirty || shipperFullName?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperFullName?.errors?.['required']">Vui lòng không được
+                                                    bỏ trống tên</div>
+                                                <div *ngIf="shipperFullName?.errors?.['minlength']">Tên phải có ít nhất
+                                                    2 kí tự</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- DoB -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span>
+                                                Ngày sinh</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" formControlName="dob" id="validationCustom1"
+                                                type="date">
+                                            <div *ngIf="shipperDob?.invalid && (shipperDob?.dirty || shipperDob?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperDob?.errors?.['required']">Vui lòng không được bỏ
+                                                    trống ngày sinh</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom2"><span>*</span>
+                                                Email</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" placeholder="Email" formControlName="email"
+                                                id="validationCustom2" type="text">
+                                            <div *ngIf="shipperEmail?.invalid && (shipperEmail?.dirty || shipperEmail?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperEmail?.errors?.['required']">Vui lòng không được bỏ
+                                                    trống email</div>
+                                                <div *ngIf="shipperEmail?.errors?.email">Email không hợp lệ, vui lòng
+                                                    nhập lại</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone Number -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom3"><span>*</span>
+                                                Số điện thoại</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" placeholder="Số điện thoại"
+                                                formControlName="phoneNumber" id="validationCustom3" type="tel">
+                                            <div *ngIf="shipperPhoneNumber?.invalid && (shipperPhoneNumber?.dirty || shipperPhoneNumber?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperPhoneNumber?.errors?.['required']">Vui lòng không
+                                                    được bỏ trống số điện thoại</div>
+                                                <div *ngIf="shipperPhoneNumber?.errors?.['pattern']">Số điện thoại phải
+                                                    có tối đa 10 số</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Identified Code -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom4"><span>*</span>
+                                                CMND/CCCD</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" placeholder="CMND/CCCD"
+                                                formControlName="identifiedCode" id="validationCustom4" type="number">
+                                            <div *ngIf="shipperIdentifiedCode?.invalid && (shipperIdentifiedCode?.dirty || shipperIdentifiedCode?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperIdentifiedCode?.errors?.['required']">Vui lòng không
+                                                    được bỏ trống CMND/CCCD</div>
+                                                <div *ngIf="shipperIdentifiedCode?.errors?.['pattern']">CMND phải có tối
+                                                    đa 9 số hoặc CCCD phải có tối đa 12 số</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom6"><span>*</span>
+                                                Mật khẩu</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <div class="form-control input-password-holder">
+                                                <input formControlName="password" class="input-password"
+                                                    type="{{ showPassword ? 'text' : 'password' }}"
+                                                    placeholder="Mật khẩu" />
+                                                <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                                                    <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
+                                                </span>
+                                            </div>
+                                            <div *ngIf="shipperPassword?.invalid && (shipperPassword?.dirty || shipperPassword?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperPassword?.errors?.['required']">Vui lòng không được
+                                                    bỏ trống mật khẩu.</div>
+                                                <div *ngIf="shipperPassword?.errors?.['pattern']">
+                                                    Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một
+                                                    chữ hoa, một chữ thường và một ký
+                                                    tự đặc biệt.
+                                                    <br />
+                                                    Mật khẩu không được chứa khoảng trắng.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Confirm Password -->
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom7"><span>*</span>
+                                                Nhập lại mật khẩu</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <div class="form-control input-password-holder">
+                                                <input formControlName="confirmPassword" class="input-password"
+                                                    type="{{ showPassword ? 'text' : 'password' }}" #pwc
+                                                    placeholder="Xác nhận mật khẩu" />
+                                                <span class="icon-holder-eye" (click)="showPassword = !showPassword">
+                                                    <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
+                                                </span>
+                                            </div>
+                                            <div *ngIf="shipperConfirmPassword?.invalid && (shipperConfirmPassword?.dirty || shipperConfirmPassword?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperConfirmPassword?.errors?.['required']">Vui lòng xác
+                                                    nhận mật khẩu.</div>
+                                                <div *ngIf="shipperConfirmPassword?.errors?.['pattern']">
+                                                    Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một
+                                                    chữ hoa, một chữ thường và một ký
+                                                    tự đặc biệt.
+                                                    <br />
+                                                    Mật khẩu không được chứa khoảng trắng.
+                                                </div>
+                                                <div *ngIf="shipperConfirmPassword?.errors?.['confirmedValidator']">
+                                                    Mật khẩu xác nhận phải giống với mật khẩu đã nhập
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Shop (Admin Only) -->
+                                    <div *ngIf="!isShop" class="form-group row">
+                                        <div class="col-xl-3 col-md-4"><label for="validationCustom8"><span>*</span>
+                                                Shop Id (Chỉ Admin)</label></div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" placeholder="Shop ID" formControlName="shopId"
+                                                id="validationCustom8" type="number">
+                                            <div *ngIf="shipperShopId?.invalid && (shipperShopId?.dirty || shipperShopId?.touched)"
+                                                class="alert alert-danger mt-1">
+                                                <div *ngIf="shipperShopId?.errors?.['required']">Vui lòng không được bỏ
+                                                    trống Shop ID</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-template>
+                        </li>
+                        <!-- <li [ngbNavItem]="2">
+                            <a ngbNavLink>Quyền</a>
+                            <ng-template ngbNavContent>
+                                <form [formGroup]="permissionForm" class="needs-validation user-add" novalidate="">
+                                    <div class="permission-block">
+                                        <div class="attribute-blocks">
+                                            <h5 class="f-w-600 mb-3">Product Related permission </h5>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label>Add Product</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                        <label class="d-block" for="edo-ani1">
+                                                            <input class="radio_animated" id="edo-ani1" type="radio"
+                                                                name="rdo-ani">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block" for="edo-ani2">
+                                                            <input class="radio_animated" id="edo-ani2" type="radio"
+                                                                name="rdo-ani" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label>Update Product</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                        <label class="d-block" for="edo-ani3">
+                                                            <input class="radio_animated" id="edo-ani3" type="radio"
+                                                                name="rdo-ani1">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block" for="edo-ani4">
+                                                            <input class="radio_animated" id="edo-ani4" type="radio"
+                                                                name="rdo-ani1" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label>Delete Product</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                        <label class="d-block" for="edo-ani5">
+                                                            <input class="radio_animated" id="edo-ani5" type="radio"
+                                                                name="rdo-ani2">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block" for="edo-ani6">
+                                                            <input class="radio_animated" id="edo-ani6" type="radio"
+                                                                name="rdo-ani2" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0 sm-label-radio">Apply discount</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated pb-0">
+                                                        <label class="d-block mb-0" for="edo-ani7">
+                                                            <input class="radio_animated" id="edo-ani7" type="radio"
+                                                                name="rdo-ani3">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block mb-0" for="edo-ani8">
+                                                            <input class="radio_animated" id="edo-ani8" type="radio"
+                                                                name="rdo-ani3" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="attribute-blocks">
+                                            <h5 class="f-w-600 mb-3">Category Related permission </h5>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label>Add Category</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                        <label class="d-block" for="edo-ani9">
+                                                            <input class="radio_animated" id="edo-ani9" type="radio"
+                                                                name="rdo-ani4">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block" for="edo-ani10">
+                                                            <input class="radio_animated" id="edo-ani10" type="radio"
+                                                                name="rdo-ani4" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label>Update Category</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                        <label class="d-block" for="edo-ani11">
+                                                            <input class="radio_animated" id="edo-ani11" type="radio"
+                                                                name="rdo-ani5">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block" for="edo-ani12">
+                                                            <input class="radio_animated" id="edo-ani12" type="radio"
+                                                                name="rdo-ani5" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label>Delete Category</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                        <label class="d-block" for="edo-ani13">
+                                                            <input class="radio_animated" id="edo-ani13" type="radio"
+                                                                name="rdo-ani6">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block" for="edo-ani14">
+                                                            <input class="radio_animated" id="edo-ani14" type="radio"
+                                                                name="rdo-ani6" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-3 col-sm-4">
+                                                    <label class="mb-0 sm-label-radio">Apply discount</label>
+                                                </div>
+                                                <div class="col-xl-9 col-sm-8">
+                                                    <div
+                                                        class="form-group m-checkbox-inline custom-radio-ml d-flex radio-animated pb-0">
+                                                        <label class="d-block mb-0" for="edo-ani15">
+                                                            <input class="radio_animated" id="edo-ani15" type="radio"
+                                                                name="rdo-ani7">
+                                                            Allow
+                                                        </label>
+                                                        <label class="d-block mb-0" for="edo-ani16">
+                                                            <input class="radio_animated" id="edo-ani16" type="radio"
+                                                                name="rdo-ani7" checked="">
+                                                            Deny
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ng-template>
+                        </li> -->
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary"
+                            (click)="createShipper(createFailure)">Tạo tài khoản</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<ng-template #chooseUserImage>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h5>
+        <input type="file" name="avatar" accept="image/*" (change)="onFileChange($event)" />
+    </div>
+</ng-template>
+
+<ng-template #createFailure>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">{{ failureContent }} đã tồn tại. Vui lòng chọn {{ failureContent.toLowerCase() }} khác.</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer1()">Tiếp tục
+        </button>
+    </div>
+</ng-template>
