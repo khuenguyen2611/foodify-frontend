@@ -160,23 +160,44 @@ export class OrdersComponent implements OnInit {
   }
 
   confirmBoxChangeStatus(successChangeStatus: TemplateRef<any>) {
-    if (!this.isHaveShipper) {
-      if (this.shipper == undefined) {
+    if (this.shipper) {
+      this.isHaveShipper = true;
+    }
 
-      }
-      else {
-        this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe(() => {
-          this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
-          this.layer1.hide();
-          this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
-        });
-      }
+    // console.log(this.isHaveShipper)
+    if (this.isHaveShipper) {
+      this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe(() => {
+        this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
+        this.layer1.hide();
+        this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+      })
     }
     else {
       this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
       this.layer1.hide();
       this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
     }
+
+
+    // if (!this.isHaveShipper) {
+    //     if (this.shipper != undefined) {
+    //       this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
+    //       this.layer1.hide();
+    //       this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+    //     }
+    //     else {
+    //       this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe(() => {
+    //         this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
+    //         this.layer1.hide();
+    //         this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+    //       });
+    //     }
+    //   }
+    //   else {
+    //     this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
+    //     this.layer1.hide();
+    //     this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+    //   }
   }
 
   decline() {
