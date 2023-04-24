@@ -32,8 +32,7 @@
                   <td>{{ order.orderTime }}</td>
                   <td>{{ order.user.fullName }}</td>
                   <td *ngIf="order?.shipper?.user?.fullName != null">{{ order?.shipper?.user?.fullName }}</td>
-                  <td *ngIf="order?.shipper?.user?.fullName == null"><i style="color: lightseagreen;"
-                      class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                  <td *ngIf="order?.shipper?.user?.fullName == null"><i style="color: #FF8084;" class="fa fa-times"></i>
                     <span class="sr-only">Loading...</span>
                   </td>
                   <td>{{ order.address }}</td>
