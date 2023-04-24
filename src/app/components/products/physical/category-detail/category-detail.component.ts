@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/shared/service/product.service';
 })
 export class CategoryDetailComponent implements OnInit {
   products = [];
+  catName: string = '';
   categories: number[] = [];
 
   //Pagination Properties
@@ -28,7 +29,7 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   getProductByCategories() {
-    const id = +this.route.snapshot.paramMap.get('id')
+    const id = +this.route.snapshot.paramMap.get('id');
     this.categories.push(id)
     this.productService.getProductsByCategoryIds(this.categories, this.thePageNumber - 1, this.thePageSize).subscribe(
       this.processResult()
@@ -41,6 +42,7 @@ export class CategoryDetailComponent implements OnInit {
       this.thePageNumber = data.page.pageNo + 1;
       this.thePageSize = data.page.pageSize;
       this.theTotalElements = data.page.totalElements;
+      this.catName = this.products[0].categories.name;
     }
   }
 }

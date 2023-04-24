@@ -17,7 +17,7 @@ import { MenusModule } from './components/menus/menus.module';
 import { VendorsModule } from './components/vendors/vendors.module';
 import { UsersModule } from './components/users/users.module';
 import { LocalizationModule } from './components/localization/localization.module';
-import { InvoiceModule } from './components/invoice/invoice.module';
+import { AccountModule } from './components/account/account.module';
 import { SettingModule } from './components/setting/setting.module';
 import { ReportsModule } from './components/reports/reports.module';
 import { AuthModule } from './components/auth/auth.module';
@@ -28,7 +28,6 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from "../environments/environment";
 import { FirebaseService } from "./shared/service/firebase.service";
 import { AuthInterceptor } from "./shared/inceptor/auth-interceptor";
-import { NgImageSliderModule } from 'ng-image-slider'
 
 @NgModule({
     declarations: [
@@ -39,7 +38,7 @@ import { NgImageSliderModule } from 'ng-image-slider'
         BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
         DashboardModule,
-        InvoiceModule,
+        AccountModule,
         SettingModule,
         ReportsModule,
         AuthModule,

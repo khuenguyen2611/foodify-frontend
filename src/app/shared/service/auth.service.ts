@@ -35,4 +35,8 @@ export class AuthService {
   checkEmailOrPhoneNumberExist(userDto: User) {
     return this.httpClient.post<StringBoolObject>(this.baseUrl + `/check`, userDto);
   }
+
+  checkEmailInDB(email: string) {
+    return this.httpClient.get<StringBoolObject>(this.baseUrl + `/check-email?email=${email}`)
+  }
 }

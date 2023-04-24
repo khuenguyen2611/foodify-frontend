@@ -39,8 +39,8 @@ const routes: Routes = [
         canActivate: [AdminGuard],
         component: CategoryDetailComponent,
         data: {
-          title: "Danh sách sản phẩm",
-          breadcrumb: "Thể loại"
+          title: "Chi tiết thể loại",
+          breadcrumb: "Chi tiết"
         }
       },
       {

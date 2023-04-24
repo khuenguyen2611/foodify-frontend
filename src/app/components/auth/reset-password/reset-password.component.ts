@@ -4,6 +4,8 @@ import { FirebaseService } from "../../../shared/service/firebase.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validation } from 'src/app/constants/Validation';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { error } from 'console';
 
 @Component({
   selector: "app-reset-password",
@@ -27,6 +29,7 @@ export class ResetPasswordComponent {
     private formBuilder: UntypedFormBuilder,
     private activatedRoute: ActivatedRoute,
     private firebaseService: FirebaseService,
+    private firebaseAuth: AngularFireAuth,
     private modalService: BsModalService,
     private router: Router
   ) {
@@ -57,6 +60,13 @@ export class ResetPasswordComponent {
     //Get Token from link
     this.oobCode = this.activatedRoute.snapshot.queryParamMap.get('oobCode');
     this.action = this.activatedRoute.snapshot.queryParamMap.get('mode');
+    this.resetPasswordForm = this.formBuilder.group({
+      password: new FormControl("", [Validators.required, Validators.pattern(Validation.Regex.Password)]),
+      confirmPassword: new FormControl("", [Validators.required, Validators.pattern(Validation.Regex.Password)]),
+    },
+      {
+        validator: this.ConfirmedValidator("password", "confirmPassword"),
+      })
 
     if (this.action == 'verifyEmail') {
       this.firebaseService.confirmVerifyEmail(this.oobCode)
@@ -64,13 +74,11 @@ export class ResetPasswordComponent {
     }
 
     if (this.oobCode) {
-      this.resetPasswordForm = this.formBuilder.group({
-        password: new FormControl("", [Validators.required, Validators.pattern(Validation.Regex.Password)]),
-        confirmPassword: new FormControl("", [Validators.required, Validators.pattern(Validation.Regex.Password)]),
-      },
-        {
-          validator: this.ConfirmedValidator("password", "confirmPassword"),
-        })
+      this.firebaseAuth.checkActionCode(this.oobCode).then((info) => {
+
+      }).catch(error => {
+        this.router.navigate(['/auth/forbidden']);
+      })
     }
     else {
       this.router.navigate(['/auth/forbidden']);

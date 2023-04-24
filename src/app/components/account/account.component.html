@@ -1,0 +1,105 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="card">
+        <!-- <div class="card-header">
+            <h5>User Details</h5>
+        </div> -->
+        <div class="card-body">
+            <div class="btn-popup pull-left">
+                <input [(ngModel)]="searchName" (change)="searchUser()" class="form-control" type="text"
+                    placeholder="Tìm kiếm" />
+            </div>
+            <div id="batchDelete" class="category-table custom-datatable transcation-datatable user-image">
+                <div class="table-responsive" *ngIf="users.length">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ảnh đại diện</th>
+                                <th scope="col"><a (click)="onSort('fullName')">Họ và tên</a></th>
+                                <th scope="col"><a (click)="onSort('email')">Email</a></th>
+                                <th scope="col"><a (click)="onSort('phoneNumber')">Số điện thoại</a></th>
+                                <th scope="col">Vai trò</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users; let i = index">
+                                <th>{{i + 1}}</th>
+                                <td scope="row">
+                                    <img [src]="user.imageUrl" class="imgTable" style="width: 20px">
+                                </td>
+                                <td>
+                                    {{user.fullName}}
+                                </td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.phoneNumber}}</td>
+                                <td>
+                                    <a *ngIf="user.role.roleName == 'ROLE_ADMIN'">Quản trị viên</a>
+                                    <a *ngIf="user.role.roleName == 'ROLE_USER'">Người dùng</a>
+                                    <a *ngIf="user.role.roleName == 'ROLE_SHOP'">Người bán hàng</a>
+                                    <a *ngIf="user.role.roleName == 'ROLE_SHIPPER'">Shipper</a>
+                                </td>
+                                <td>
+                                    <a style="cursor: pointer" href="javascript:void(0)"><i
+                                            class='fa fa-edit f-12'></i></a>&nbsp;
+                                    <a style="cursor: pointer" (click)="openModal(user, confirmDelete)"><i
+                                            class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center p-2">
+                        <select [(ngModel)]="role" class="form-select" style="width: auto" name="pageSize"
+                            (change)="listAllUsers()">
+                            <option [selected]="true" [ngValue]="'ALL'">Tất cả</option>
+                            <option [ngValue]="'ROLE_ADMIN'">Quản trị viên</option>
+                            <option [value]="'ROLE_USER'" [ngValue]="'ROLE_USER'">Người dùng</option>
+                            <option [ngValue]="'ROLE_SHOP'">Người bán hàng</option>
+                            <option [ngValue]="'ROLE_SHIPPER'">Shipper</option>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                            [collectionSize]="theTotalElements" [maxSize]="5" (pageChange)="listAllUsers()">
+                        </ngb-pagination>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <select [(ngModel)]="thePageSize" class="form-select" style="width: auto" name="pageSize"
+                            (change)="listAllUsers()">
+                            <option [value]="10" [selected]="true" [ngValue]="10">10 tài khoản / trang</option>
+                            <option [ngValue]="20">20 tài khoản / trang</option>
+                            <option [ngValue]="30">30 tài khoản / trang</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive" *ngIf="!users.length">
+                    <div class="d-flex justify-content-center p-2">
+                        <img src="../../../../assets/images/error/no-user.png" alt="">
+                    </div>
+                    <div class="d-flex justify-content-center p-2">
+                        <h4 style="color: #FF8084;">Không tìm thấy tài khoản</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<ng-template #confirmDelete>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắn muốn xoá người dùng này ?</h5>
+        <button type="button" class="btn btn-primary" (click)="confirmDeleted(deleteSuccess)">Tiếp
+            tục</button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-secondary" (click)="closeLayer1()">Quay lại</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteSuccess>
+    <div class="modal-body text-center">
+        <h5 class="text-dark font-weight-bold mb-4">Xoá người dùng thành công</h5>
+        <button type="button" class="btn btn-primary" (click)="closeLayer1()">Tiếp tục</button>
+    </div>
+</ng-template>

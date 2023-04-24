@@ -4,6 +4,7 @@ import { FirebaseService } from "../../../shared/service/firebase.service";
 import { Router } from "@angular/router";
 import { Validation } from "src/app/constants/Validation";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { AuthService } from "src/app/shared/service/auth.service";
 
 @Component({
   selector: "app-send-email",
@@ -19,10 +20,12 @@ export class SendEmailComponent {
   public active = 1;
 
   @ViewChild('sendMailCompleted') sendMailCompleted: TemplateRef<any>
+  @ViewChild('emailNotExisted') emailNotExisted: TemplateRef<any>
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private firebaseService: FirebaseService,
+    private authService: AuthService,
     private modalService: BsModalService,
     private router: Router
   ) {
@@ -62,8 +65,19 @@ export class SendEmailComponent {
       this.sendEmailForm.markAllAsTouched();
       return;
     }
-    this.firebaseService.resetPassword(this.email.value);
-    this.layer1 = this.modalService.show(this.sendMailCompleted, { class: "modal-sm" });
+
+    this.authService.checkEmailInDB(this.email.value).subscribe({
+      next: (response) => {
+        if (response.isTrue == true) {
+          this.firebaseService.resetPassword(this.email.value);
+          this.layer1 = this.modalService.show(this.sendMailCompleted, { class: "modal-sm" });
+        }
+        else {
+          this.layer1 = this.modalService.show(this.emailNotExisted, { class: "modal-sm" })
+        }
+      }
+    })
+
   }
 
   gmail() {

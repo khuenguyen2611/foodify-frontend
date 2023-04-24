@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Product Lists</h5>
+                    <h5>Danh sách sản phẩm</h5>
                 </div>
                 <div class="card-body">
                     <div id="batchDelete" class="custom-datatable">
@@ -36,11 +36,12 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-between p-2">
+                            <div class="d-flex justify-content-center p-2">
                                 <ngb-pagination [collectionSize]="theTotalElements" [(page)]="thePageNumber"
                                     [maxSize]="5" [pageSize]="thePageSize" [rotate]="true" [boundaryLinks]="true"
                                     (pageChange)="getProductByCategories()">
                                 </ngb-pagination>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <select class="form-select" style="width: auto" name="pageSize"
                                     (change)="getProductByCategories()" [(ngModel)]="thePageSize">
                                     <option [value]="10" [selected]="true" [ngValue]="10">10 sản phẩm / trang</option>

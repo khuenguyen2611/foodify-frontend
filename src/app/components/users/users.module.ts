@@ -22,7 +22,6 @@ import { ListAccountComponent } from './list-account/list-account.component';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    ReactiveFormsModule,
     UsersRoutingModule
   ]
 })

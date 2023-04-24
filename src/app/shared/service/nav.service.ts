@@ -113,10 +113,12 @@ export class NavService {
         //     ]
         // },
         {
+            title: 'Tài khoản', path: '/account', icon: 'user', type: 'link', active: false
+        },
+        {
             title: 'Người dùng', icon: 'user-plus', type: 'sub', active: false, children: [
                 { path: '/users/list', title: 'Danh sách', type: 'link' },
-                { path: '/users/create', title: 'Tạo người dùng', type: 'link' },
-                { path: '/users/accounts/list', title: 'Tài khoản', type: 'link' },
+                { path: '/users/create', title: 'Tạo người dùng', type: 'link' }
             ]
         },
         {
@@ -136,7 +138,7 @@ export class NavService {
                 { path: '/utilities/list-address', title: 'Địa chỉ', type: 'link' },
                 { path: '/utilities/list-slider', title: 'Slider', type: 'link' }
             ]
-        }
+        },
         // {
         //     title: 'Localization', icon: 'chrome', type: 'sub', children: [
         //         {path: '/localization/translations', title: 'Translations', type: 'link'},
@@ -146,9 +148,6 @@ export class NavService {
         // },
         // {
         //     title: 'Báo cáo', path: '/reports', icon: 'bar-chart', type: 'link', active: false
-        // },
-        // {
-        //     title: 'Hoá đơn', path: '/invoice', icon: 'archive', type: 'link', active: false
         // },
         // {
         //     title: 'Cài đặt', icon: 'settings', type: 'sub', children: [

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { TableService } from 'src/app/shared/service/table.service';
 import { CategoryService } from 'src/app/shared/service/category.service';
@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/shared/tables/category';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize, Observable } from 'rxjs';
-import { resolve } from 'path';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,10 +23,14 @@ export class CategoryComponent implements OnInit {
     categories: Category[];
     categoryId: number;
 
+    isChanged: boolean = false;
+
     //File
     imageFile: File;
     imageUrl;
     downloadURL: Observable<string>;
+
+    @ViewChild('productCategoryTemplate') editCategoryModal: TemplateRef<any>
 
     constructor(
         private categoryService: CategoryService,
@@ -36,8 +39,7 @@ export class CategoryComponent implements OnInit {
         private storage: AngularFireStorage,
         private router: Router) {
         this.categoryForm = this.formBuilder.group({
-            categoryName: [''],
-            categoryImage: ['']
+            categoryName: ['']
         })
     }
 
@@ -71,19 +73,30 @@ export class CategoryComponent implements OnInit {
         this.modalRef.hide();
     }
 
-    editCategory(template: TemplateRef<any>, category: Category) {
+    editCategory(category: Category) {
         this.categoryId = category.id
+        this.imageUrl = category.imageUrl;
 
         this.categoryForm.patchValue({
-            categoryName: category.name,
-            categoryImage: category.imageUrl
+            categoryName: category?.name
         })
 
-        this.modalRef = this.modalService.show(template, { class: 'modal-md' });
+        this.modalRef = this.modalService.show(this.editCategoryModal, { class: 'modal-md' });
     }
 
     onSaveCategory(event, template: TemplateRef<any>) {
-        this.uploadImage().then(() => {
+        if (this.isChanged == true) {
+            this.uploadImage().then(() => {
+                const category = new Category()
+                category.name = this.categoryName
+                category.imageUrl = this.imageUrl;
+
+                this.categoryService.editCategoryById(this.categoryId, category).subscribe()
+                this.modalRef.hide();
+                this.modalRef = this.modalService.show(template, { class: 'modal-md' });
+            })
+        }
+        else {
             const category = new Category()
             category.name = this.categoryName
             category.imageUrl = this.imageUrl;
@@ -91,7 +104,8 @@ export class CategoryComponent implements OnInit {
             this.categoryService.editCategoryById(this.categoryId, category).subscribe()
             this.modalRef.hide();
             this.modalRef = this.modalService.show(template, { class: 'modal-md' });
-        })
+        }
+
     }
 
     success(): void {
@@ -101,6 +115,7 @@ export class CategoryComponent implements OnInit {
     }
 
     onFileSelected(event) {
+        this.isChanged = true;
         this.imageFile = event.target.files[0];
     }
 

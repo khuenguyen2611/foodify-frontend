@@ -220,7 +220,7 @@
                                                         <label for="validationCustom03" class="mb-0">Id shop</label>
                                                     </div>
                                                     <div class="col-xl-8 col-sm-7">
-                                                        <input class="form-control" id="validationCustom03"
+                                                        <input readonly class="form-control" id="validationCustom03"
                                                             [formControl]="editProductForm.controls['shopId']">
                                                         <div *ngIf="productShopId?.invalid && (productShopId?.dirty || productShopId?.touched)"
                                                             class="alert alert-danger mt-1">

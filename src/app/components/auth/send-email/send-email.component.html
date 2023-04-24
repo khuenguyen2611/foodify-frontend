@@ -176,8 +176,15 @@
 <ng-template #sendMailCompleted>
   <div class="modal-body text-center">
     <p>Đã gửi đường dẫn thay đổi mật khẩu đến email của bạn</p>
-    <p>Vui lòng kiểm tra hòm thư</p>
-    <button type="button" class="btn btn-primary" (click)="gmail()">Gmail</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="button" class="btn btn-secondary" (click)="closeLayer1()">Đóng</button>
+    <p>Vui lòng kiểm tra hòm thư của bạn</p>
+    <!-- <button type="button" class="btn btn-primary" (click)="gmail()">Gmail</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+    <button type="button" class="btn btn-primary" (click)="closeLayer1()">Đóng</button>
+  </div>
+</ng-template>
+
+<ng-template #emailNotExisted>
+  <div class="modal-body text-center">
+    <p>Tài khoản này không tồn tại trong hệ thống. Vui lòng kiểm tra lại địa chỉ email</p>
+    <button type="button" class="btn btn-primary" (click)="closeLayer1()">Đóng</button>
   </div>
 </ng-template>

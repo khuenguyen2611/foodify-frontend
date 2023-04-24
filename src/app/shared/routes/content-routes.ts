@@ -84,8 +84,8 @@ export const content: Routes = [
         }
     },
     {
-        path: 'invoice',
-        loadChildren: () => import('../../components/invoice/invoice.module').then(m => m.InvoiceModule),
+        path: 'account',
+        loadChildren: () => import('../../components/account/account.module').then(m => m.AccountModule),
         data: {
             breadcrumb: "Hoá đơn"
         }
