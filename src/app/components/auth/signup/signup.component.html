@@ -360,21 +360,21 @@
 
 <ng-template #chooseUserImage>
   <div class="modal-body text-center">
-    <p>Vui lòng chọn 1 ảnh</p>
+    <h5 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h5>
     <input class="input-image" type="file" accept="image/*" (change)="onFileSelected($event)" />
   </div>
 </ng-template>
 
 <ng-template #chooseShopImage>
   <div class="modal-body text-center">
-    <p>Vui lòng chọn 1 ảnh</p>
+    <h5 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h5>
     <input class="input-image" type="file" accept="image/*" (change)="onShopFileSelected($event)" />
   </div>
 </ng-template>
 
 <ng-template #createSuccess>
   <div class="modal-body text-center">
-    <p>Tạo tài khoản thành công. Vui lòng kiểm tra hòm thư để xác thực tài khoản</p>
+    <h5 class="text-dark font-weight-bold mb-4">Tạo tài khoản thành công. Vui lòng kiểm tra hòm thư để xác thực tài khoản</h5>
     <button type="button" class="btn btn-primary" (click)="continue()">Tiếp tục
     </button>
   </div>
@@ -382,7 +382,7 @@
 
 <ng-template #error_modal>
   <div class="modal-body text-center">
-    <p>{{ errorItem }} đã tồn tại. Vui lòng chọn một {{ errorItem.toLowerCase() }} khác.</p>
+    <h5>{{ errorItem }} đã tồn tại. Vui lòng chọn một {{ errorItem.toLowerCase() }} khác.</h5>
     <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
   </div>
 </ng-template>

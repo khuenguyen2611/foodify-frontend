@@ -94,7 +94,7 @@
     </div>
     <ng-template #confirm_Delete>
         <div class="modal-body text-center">
-            <p>Bạn chắc chắc xoá sản phẩm này chứ ?</p>
+            <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắc xoá sản phẩm này chứ ?</h5>
             <button type="button" class="btn btn-default" (click)="confirm(deleteProductId, success)">Đồng ý
             </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-primary" (click)="decline()">Không
@@ -105,7 +105,7 @@
     <!--Delete success -->
     <ng-template #success>
         <div class="modal-body text-center">
-            <p>Xoá sản phẩm thành công</p>
+            <h5 class="text-dark font-weight-bold mb-4">Xoá sản phẩm thành công</h5>
             <button type="button" class="btn btn-primary" (click)="successDelete()">Tiếp tục
             </button>
         </div>

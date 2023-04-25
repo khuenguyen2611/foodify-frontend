@@ -3057,6 +3057,7 @@ $header-size: 80px;
             margin-top: $main-header-right-nav-icon-margin-top;
             width: $main-header-right-nav-icon-size;
             height: $main-header-right-nav-icon-size;
+            display: none;
 
             path {
               color: $main-header-right-nav-icon-color;

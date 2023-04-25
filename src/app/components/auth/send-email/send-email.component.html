@@ -154,10 +154,10 @@
                           <div *ngIf="email?.errors?.email">Email không hợp lệ, vui lòng nhập lại</div>
                         </div>
                         <div class="form-button d-flex justify-content-around">
-                          <button class="btn btn-primary" type="submit" (click)="sendPasswordResetMail()">Tiếp
-                            tục</button>
                           <button type="button" class="btn btn-danger btn-back" [routerLink]="['/auth', 'login']">Quay
                             lại</button>
+                          <button class="btn btn-primary" type="submit" (click)="sendPasswordResetMail()">Tiếp
+                            tục</button>
                         </div>
                       </form>
                     </div>
@@ -175,8 +175,8 @@
 
 <ng-template #sendMailCompleted>
   <div class="modal-body text-center">
-    <p>Đã gửi đường dẫn thay đổi mật khẩu đến email của bạn</p>
-    <p>Vui lòng kiểm tra hòm thư của bạn</p>
+    <h5 class="text-dark font-weight-bold mb-4">Đã gửi đường dẫn thay đổi mật khẩu đến email của bạn</h5>
+    <h5 class="text-dark font-weight-bold mb-4">Vui lòng kiểm tra hòm thư của bạn</h5>
     <!-- <button type="button" class="btn btn-primary" (click)="gmail()">Gmail</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
     <button type="button" class="btn btn-primary" (click)="closeLayer1()">Đóng</button>
   </div>
@@ -184,7 +184,7 @@
 
 <ng-template #emailNotExisted>
   <div class="modal-body text-center">
-    <p>Tài khoản này không tồn tại trong hệ thống. Vui lòng kiểm tra lại địa chỉ email</p>
+    <h5 class="text-dark font-weight-bold mb-4">Tài khoản này không tồn tại trong hệ thống. Vui lòng kiểm tra lại địa chỉ email</h5>
     <button type="button" class="btn btn-primary" (click)="closeLayer1()">Đóng</button>
   </div>
 </ng-template>
