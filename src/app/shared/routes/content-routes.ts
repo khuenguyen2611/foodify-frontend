@@ -33,17 +33,17 @@ export const content: Routes = [
             breadcrumb: "Coupons"
         }
     },
-    {
-        path: 'pages',
-        loadChildren: () => import('../../components/pages/pages.module').then(m => m.PagesModule),
-        data: {
-            breadcrumb: "Pages"
-        }
-    },
-    {
-        path: 'media',
-        loadChildren: () => import('../../components/media/media.module').then(m => m.MediaModule),
-    },
+    // {
+    //     path: 'pages',
+    //     loadChildren: () => import('../../components/pages/pages.module').then(m => m.PagesModule),
+    //     data: {
+    //         breadcrumb: "Pages"
+    //     }
+    // },
+    // {
+    //     path: 'media',
+    //     loadChildren: () => import('../../components/media/media.module').then(m => m.MediaModule),
+    // },
     {
         path: 'menus',
         loadChildren: () => import('../../components/menus/menus.module').then(m => m.MenusModule),
@@ -65,13 +65,13 @@ export const content: Routes = [
             breadcrumb: "Shop"
         }
     },
-    {
-        path: 'localization',
-        loadChildren: () => import('../../components/localization/localization.module').then(m => m.LocalizationModule),
-        data: {
-            breadcrumb: "Localization"
-        }
-    },
+    // {
+    //     path: 'localization',
+    //     loadChildren: () => import('../../components/localization/localization.module').then(m => m.LocalizationModule),
+    //     data: {
+    //         breadcrumb: "Localization"
+    //     }
+    // },
     {
         path: 'reports',
         loadChildren: () => import('../../components/reports/reports.module').then(m => m.ReportsModule),
