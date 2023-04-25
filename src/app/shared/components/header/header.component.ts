@@ -3,6 +3,7 @@ import { NavService } from '../../service/nav.service';
 import { User } from '../../tables/user';
 import { UserService } from '../../service/user.service';
 import { FirebaseService } from '../../service/firebase.service';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit {
   public openNav: boolean = false;
   public isOpenMobile: boolean;
   public user: User;
+  isMobileNavOpen: boolean = false;
 
   //Log-in
   token: string = localStorage.getItem("jwt-token");
@@ -43,7 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openMobileNav() {
-    this.openNav = !this.openNav;
+    this.isMobileNavOpen = !this.isMobileNavOpen;
   }
 
 

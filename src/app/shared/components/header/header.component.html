@@ -1,10 +1,10 @@
 <div class="page-main-header" [class.open]="open">
-    <div class="main-header-right row">
-        <div class="main-header-left d-lg-none col">
+    <div class="main-header-right row header-responsive">
+        <div class="main-header-left d-lg-none col res-logo">
             <div class="logo-wrapper"><a [routerLink]="'/dashboard/default'"><img class="blur-up lazyloaded"
                         src="assets/images/dashboard/multikart-logo.png" alt=""></a></div>
         </div>
-        <div class="mobile-sidebar col">
+        <div class="mobile-sidebar col res-left-sidebar">
             <div class="media-body switch-sm">
                 <label class="switch">
                     <a>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="nav-right col">
-            <ul class="nav-menus" [ngClass]="{'open' : openNav}">
+            <ul class="nav-menus">
                 <!--                <li>-->
                 <!--                    <form class="form-inline search-form">-->
                 <!--                        <div class="form-group">-->
@@ -96,7 +96,7 @@
                 <!--                    </a></li>-->
                 <li class="onhover-dropdown">
                     <div class="media align-items-center"><img
-                            class="align-self-center pull-right img-50 rounded-circle" src="{{ user?.imageUrl }}"
+                            class="align-self-center pull-right img-50 rounded-circle border border-dark" src="{{ user?.imageUrl }}"
                             alt="header-user">
 
                         <div class="dotted-animation"><span class="animate-circle"></span><span
@@ -130,9 +130,31 @@
                     </ul>
                 </li>
             </ul>
-            <div class="d-lg-none mobile-toggle pull-right" (click)="openMobileNav()">
-                <app-feather-icons [icon]="'more-horizontal'"></app-feather-icons>
+            <div class="d-lg-none mobile-toggle pull-right pt-0 d-flex flex-column " (click)="openMobileNav()">
+                <div class="media align-items-center">
+                    <img class="align-self-center pull-right img-50 rounded-circle border border-dark res-icon" src="{{ user?.imageUrl }}" alt="header-user">
+                    <!-- <div class="dotted-animation"><span class="animate-circle"></span><span class="main-circle"></span></div> -->
+                </div>
+                <div *ngIf="isMobileNavOpen" class="d-flex flex-column width-dropdown position-absolute">
+                    <div class="py-2 px-3" *ngIf="isShop">
+                        <a class="d-flex align-items-center " [routerLink]="['/vendors','details', shopId]">
+                            <app-feather-icons [icon]="'user'" class="mr-2"></app-feather-icons><span class="font-weight-bold text-dark">Trang cá nhân</span> 
+                        </a>
+                    </div>
+                    <div class="py-2 px-3" *ngIf="!isShop">
+                        <a class="d-flex align-items-center " [routerLink]="['/users', 'detail', loggedId]">
+                            <app-feather-icons [icon]="'user'" class="mr-2"></app-feather-icons><span class="font-weight-bold text-dark">Trang cá nhân</span>
+                        </a>
+                    </div>
+                    <div class="py-2 px-3">
+                        <a class="d-flex align-items-center " (click)="logOut()">
+                            <app-feather-icons [icon]="'log-out'" class="mr-2"></app-feather-icons><span class="font-weight-bold text-dark">Đăng xuất</span>
+                        </a>
+                    </div>
+                </div>
             </div>
+            
+            
         </div>
     </div>
 </div>
