@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { OrderService } from '../../service/order.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-footer',
@@ -10,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
   //Log-in
-  loggedId: number = Number(localStorage.getItem('user-id'))
-  loggedRole = localStorage.getItem('user-role');
+  token = localStorage.getItem('jwt-token')
+  loggedRole: string;
   shopId: number;
 
   //Pagination Properties
@@ -31,15 +32,18 @@ export class FooterComponent implements OnInit {
   @ViewChild('new_order') newOrderTemplate: TemplateRef<any>;
 
   constructor(
+    private userService: UserService,
     private orderService: OrderService,
     private modalService: BsModalService,
     private router: Router) { }
 
   ngOnInit() {
-    if (this.loggedRole == 'ROLE_SHOP') {
-      this.shopId = Number(localStorage.getItem('shop-id'))
-      this.countShopOrder();
-    }
+    this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+      if (userInfo.userRole == 'ROLE_SHOP') {
+        this.shopId = userInfo.shopId;
+        this.countShopOrder();
+      }
+    })
   }
 
   countShopOrder() {

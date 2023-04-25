@@ -1,24 +1,17 @@
-import { Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from "@angular/core";
-import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { SortEvent } from "src/app/shared/directives/shorting.directive";
-import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
-import { TableService } from "src/app/shared/service/table.service";
-import { catchError, EMPTY, Observable, tap } from "rxjs";
-import { DecimalPipe } from "@angular/common";
-import { Order } from "src/app/shared/tables/order-list";
-import { OrderService } from "src/app/shared/service/order.service";
-import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
-import { Shipper } from "src/app/shared/tables/shipper";
-import { ShipperService } from "src/app/shared/service/shipper.service";
-import { UserService } from "src/app/shared/service/user.service";
+import { Component, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { OrderService } from 'src/app/shared/service/order.service';
+import { ShipperService } from 'src/app/shared/service/shipper.service';
+import { UserService } from 'src/app/shared/service/user.service';
+import { Order } from 'src/app/shared/tables/order-list';
+import { Shipper } from 'src/app/shared/tables/shipper';
 
 @Component({
-  selector: "app-orders",
-  templateUrl: "./orders.component.html",
-  styleUrls: ["./orders.component.scss"],
-  providers: [TableService, DecimalPipe],
+  selector: 'app-scam-orders',
+  templateUrl: './scam-orders.component.html',
+  styleUrls: ['./scam-orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class ScamOrdersComponent {
   //Log-in
   token: string = localStorage.getItem("jwt-token");
   isShop: boolean = false;

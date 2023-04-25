@@ -4,7 +4,8 @@ import { Observable } from 'rxjs-compat';
 import { environment } from 'src/environments/environment';
 import { Address } from '../tables/address';
 import { StringBoolObject } from '../tables/string-bool-object';
-import { User } from '../tables/user';
+import { User, UserInfo } from '../tables/user';
+import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -84,4 +85,18 @@ export class UserService {
     return this.httpClient.get<number>(this.baseUrl + `/count?day=${day}`);
   }
 
+  //Get User By Token
+  getUserByToken(token: string) {
+    return this.httpClient.get<UserInfo>(this.baseUrl + `/info?token=${token}`);
+  }
+
+  //User Info
+  getUserInfo(): UserInfo {
+    const token = localStorage.getItem("jwt-token");
+    this.httpClient.get<UserInfo>(this.baseUrl + `/info?token=${token}`).subscribe((userInfo) => {
+      console.log(userInfo)
+      return userInfo;
+    })
+    return null;
+  }
 }

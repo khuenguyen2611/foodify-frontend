@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { StringBoolObject } from '../tables/string-bool-object';
 import { Observable } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { UserInfo } from '../tables/user';
 
 @Injectable({
     providedIn: 'root'
@@ -58,21 +59,14 @@ export class FirebaseService {
                             this.userService.getUserByEmailOrPhoneNumber(email).subscribe((user) => {
                                 if (user.role.roleName == 'ROLE_ADMIN') {
                                     this.loggedIn = true;
-                                    localStorage.setItem('user-role', user.role.roleName);
-                                    localStorage.setItem('email', user.email);
-                                    localStorage.setItem('user-id', user.id.toString());
                                     localStorage.setItem('is-logged', JSON.stringify(this.loggedIn));
                                     this.router.navigate(['/dashboard/default']);
                                     resolve(true); // trả về true nếu đăng nhập thành công
                                 } else if (user.role.roleName == 'ROLE_SHOP') {
-                                    localStorage.setItem('user-role', user.role.roleName);
-                                    localStorage.setItem('user-email', user.email);
-                                    localStorage.setItem('user-id', user.id.toString());
                                     this.shopService.getShopByUserId(user.id).subscribe((shop) => {
                                         if (shop.isEnabled) {
                                             this.loggedIn = true;
                                             localStorage.setItem('is-logged', JSON.stringify(this.loggedIn))
-                                            localStorage.setItem('shop-id', shop.id.toString());
                                             this.router.navigate(['/dashboard/default']);
                                             resolve(true); // trả về true nếu đăng nhập thành công
                                         } else {
@@ -125,11 +119,14 @@ export class FirebaseService {
         }
     }
 
-    isAdmin() {
-        const role = localStorage.getItem('user-role');
-        if (role == 'ROLE_ADMIN') {
-            return true;
-        }
+    isAdmin(): boolean {
+        this.userService.getUserByToken(localStorage.getItem("jwt-token")).subscribe((userInfo) => {
+            const role = userInfo.userRole;
+            if (role == 'ROLE_ADMIN') {
+                return true;
+            }
+            return false;
+        })
         return false;
     }
 

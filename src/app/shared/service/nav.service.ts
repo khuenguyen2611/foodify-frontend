@@ -1,6 +1,7 @@
 import { HostListener, Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WINDOW } from "./windows.service";
+import { UserService } from './user.service';
 
 // Menu
 export interface Menu {
@@ -23,10 +24,13 @@ export class NavService {
 
     public screenWidth: any
     public collapseSidebar: boolean = false
-    public roleName: string = localStorage.getItem('user-role');
-    public items: BehaviorSubject<Menu[]>;
+    public token = localStorage.getItem('jwt-token');
+    public roleName: string;
+    public adminItems: BehaviorSubject<Menu[]>;
+    public shopItems: BehaviorSubject<Menu[]>;
 
-    constructor(@Inject(WINDOW) private window) {
+    constructor(@Inject(WINDOW) private window,
+        private userService: UserService) {
         this.onResize();
         if (this.screenWidth < 991) {
             this.collapseSidebar = true
@@ -35,12 +39,8 @@ export class NavService {
     }
 
     private updateMenuItems() {
-        if (this.roleName == 'ROLE_ADMIN') {
-            this.items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
-        }
-        else {
-            this.items = new BehaviorSubject<Menu[]>(this.SHOP_ITEMS);
-        }
+        this.adminItems = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+        this.shopItems = new BehaviorSubject<Menu[]>(this.SHOP_ITEMS);
     }
 
     // Windows width
@@ -88,6 +88,7 @@ export class NavService {
         {
             title: 'Đơn hàng', icon: 'dollar-sign', type: 'sub', active: false, children: [
                 { path: '/sales/orders', title: 'Danh sách', type: 'link' },
+                { path: '/sales/scam-orders', title: 'Bị báo cáo', type: 'link' }
                 // { path: '/sales/transactions', title: 'Giao dịch', type: 'link' },
             ]
         },
@@ -169,6 +170,13 @@ export class NavService {
             active: false
         },
         {
+            title: 'Đơn hàng', path: '/sales/orders', icon: 'dollar-sign', type: 'link', active: false,
+            // children: [
+            //     // { path: '/sales/orders', title: 'Danh sách', type: 'link' },
+            //     // { path: '/sales/transactions', title: 'Giao dịch', type: 'link' },
+            // ]
+        },
+        {
             title: 'Sản phẩm', icon: 'box', type: 'sub', active: false, children: [
                 { path: '/products/add-product', title: 'Thêm sản phẩm', type: 'link' },
                 { path: '/products/product-list', title: 'Sản phẩm của bạn', type: 'link' }
@@ -194,12 +202,7 @@ export class NavService {
         //         {path: '/products/digital/digital-add-product', title: 'Add Product', type: 'link'},
         //     ]
         // },
-        {
-            title: 'Đơn hàng', icon: 'dollar-sign', type: 'sub', active: false, children: [
-                { path: '/sales/orders', title: 'Danh sách', type: 'link' },
-                { path: '/sales/transactions', title: 'Giao dịch', type: 'link' },
-            ]
-        },
+
         // {
         //     title: 'Coupons', icon: 'tag', type: 'sub', active: false, children: [
         //         {path: '/coupons/list-coupons', title: 'List Coupons', type: 'link'},

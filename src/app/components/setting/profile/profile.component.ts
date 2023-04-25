@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { userInfo } from 'os';
 import { UserService } from 'src/app/shared/service/user.service';
 import { User } from 'src/app/shared/tables/user';
 
@@ -9,7 +10,7 @@ import { User } from 'src/app/shared/tables/user';
 })
 export class ProfileComponent implements OnInit {
   public active = 1;
-  loggedId: number = Number(localStorage.getItem('user-id'))
+  token: string = localStorage.getItem("jwt-token");
   user: User;
 
   constructor(
@@ -17,8 +18,10 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getUserById(this.loggedId).subscribe((user) => {
-      this.user = user;
+    this.userService.getUserByToken(this.token).subscribe(userInfo => {
+      this.userService.getUserById(userInfo.userId).subscribe((user) => {
+        this.user = user;
+      })
     })
   }
 

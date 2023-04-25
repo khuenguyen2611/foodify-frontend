@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { DetailOrderComponent } from "./detail-order/detail-order.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { TransactionsComponent } from "./transactions/transactions.component";
+import { ScamOrdersComponent } from "./scam-orders/scam-orders.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,14 @@ const routes: Routes = [
         component: OrdersComponent,
         data: {
           title: "Danh sách đơn hàng",
+          breadcrumb: "Danh sách",
+        },
+      },
+      {
+        path: "scam-orders",
+        component: ScamOrdersComponent,
+        data: {
+          title: "Đơn hàng bị báo cáo",
           breadcrumb: "Danh sách",
         },
       },

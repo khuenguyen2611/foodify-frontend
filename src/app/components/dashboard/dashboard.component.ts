@@ -10,6 +10,7 @@ import { resolve } from 'path';
 import { forkJoin } from 'rxjs';
 import { UserService } from 'src/app/shared/service/user.service';
 import { FirebaseService } from 'src/app/shared/service/firebase.service';
+import { UserInfo } from 'src/app/shared/tables/user';
 
 @Component({
     selector: 'app-dashboard',
@@ -18,9 +19,11 @@ import { FirebaseService } from 'src/app/shared/service/firebase.service';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
     //Log-in
+    token = localStorage.getItem("jwt-token")
+    userInfo: UserInfo;
     isShop: boolean = false;
-    loggedId: number = Number(localStorage.getItem('user-id'))
-    loggedRole = localStorage.getItem('user-role');
+    loggedId: number;
+    loggedRole: string;
     shopId: number;
 
     //Shop Properties
@@ -71,17 +74,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
 
     ngOnInit() {
-        if (this.loggedRole != 'ROLE_ADMIN') {
-            this.isShop = true;
-            // this.shopId = Number(localStorage.getItem('shop-id'))
+        this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+            if (userInfo.userRole != 'ROLE_ADMIN') {
+                this.isShop = true;
+                this.shopId = userInfo.shopId;
 
-            const shopIdPromise = new Promise<number>((resolve) => {
-                const shopId = Number(localStorage.getItem('shop-id'));
-                resolve(shopId);
-            })
+                // this.shopId = Number(localStorage.getItem('shop-id'))
 
-            shopIdPromise.then((shopId) => {
-                this.shopId = shopId;
+                // const shopIdPromise = new Promise<number>((resolve) => {
+                //     const shopId = Number(localStorage.getItem('shop-id'));
+                //     resolve(shopId);
+                // })
+
+                // shopIdPromise.then((shopId) => {
+                //     this.shopId = shopId;
 
                 this.productService.getProductsByShopIdNoPageable(this.shopId).subscribe((products) => {
                     let i = 0;
@@ -106,44 +112,47 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                     this.doughtnutData(data.products);
                 })
 
-                this.orderService.getOrdersByShopId(this.shopId, this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
+                this.orderService.getOrdersByShopId(userInfo.shopId, this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
                     .subscribe(this.processResult());
-                this.shopService.getShopRevenue(this.shopId, 30).subscribe((res) => {
+                this.shopService.getShopRevenue(userInfo.shopId, 30).subscribe((res) => {
                     this.totalRevenue = res;
                 });
                 this.valueOfShopDistrict();
-            })
-        }
-        else {
-            //ADMIN DO HERE
+                // })
 
-            this.userService.countNewUser(this.day).subscribe((res) => {
-                this.totalUser = res;
-            })
-            this.productService.getProductsNoPagination().subscribe((products) => {
-                let i = 0;
-                products.forEach(product => {
-                    this.totalReviewCount = this.totalReviewCount + product.reviewCount;
-                    this.totalProducts = this.totalProducts + product.sold;
-                    if (product.averageRating != 0) {
-                        this.totalAverageRating = this.totalAverageRating + product.averageRating;
-                        i++;
-                    }
-                });
-                this.totalAverageRating = this.totalAverageRating / i;
-            })
+            }
+            else {
+                //ADMIN DO HERE
 
-            this.productService.getProductsPaginationAndSort(0, 5, 'sold', 'desc').subscribe((data) => {
-                this.products = data.products;
-                this.doughtnutData(data.products)
-            })
+                this.userService.countNewUser(this.day).subscribe((res) => {
+                    this.totalUser = res;
+                })
+                this.productService.getProductsNoPagination().subscribe((products) => {
+                    let i = 0;
+                    products.forEach(product => {
+                        this.totalReviewCount = this.totalReviewCount + product.reviewCount;
+                        this.totalProducts = this.totalProducts + product.sold;
+                        if (product.averageRating != 0) {
+                            this.totalAverageRating = this.totalAverageRating + product.averageRating;
+                            i++;
+                        }
+                    });
+                    this.totalAverageRating = this.totalAverageRating / i;
+                })
 
-            this.orderService
-                .getOrdersPagination(this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
-                .subscribe(this.processResult());
+                this.productService.getProductsPaginationAndSort(0, 5, 'sold', 'desc').subscribe((data) => {
+                    this.products = data.products;
+                    this.doughtnutData(data.products)
+                })
 
-            this.valueOfAdminDistrict();
-        }
+                this.orderService
+                    .getOrdersPagination(this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
+                    .subscribe(this.processResult());
+
+                this.valueOfAdminDistrict();
+            }
+
+        })
     }
 
     processResult() {
@@ -154,10 +163,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             this.theTotalElements = data.page.totalElements;
         };
     }
-
-
-
-
 
     // doughnut 2
     public view = chartData.view;

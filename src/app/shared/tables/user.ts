@@ -17,3 +17,10 @@ export class User {
     addresses: Address[]
     role: Role;
 }
+
+export class UserInfo {
+    userId: number;
+    shopId: number;
+    userRole: string;
+    userEmail: string;
+}

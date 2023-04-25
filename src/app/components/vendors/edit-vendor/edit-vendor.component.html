@@ -61,8 +61,10 @@
                                             <label for="validationCustom2"><span>*</span> Email</label>
                                         </div>
                                         <div class="col-xl-8 col-md-7">
-                                            <input formControlName="email" class="form-control" type="email"
-                                                placeholder="Email" />
+                                            <input *ngIf="!isShop" formControlName="email" class="form-control"
+                                                type="email" placeholder="Email" />
+                                            <input readonly *ngIf="isShop" formControlName="email" class="form-control"
+                                                type="email" placeholder="Email" />
                                             <div *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)"
                                                 class="alert alert-danger mt-1">
                                                 <div *ngIf="userEmail?.errors?.['required']">Vui lòng không được bỏ
@@ -85,8 +87,7 @@
                                             <div *ngIf="userDateOfBirth?.invalid && (userDateOfBirth?.dirty || userDateOfBirth?.touched)"
                                                 class="alert alert-danger mt-1">
                                                 <div *ngIf="userDateOfBirth?.errors?.['required']">Vui lòng không được
-                                                    bỏ
-                                                    trống ngày sinh.</div>
+                                                    bỏ trống ngày sinh.</div>
                                             </div>
                                         </div>
                                     </div>
@@ -97,8 +98,10 @@
                                             <label for="validationCustom2"><span>*</span> Số Điện Thoại</label>
                                         </div>
                                         <div class="col-xl-8 col-md-7">
-                                            <input formControlName="phoneNumber" class="form-control" type="tel"
-                                                placeholder="Số điện thoại" />
+                                            <input *ngIf="!isShop" formControlName="phoneNumber" class="form-control"
+                                                type="tel" placeholder="Số điện thoại" />
+                                            <input readonly *ngIf="isShop" formControlName="phoneNumber"
+                                                class="form-control" type="tel" placeholder="Số điện thoại" />
                                             <div *ngIf="userPhoneNumber?.invalid && (userPhoneNumber?.dirty || userPhoneNumber?.touched)"
                                                 class="alert alert-danger mt-1">
                                                 <div *ngIf="userPhoneNumber?.errors?.['required']">Vui lòng không được
@@ -117,8 +120,10 @@
                                             <label for="validationCustom2"><span>*</span> CMND/CCCD</label>
                                         </div>
                                         <div class="col-xl-8 col-md-7">
-                                            <input formControlName="identifiedCode" class="form-control" type="number"
-                                                placeholder="Số CMND/CCCD" />
+                                            <input *ngIf="!isShop" formControlName="identifiedCode" class="form-control"
+                                                type="number" placeholder="Số CMND/CCCD" />
+                                            <input readonly *ngIf="isShop" formControlName="identifiedCode"
+                                                class="form-control" type="number" placeholder="Số CMND/CCCD" />
                                             <div *ngIf="userIdentifiedCode?.invalid && (userIdentifiedCode?.dirty || userIdentifiedCode?.touched)"
                                                 class="alert alert-danger mt-1">
                                                 <div *ngIf="userIdentifiedCode?.errors?.['required']">Vui lòng không

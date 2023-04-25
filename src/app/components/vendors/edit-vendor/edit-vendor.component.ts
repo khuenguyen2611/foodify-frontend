@@ -21,7 +21,8 @@ import { Ward } from 'src/app/shared/tables/ward';
   styleUrls: ['./edit-vendor.component.scss']
 })
 export class EditVendorComponent implements OnInit {
-  roleName = localStorage.getItem('user-role');
+  token: string = localStorage.getItem("jwt-token");
+  roleName: string;
 
   //ids
   userId: number;
@@ -55,6 +56,7 @@ export class EditVendorComponent implements OnInit {
   wards: Ward[] = [];
 
   //Shop
+  isShop: boolean = false;
   isStudent: boolean = true;
   isEnabled: boolean = true;
   userImg: string;
@@ -86,8 +88,13 @@ export class EditVendorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getUserByToken(this.token).subscribe(userInfo => {
+      this.roleName = userInfo.userRole;
+      if (userInfo.userRole != "ROLE_ADMIN") {
+        this.isShop = true;
+      }
+    })
     const shopId = +this.route.snapshot.paramMap.get("id")!;
-    console.log(shopId);
     this.getAllDistrict().then(() => {
       this.shopService.getShopById(shopId).subscribe((data => this.fillFormToUpdate(data)))
     }).catch(error => { });

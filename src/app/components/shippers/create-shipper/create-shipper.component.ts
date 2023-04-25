@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { rejects } from 'assert';
 import { url } from 'inspector';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { userInfo } from 'os';
 import { resolve } from 'path';
 import { finalize, mergeMap, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs-compat/operator/switchMap';
@@ -28,9 +29,8 @@ export class CreateShipperComponent implements OnInit {
   public active = 1;
 
   //Log-in
+  token: string = localStorage.getItem("jwt-token");
   isShop: boolean = false;
-  loggedId: number = Number(localStorage.getItem('user-id'))
-  loggedRole = localStorage.getItem('user-role');
   shopId: number;
 
   imageFile: File;
@@ -57,8 +57,6 @@ export class CreateShipperComponent implements OnInit {
     this.createPermissionForm();
   }
 
-
-
   createPermissionForm() {
     this.permissionForm = this.formBuilder.group({});
   }
@@ -84,13 +82,15 @@ export class CreateShipperComponent implements OnInit {
       }
     );
 
-    if (this.loggedRole != 'ROLE_ADMIN') {
-      this.isShop = true;
-      this.shopId = Number(localStorage.getItem('shop-id'))
-      this.accountForm.patchValue({
-        shopId: this.shopId
-      })
-    }
+    this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+      if (userInfo.userRole != 'ROLE_ADMIN') {
+        this.isShop = true;
+        this.shopId = userInfo.shopId;
+        this.accountForm.patchValue({
+          shopId: this.shopId
+        })
+      }
+    })
   }
 
   // Validation for password and confirm password

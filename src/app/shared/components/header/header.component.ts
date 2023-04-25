@@ -18,9 +18,10 @@ export class HeaderComponent implements OnInit {
   public user: User;
 
   //Log-in
+  token: string = localStorage.getItem("jwt-token");
   isShop: boolean = false;
-  loggedId: number = Number(localStorage.getItem('user-id'))
-  loggedRole = localStorage.getItem('user-role');
+  loggedId: number;
+  loggedRole: string;
   shopId: number;
 
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
@@ -29,9 +30,7 @@ export class HeaderComponent implements OnInit {
     public navServices: NavService,
     private userService: UserService,
     private firebaseService: FirebaseService) {
-    this.userService.getUserById(Number(localStorage.getItem('user-id'))).subscribe((user) => {
-      this.user = user;
-    })
+
   }
 
   collapseSidebar() {
@@ -49,10 +48,18 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.loggedRole != 'ROLE_ADMIN') {
-      this.isShop = true;
-      this.shopId = Number(localStorage.getItem('shop-id'))
-    }
+    this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+      this.loggedId = userInfo.userId;
+      this.loggedRole = userInfo.userRole;
+
+      if (this.loggedRole != 'ROLE_ADMIN') {
+        this.isShop = true;
+        this.shopId = userInfo.shopId;
+      }
+      this.userService.getUserById(userInfo.userId).subscribe((user) => {
+        this.user = user;
+      })
+    })
   }
 
   logOut() {

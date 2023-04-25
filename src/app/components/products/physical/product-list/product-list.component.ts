@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ProductService } from "../../../../shared/service/product.service";
+import { UserService } from 'src/app/shared/service/user.service';
 
 @Component({
     selector: 'app-product-list',
@@ -11,8 +12,8 @@ import { ProductService } from "../../../../shared/service/product.service";
 
 export class ProductListComponent implements OnInit {
     //Login Info
-    loggedId: number = Number(localStorage.getItem('user-id'));
-    loggedRole: string = localStorage.getItem('user-role');
+    token: string = localStorage.getItem("jwt-token");
+    loggedRole: string;
     isShop: boolean = false;
     shopId: number;
 
@@ -27,16 +28,20 @@ export class ProductListComponent implements OnInit {
     theTotalElements = 0;
 
     constructor(private productService: ProductService,
+        private userService: UserService,
         private modalService: BsModalService,
         private router: Router) {
     }
 
     ngOnInit() {
-        if (this.loggedRole != 'ROLE_ADMIN') {
-            this.isShop = true;
-            this.shopId = Number(localStorage.getItem('shop-id'))
-        }
-        this.listProduct();
+        this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+            this.loggedRole = userInfo.userRole;
+            if (userInfo.userRole != 'ROLE_ADMIN') {
+                this.isShop = true;
+                this.shopId = userInfo.shopId;
+            }
+            this.listProduct();
+        })
     }
 
     listProduct() {

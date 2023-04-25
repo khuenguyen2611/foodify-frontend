@@ -15,6 +15,8 @@ import { ProductImageService } from 'src/app/shared/service/product-image.servic
 import { ProductImage } from 'src/app/shared/tables/product-image';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'console';
+import { UserService } from 'src/app/shared/service/user.service';
+import { userInfo } from 'os';
 
 
 @Component({
@@ -29,9 +31,8 @@ export class AddProductComponent implements OnInit {
     public Editor = ClassicEditor;
 
     //Log-in
+    token: string = localStorage.getItem("jwt-token");
     isShop: boolean = false;
-    loggedId: number = Number(localStorage.getItem('user-id'))
-    loggedRole = localStorage.getItem('user-role');
     shopId: number;
 
     adminImg = environment.adminImg;
@@ -54,7 +55,8 @@ export class AddProductComponent implements OnInit {
         private productImageService: ProductImageService,
         private modalService: BsModalService,
         private storage: AngularFireStorage,
-        private toastService: ToastrService) {
+        private toastService: ToastrService,
+        private userService: UserService) {
         this.productForm = this.fb.group({
             name: new FormControl("", [Validators.required, Validators.minLength(2)]),
             price: new FormControl("", [Validators.required, Validators.pattern("^[0-9]*$")]),
@@ -66,12 +68,14 @@ export class AddProductComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.loggedRole != 'ROLE_ADMIN') {
-            this.isShop = true;
-            this.shopId = Number(localStorage.getItem('shop-id'))
-        }
-        this.productForm.patchValue({
-            shopId: this.shopId
+        this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+            if (userInfo.userRole != 'ROLE_ADMIN') {
+                this.isShop = true;
+                this.shopId = userInfo.shopId;
+                this.productForm.patchValue({
+                    shopId: this.shopId
+                })
+            }
         })
     }
 
@@ -138,25 +142,6 @@ export class AddProductComponent implements OnInit {
                     this.modalRef = this.modalService.show(this.errorShopModal, { class: 'modal-sm' });
                 }
             })
-
-            // Promise.all(uploadPromises).then(() => {             
-
-            //     this.productService.addProduct(product).pipe(
-            //         switchMap((product) => {
-            //             this.createdId = product.id;
-            //             return this.imageUrls;
-            //         }),
-            //         concatMap((url) => {
-            //             const img = new ProductImage();
-            //             img.id = 0;
-            //             img.imageUrl = url;
-            //             img.productId = this.createdId;
-            //             return this.productImageService.addProductImage(img, img.productId);
-            //         })
-
-
-            //     resolve();
-            // })
         })
     }
 

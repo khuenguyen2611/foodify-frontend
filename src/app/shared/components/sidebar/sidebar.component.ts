@@ -15,34 +15,65 @@ export class SidebarComponent {
   public menuItems: Menu[];
   public url: any;
   public fileurl: any;
+  token = localStorage.getItem('jwt-token')
   user: User;
 
   constructor(private router: Router, public navServices: NavService, private userService: UserService) {
-    this.userService.getUserById(Number(localStorage.getItem('user-id'))).subscribe((user) => {
-      this.user = user;
+    this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+      this.userService.getUserById(userInfo.userId).subscribe((user) => {
+        this.user = user;
+      })
+
+      if (userInfo.userRole == 'ROLE_ADMIN') {
+        this.navServices.adminItems.subscribe(menuItems => {
+          this.menuItems = menuItems
+          this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+              menuItems.filter(items => {
+                if (items.path === event.url)
+                  this.setNavActive(items)
+                if (!items.children) return false
+                items.children.filter(subItems => {
+                  if (subItems.path === event.url)
+                    this.setNavActive(subItems)
+                  if (!subItems.children) return false
+                  subItems.children.filter(subSubItems => {
+                    if (subSubItems.path === event.url)
+                      this.setNavActive(subSubItems)
+                  })
+                })
+              })
+            }
+          })
+        })
+      }
+      else {
+        this.navServices.shopItems.subscribe(menuItems => {
+          this.menuItems = menuItems
+          this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+              menuItems.filter(items => {
+                if (items.path === event.url)
+                  this.setNavActive(items)
+                if (!items.children) return false
+                items.children.filter(subItems => {
+                  if (subItems.path === event.url)
+                    this.setNavActive(subItems)
+                  if (!subItems.children) return false
+                  subItems.children.filter(subSubItems => {
+                    if (subSubItems.path === event.url)
+                      this.setNavActive(subSubItems)
+                  })
+                })
+              })
+            }
+          })
+        })
+      }
     })
 
-    this.navServices.items.subscribe(menuItems => {
-      this.menuItems = menuItems
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          menuItems.filter(items => {
-            if (items.path === event.url)
-              this.setNavActive(items)
-            if (!items.children) return false
-            items.children.filter(subItems => {
-              if (subItems.path === event.url)
-                this.setNavActive(subItems)
-              if (!subItems.children) return false
-              subItems.children.filter(subSubItems => {
-                if (subSubItems.path === event.url)
-                  this.setNavActive(subSubItems)
-              })
-            })
-          })
-        }
-      })
-    })
+
+
   }
 
   // Active Nave state

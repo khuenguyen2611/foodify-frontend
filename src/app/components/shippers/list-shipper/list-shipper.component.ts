@@ -1,8 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { userInfo } from 'os';
 import { FirebaseService } from 'src/app/shared/service/firebase.service';
 import { ShipperService } from 'src/app/shared/service/shipper.service';
+import { UserService } from 'src/app/shared/service/user.service';
 import { Shipper } from 'src/app/shared/tables/shipper';
 
 @Component({
@@ -12,9 +14,9 @@ import { Shipper } from 'src/app/shared/tables/shipper';
 })
 export class ListShipperComponent {
   //Log-in properties
+  token: string = localStorage.getItem("jwt-token");
   isShop: boolean = false;
-  loggedId: number = Number(localStorage.getItem('user-id'))
-  loggedRole = localStorage.getItem('user-role');
+  loggedRole: string;
   shopId: number;
 
   searchName: string = '';
@@ -33,17 +35,21 @@ export class ListShipperComponent {
   email: string;
 
   constructor(private shipperService: ShipperService,
+    private userService: UserService,
     private modalService: BsModalService,
     private router: Router,
     private firebaseService: FirebaseService) {
   }
 
   ngOnInit() {
-    if (this.loggedRole != 'ROLE_ADMIN') {
-      this.isShop = true;
-      this.shopId = Number(localStorage.getItem('shop-id'))
-    }
-    this.listAllShipper();
+    this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+      this.loggedRole = userInfo.userRole;
+      if (this.loggedRole != 'ROLE_ADMIN') {
+        this.isShop = true;
+        this.shopId = userInfo.shopId;
+      }
+      this.listAllShipper();
+    })
   }
 
   listAllShipper() {
