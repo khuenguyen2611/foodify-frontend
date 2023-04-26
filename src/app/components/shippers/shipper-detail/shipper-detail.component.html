@@ -12,7 +12,7 @@
                             <div class="add-product">
                                 <div class="row">
                                     <div class="col-xl-9 xl-50 col-sm-6 col-9">
-                                        <img src="{{ shipper.user.imageUrl }}" alt="" class="img-fluid image_zoom_1">
+                                        <img src="{{ shipper?.user?.imageUrl }}" alt="" class="img-fluid image_zoom_1">
                                     </div>
                                     <div class="col-xl-3 xl-50 col-sm-6 col-3">
                                         <!-- <ul class="file-upload-product">
@@ -36,7 +36,7 @@
                                         <label class="mb-0">Họ và tên:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.user.fullName }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.user?.fullName }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                         <label class="mb-0">Shipper của cửa hàng:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.shop.name }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.shop?.name }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                         <label class="mb-0">Ngày sinh:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.user.dateOfBirth }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.user?.dateOfBirth }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                         <label class="mb-0">CMND/CCCD:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.user.identifiedCode }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.user?.identifiedCode }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                         <label class="mb-0">Email:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.user.email }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.user?.email }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                         <label class="mb-0">Số điện thoại:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.user.phoneNumber }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.user?.phoneNumber }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                         <label class="mb-0">Tổng đơn hàng:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <p class="mb-0 text-size text-dark">{{ shipper.orders.length }}</p>
+                                        <p class="mb-0 text-size text-dark">{{ shipper?.orders?.length }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -120,9 +120,9 @@
                                         <label class="mb-0">Trạng thái:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <i *ngIf="shipper.isActive == true" style="color: green; font-size: 20px;"
+                                        <i *ngIf="shipper?.isActive == true" style="color: green; font-size: 20px;"
                                             class="fa fa-power-off" aria-hidden="true"></i>
-                                        <i *ngIf="shipper.isActive == false" style="color: #FF6347; font-size: 20px;"
+                                        <i *ngIf="shipper?.isActive == false" style="color: #FF6347; font-size: 20px;"
                                             class="fa fa-power-off" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -135,9 +135,9 @@
                                         <label class="mb-0">Đang giao hàng:</label>
                                     </div>
                                     <div class="col-xl-8 col-sm-7">
-                                        <i *ngIf="shipper.isShipping == false" style="color: #FF6347; font-size: 20px;"
+                                        <i *ngIf="shipper?.isShipping == false" style="color: #FF6347; font-size: 20px;"
                                             class="fa fa-motorcycle" aria-hidden="true"></i>
-                                        <i *ngIf="shipper.isShipping == true" style="color: green; font-size: 20px;"
+                                        <i *ngIf="shipper?.isShipping == true" style="color: green; font-size: 20px;"
                                             class="fa fa-motorcycle" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary"
-                                [routerLink]="['/shippers', 'edit', shipper.id]">Chỉnh sửa
+                                [routerLink]="['/shippers', 'edit', shipper?.id]">Chỉnh sửa
                                 thông tin</button>
                         </div>
                     </div>
