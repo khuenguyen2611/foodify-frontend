@@ -32,6 +32,7 @@
     "@ng-bootstrap/ng-bootstrap": "^13.1.1",
     "@popperjs/core": "^2.11.6",
     "@swimlane/ngx-charts": "^20.1.0",
+    "@vercel/analytics": "^1.0.0",
     "ag-grid-angular": "^27.3.0",
     "ag-grid-community": "^27.3.0",
     "angular-count-to": "0.0.3",

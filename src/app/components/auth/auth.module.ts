@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { environment } from "../../../environments/environment";
+import firebase from 'firebase/compat/app';
 
 import { AuthRoutingModule } from "./auth-routing.module";
 import { LoginComponent } from "./login/login.component";
@@ -15,6 +17,8 @@ import { SendEmailComponent } from './send-email/send-email.component';
 import { EmailVerifiedComponent } from './email-verified/email-verified.component';
 import { EmailNotVerifiedComponent } from './email-not-verified/email-not-verified.component';
 
+firebase.initializeApp(environment.firebaseConfig);
+
 @NgModule({
   declarations: [LoginComponent, SignupComponent, ForbiddenComponent, ResetPasswordComponent, SendEmailComponent, EmailVerifiedComponent, EmailNotVerifiedComponent],
   imports: [
@@ -24,6 +28,6 @@ import { EmailNotVerifiedComponent } from './email-not-verified/email-not-verifi
     CarouselModule,
     SharedModule,
     NgbModule,
-    FormsModule],
+    FormsModule]
 })
 export class AuthModule { }

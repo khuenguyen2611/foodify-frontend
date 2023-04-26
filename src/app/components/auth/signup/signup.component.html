@@ -21,12 +21,12 @@
                       </div>
                       <div class="col-xl-8 col-md-7">
                         <div class="d-flex align-items-center">
-                          <button *ngIf="!userImageChoosen" type="submit" class="btn btn-success"
-                            (click)="chooseImg(chooseUserImage)">
+                          <button style="font-family: Metrophobic;" *ngIf="!userImageChoosen" type="submit"
+                            class="btn btn-success" (click)="chooseImg(chooseUserImage)">
                             Chọn ảnh
                           </button>
-                          <button *ngIf="userImageChoosen" type="submit" class="btn btn-secondary"
-                            (click)="chooseImg(chooseUserImage)">
+                          <button style="font-family: Metrophobic;" *ngIf="userImageChoosen" type="submit"
+                            class="btn btn-secondary" (click)="chooseImg(chooseUserImage)">
                             Thay đổi ảnh
                           </button>
                           <img class="rounded-circle border border-dark" [src]="avatar" *ngIf="avatar"
@@ -44,7 +44,8 @@
                         <label for="validationCustom0"><span>*</span> Họ và tên</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <input formControlName="fullName" class="form-control" type="text" placeholder="Họ và tên" />
+                        <input style="font-family: Metrophobic;" formControlName="fullName" class="form-control"
+                          type="text" placeholder="Họ và tên" />
                         <div *ngIf="userFullName?.invalid && (userFullName?.dirty || userFullName?.touched)"
                           class="alert alert-danger mt-1">
                           <div *ngIf="userFullName?.errors?.['required']">Vui lòng không được bỏ trống
@@ -61,7 +62,8 @@
                         <label for="validationCustom2"><span>*</span> Email</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <input formControlName="email" class="form-control" type="email" placeholder="Email" />
+                        <input style="font-family: Metrophobic;" formControlName="email" class="form-control"
+                          type="email" placeholder="Email" />
                         <div *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)"
                           class="alert alert-danger mt-1">
                           <div *ngIf="userEmail?.errors?.['required']">Vui lòng không được bỏ trống
@@ -78,7 +80,8 @@
                         <label for="validationCustom2"><span>*</span> Ngày Sinh</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <input type="date" formControlName="dateOfBirth" class="form-control" placeholder="Ngày sinh" />
+                        <input style="font-family: Metrophobic;" type="date" formControlName="dateOfBirth"
+                          class="form-control" placeholder="Ngày sinh" />
                         <div *ngIf="userDateOfBirth?.invalid && (userDateOfBirth?.dirty || userDateOfBirth?.touched)"
                           class="alert alert-danger mt-1">
                           <div *ngIf="userDateOfBirth?.errors?.['required']">Vui lòng không được bỏ
@@ -92,15 +95,34 @@
                       <div class="col-xl-3 col-md-4">
                         <label for="validationCustom2"><span>*</span> Số Điện Thoại</label>
                       </div>
-                      <div class="col-xl-8 col-md-7">
-                        <input formControlName="phoneNumber" class="form-control" type="tel"
-                          placeholder="Số điện thoại" />
+                      <div class="col-xl-4 col-md-7">
+                        <input style="font-family: Metrophobic;" formControlName="phoneNumber" class="form-control"
+                          type="tel" placeholder="Số điện thoại" />
                         <div *ngIf="userPhoneNumber?.invalid && (userPhoneNumber?.dirty || userPhoneNumber?.touched)"
                           class="alert alert-danger mt-1">
                           <div *ngIf="userPhoneNumber?.errors?.['required']">Vui lòng không được bỏ
                             trống số điện thoại.</div>
                           <div *ngIf="userPhoneNumber?.errors?.['pattern']">Số điện thoại phải có tối
                             đa 10 số</div>
+                        </div>
+                      </div>
+                      <div class="col-xl-2 col-md-4">
+                        <button style="font-family: Metrophobic;" type="button" class="btn btn-secondary"
+                          (click)="getOTP()">Gửi OTP</button>
+                      </div>
+                      <div class="col-xl-2 col-md-7">
+                        <input style="font-family: Metrophobic;" formControlName="otp" class="form-control" type="tel"
+                          placeholder="Mã OTP" />
+                      </div>
+                    </div>
+
+                    <!-- phone number -->
+                    <div class="form-group row">
+                      <div class="col-xl-3 col-md-4">
+                        <label for="validationCustom2"><span></span></label>
+                      </div>
+                      <div class="col-xl-8 col-md-7">
+                        <div id="recapcha">
                         </div>
                       </div>
                     </div>
@@ -111,8 +133,8 @@
                         <label for="validationCustom2"><span>*</span> CMND/CCCD</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <input formControlName="identifiedCode" class="form-control" type="number"
-                          placeholder="CMND/CCCD" />
+                        <input style="font-family: Metrophobic;" formControlName="identifiedCode" class="form-control"
+                          type="number" placeholder="CMND/CCCD" />
                         <div
                           *ngIf="userIdentifiedCode?.invalid && (userIdentifiedCode?.dirty || userIdentifiedCode?.touched)"
                           class="alert alert-danger mt-1">
@@ -123,14 +145,15 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <!-- Address -->
                     <div class="form-group row">
                       <div class="col-xl-3 col-md-4">
-                        <label for="validationCustom2"><span>*</span>Địa chỉ</label>
+                        <label for="validationCustom2"><span>*</span> Địa chỉ</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <input formControlName="address" class="form-control" type="text" placeholder="Địa chỉ" />
+                        <input style="font-family: Metrophobic;" formControlName="address" class="form-control"
+                          type="text" placeholder="Địa chỉ" />
                         <div *ngIf="userAddress?.invalid && (userAddress?.dirty || userAddress?.touched)"
                           class="alert alert-danger mt-1">
                           <div *ngIf="userAddress?.errors?.['required']">Vui lòng không được bỏ
@@ -150,8 +173,10 @@
                         <label for="validationCustom2"><span>*</span> Quận</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <select [(ngModel)]="district" class="form-control" (change)="onDistrictSelected()">
-                          <option [selected]="true" [ngValue]="'none'">--- Chọn quận ---</option>
+                        <select style="font-family: Metrophobic;" [(ngModel)]="district" class="form-control"
+                          (change)="onDistrictSelected()">
+                          <option [selected]="true" [ngValue]="'none'">--- Chọn quận ---
+                          </option>
                           <option *ngFor="let district of districts" [ngValue]="district.name">{{
                             district.name }}
                           </option>
@@ -164,12 +189,12 @@
                     </div>
 
                     <!-- Wards -->
-                    <div *ngIf="isHaveDistrict" class="form-group row">
+                    <div class="form-group row">
                       <div class="col-xl-3 col-md-4">
                         <label for="validationCustom2"><span>*</span> Phường</label>
                       </div>
                       <div class="col-xl-8 col-md-7">
-                        <select [(ngModel)]="ward" class="form-control">
+                        <select style="font-family: Metrophobic;" [(ngModel)]="ward" class="form-control">
                           <option [ngValue]="'none'">--- Chọn phường ---</option>
                           <option *ngFor="let ward of wards">{{ ward.name }}
                           </option>
@@ -189,7 +214,7 @@
                       </div>
                       <div class="col-xl-8 col-md-7">
                         <div class="form-control input-password-holder">
-                          <input formControlName="password" class="input-password"
+                          <input style="font-family: Metrophobic;" formControlName="password" class="input-password"
                             type="{{ showPassword ? 'text' : 'password' }}" placeholder="Mật khẩu" />
                           <span class="icon-holder-eye" (click)="showPassword = !showPassword">
                             <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
@@ -216,8 +241,9 @@
                       </div>
                       <div class="col-xl-8 col-md-7">
                         <div class="form-control input-password-holder">
-                          <input formControlName="confirmPassword" class="input-password"
-                            type="{{ showPassword ? 'text' : 'password' }}" placeholder="Xác nhận mật khẩu" />
+                          <input style="font-family: Metrophobic;" formControlName="confirmPassword"
+                            class="input-password" type="{{ showPassword ? 'text' : 'password' }}"
+                            placeholder="Xác nhận mật khẩu" />
                           <span class="icon-holder-eye" (click)="showPassword = !showPassword">
                             <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
                           </span>
@@ -272,11 +298,11 @@
                           </div>
                           <div class="col-xl-8 col-md-7">
                             <div class="d-flex align-items-center">
-                              <button *ngIf="!shopImageChoosen" type="submit" class="btn btn-success"
-                                (click)="chooseImg(chooseShopImage)">Chọn
+                              <button style="font-family: Metrophobic;" *ngIf="!shopImageChoosen" type="submit"
+                                class="btn btn-success" (click)="chooseImg(chooseShopImage)">Chọn
                                 ảnh</button>
-                              <button *ngIf="shopImageChoosen" type="submit" class="btn btn-secondary"
-                                (click)="chooseImg(chooseShopImage)">Thay đổi ảnh</button>
+                              <button style="font-family: Metrophobic;" *ngIf="shopImageChoosen" type="submit"
+                                class="btn btn-secondary" (click)="chooseImg(chooseShopImage)">Thay đổi ảnh</button>
                             </div>
                             <!-- <div *ngIf="!shopImageChoosen && (shopForm.get('banner')?.dirty || shopForm.get('banner')?.touched)" class="alert alert-danger mt-1">
                                 <div *ngIf="shopForm.get('banner').errors?.['required']">Vui lòng chọn ảnh banner của shop.</div>
@@ -295,7 +321,8 @@
                             <label for="validationCustom2"><span>*</span>Tên shop</label>
                           </div>
                           <div class="col-xl-8 col-md-7">
-                            <input formControlName="name" class="form-control" type="text" placeholder="Tên shop" />
+                            <input style="font-family: Metrophobic;" formControlName="name" class="form-control"
+                              type="text" placeholder="Tên shop" />
                             <div *ngIf="shopName?.invalid && (shopName?.dirty || shopName?.touched)"
                               class="alert alert-danger mt-1">
                               <div *ngIf="shopName?.errors?.['required']">Vui lòng không được bỏ trống tên shop</div>
@@ -311,8 +338,8 @@
                             <label for="validationCustom2"><span>*</span>Mô tả shop</label>
                           </div>
                           <div class="col-xl-8 col-md-7">
-                            <textarea formControlName="description" class="form-control" type="text"
-                              placeholder="Mô tả về shop"></textarea>
+                            <textarea style="font-family: Metrophobic;" formControlName="description"
+                              class="form-control" type="text" placeholder="Mô tả về shop"></textarea>
                             <div
                               *ngIf="shopDescription?.invalid && (shopDescription?.dirty || shopDescription?.touched)"
                               class="alert alert-danger mt-1">
@@ -329,10 +356,12 @@
                             <label for="validationCustom2"><span>*</span> Loại shop</label>
                           </div>
                           <div class="col-xl-8 col-md-7">
-                            <button *ngIf="isStudent" type="button" class="btn btn-secondary" (click)="swap()">Shop sinh
+                            <button style="font-family: Metrophobic;" *ngIf="isStudent" type="button"
+                              class="btn btn-secondary" (click)="swap()">Shop sinh
                               viên
                             </button>
-                            <button *ngIf="!isStudent" type="button" class="btn btn-primary" (click)="swap()">Shop
+                            <button style="font-family: Metrophobic;" *ngIf="!isStudent" type="button"
+                              class="btn btn-primary" (click)="swap()">Shop
                               thường
                             </button>
                           </div>
@@ -345,8 +374,10 @@
             </ul>
             <div [ngbNavOutlet]="nav" class="mt-2"></div>
             <div class="pull-right">
-              <button type="button" class="btn btn-danger mr-3" (click)="goBackToLogin()">Quay lại</button>
-              <button type="submit" class="btn btn-primary" (click)="createUser(createSuccess)">Tạo tài khoản</button>
+              <button style="font-family: Metrophobic;" type="button" class="btn btn-danger mr-3"
+                (click)="goBackToLogin()">Quay lại</button>
+              <button style="font-family: Metrophobic;" type="submit" class="btn btn-primary"
+                (click)="createUser(createSuccess)">Tạo tài khoản</button>
             </div>
           </div>
         </div>
@@ -372,7 +403,8 @@
 
 <ng-template #createSuccess>
   <div class="modal-body text-center">
-    <h5 class="text-dark font-weight-bold mb-4">Tạo tài khoản thành công. Vui lòng kiểm tra hòm thư để xác thực tài khoản</h5>
+    <h5 class="text-dark font-weight-bold mb-4">Tạo tài khoản thành công. Vui lòng kiểm tra hòm thư để xác thực tài
+      khoản</h5>
     <button type="button" class="btn btn-primary" (click)="continue()">Tiếp tục
     </button>
   </div>
@@ -381,6 +413,21 @@
 <ng-template #error_modal>
   <div class="modal-body text-center">
     <h5>{{ errorItem }} đã tồn tại. Vui lòng chọn một {{ errorItem.toLowerCase() }} khác.</h5>
+    <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+  </div>
+</ng-template>
+
+
+<ng-template #miss_otp>
+  <div class="modal-body text-center">
+    <h5>Mã OTP trống hoặc không đúng. Vui lòng kiểm tra lại</h5>
+    <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+  </div>
+</ng-template>
+
+<ng-template #miss_info>
+  <div class="modal-body text-center">
+    <h5>Vui lòng điền đầy đủ thông tin trước khi tạo tài khoản.</h5>
     <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
   </div>
 </ng-template>

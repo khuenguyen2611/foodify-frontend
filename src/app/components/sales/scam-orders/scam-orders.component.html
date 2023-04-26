@@ -8,10 +8,10 @@
           </div> -->
                 <div class="card-body">
                     <div class="custom-datatable">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <input type="text" [(ngModel)]="searchName" (change)="searchOrder()"
                                 class="filter-ngx form-control" placeholder="Tìm kiếm ..." autocomplete="off" />
-                        </div>
+                        </div> -->
                         <table class="table table-striped" *ngIf="orders.length > 0">
                             <thead>
                                 <tr>
@@ -23,14 +23,15 @@
                                     <th scope="col">Phương thức</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Số tiền</th>
-                                    <th scope="col"></th>
+                                    <!-- <th scope="col"></th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let order of orders">
                                     <th scope="row">{{ order.orderTrackingNumber }}</th>
                                     <td>{{ order.orderTime }}</td>
-                                    <td>{{ order.user.fullName }}</td>
+                                    <td><a [routerLink]="['/users/detail', order?.user?.id]">{{ order.user.fullName
+                                            }}</a></td>
                                     <td *ngIf="order?.shipper?.user?.fullName != null">{{ order?.shipper?.user?.fullName
                                         }}</td>
                                     <td *ngIf="order?.shipper?.user?.fullName == null"><i style="color: #FF8084;"
@@ -80,7 +81,7 @@
                                         </span>
                                     </td>
                                     <td style="font-size: 16px;">{{ order.total | currency : "VND" }}</td>
-                                    <td scope="row">
+                                    <!-- <td scope="row">
                                         <a [routerLink]="['/sales', 'detail-order', 'user', order.user.id, 'order', order.id]"
                                             style="cursor: pointer;">
                                             <i style="color: lightseagreen;" class="fa fa-eye f-12"></i>
@@ -97,7 +98,7 @@
                                             style="cursor: pointer;">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>

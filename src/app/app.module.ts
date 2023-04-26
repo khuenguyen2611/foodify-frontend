@@ -11,12 +11,9 @@ import { SharedModule } from './shared/shared.module';
 import { ProductsModule } from './components/products/products.module';
 import { SalesModule } from './components/sales/sales.module';
 import { CouponsModule } from './components/coupons/coupons.module';
-import { PagesModule } from './components/pages/pages.module';
-import { MediaModule } from './components/media/media.module';
 import { MenusModule } from './components/menus/menus.module';
 import { VendorsModule } from './components/vendors/vendors.module';
 import { UsersModule } from './components/users/users.module';
-import { LocalizationModule } from './components/localization/localization.module';
 import { AccountModule } from './components/account/account.module';
 import { SettingModule } from './components/setting/setting.module';
 import { ReportsModule } from './components/reports/reports.module';
@@ -43,14 +40,10 @@ import { AuthInterceptor } from "./shared/inceptor/auth-interceptor";
         ReportsModule,
         AuthModule,
         SharedModule,
-        LocalizationModule,
         ProductsModule,
         SalesModule,
-        // NgImageSliderModule,
         VendorsModule,
         CouponsModule,
-        PagesModule,
-        MediaModule,
         MenusModule,
         UsersModule,
         AgGridModule,
