@@ -61,3 +61,24 @@ td {
 .modal-confirm-text {
     font-weight: 600;
 }
+
+
+:host {
+    ::ng-deep {
+        .pagination {
+            &>li {
+                &.page-item {
+                    &.active {
+                        &>a {
+                            &.page-link {
+                                &>span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

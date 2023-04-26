@@ -26,13 +26,6 @@ export const content: Routes = [
             breadcrumb: "Đơn hàng"
         }
     },
-    {
-        path: 'coupons',
-        loadChildren: () => import('../../components/coupons/coupons.module').then(m => m.CouponsModule),
-        data: {
-            breadcrumb: "Coupons"
-        }
-    },
     // {
     //     path: 'pages',
     //     loadChildren: () => import('../../components/pages/pages.module').then(m => m.PagesModule),
@@ -72,10 +65,6 @@ export const content: Routes = [
     //         breadcrumb: "Localization"
     //     }
     // },
-    {
-        path: 'reports',
-        loadChildren: () => import('../../components/reports/reports.module').then(m => m.ReportsModule),
-    },
     {
         path: 'settings',
         loadChildren: () => import('../../components/setting/setting.module').then(m => m.SettingModule),

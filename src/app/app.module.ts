@@ -10,13 +10,11 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 import { SharedModule } from './shared/shared.module';
 import { ProductsModule } from './components/products/products.module';
 import { SalesModule } from './components/sales/sales.module';
-import { CouponsModule } from './components/coupons/coupons.module';
 import { MenusModule } from './components/menus/menus.module';
 import { VendorsModule } from './components/vendors/vendors.module';
 import { UsersModule } from './components/users/users.module';
 import { AccountModule } from './components/account/account.module';
 import { SettingModule } from './components/setting/setting.module';
-import { ReportsModule } from './components/reports/reports.module';
 import { AuthModule } from './components/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { ModalModule } from "ngx-bootstrap/modal";
@@ -37,13 +35,11 @@ import { AuthInterceptor } from "./shared/inceptor/auth-interceptor";
         DashboardModule,
         AccountModule,
         SettingModule,
-        ReportsModule,
         AuthModule,
         SharedModule,
         ProductsModule,
         SalesModule,
         VendorsModule,
-        CouponsModule,
         MenusModule,
         UsersModule,
         AgGridModule,

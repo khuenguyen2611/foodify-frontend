@@ -86,7 +86,7 @@
                 width: 60px;
                 height: 60px;
             }
-    
+
             .discount-text {
                 position: absolute;
                 top: 18px;
@@ -103,3 +103,22 @@
     }
 }
 
+:host {
+    ::ng-deep {
+        .pagination {
+            &>li {
+                &.page-item {
+                    &.active {
+                        &>a {
+                            &.page-link {
+                                &>span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

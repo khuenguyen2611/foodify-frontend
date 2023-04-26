@@ -1,10 +1,12 @@
 .modal-confirm-delete {
+
     // width: 1000px;
     .modal-confirm-text {
         text-align: center;
         padding: 20px 8px;
         font-weight: 600;
     }
+
     .modal-btn-option {
         width: 100%;
         display: flex;
@@ -22,6 +24,28 @@
     font-weight: 600;
 }
 
-th, td {
+th,
+td {
     text-align: center;
+}
+
+
+:host {
+    ::ng-deep {
+        .pagination {
+            &>li {
+                &.page-item {
+                    &.active {
+                        &>a {
+                            &.page-link {
+                                &>span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

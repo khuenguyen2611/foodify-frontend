@@ -2,3 +2,24 @@ th,
 td {
     text-align: center;
 }
+
+
+:host {
+    ::ng-deep {
+        .pagination {
+            &>li {
+                &.page-item {
+                    &.active {
+                        &>a {
+                            &.page-link {
+                                &>span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
