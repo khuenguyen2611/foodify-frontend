@@ -61,6 +61,10 @@ export class OrderService {
   findOrdersByTrackingNumber(trackingNumber: string, thePage: number, thePageSize: number, sortBy: string, sortDir: string) {
     return this.httpClient.get<GetResponseOrders>(this.orderUrl + `/search?trackingNumber=${trackingNumber}&pageNo=${thePage}&pageSize=${thePageSize}&sortBy=${sortBy}&sortDir=${sortDir}`);
   }
+
+  findOrderByStatus(status: string, thePage: number, thePageSize: number, sortBy: string, sortDir: string) {
+    return this.httpClient.get<GetResponseOrders>(this.orderUrl + `/get?status=${status}`);
+  }
 }
 
 interface GetResponseOrders {

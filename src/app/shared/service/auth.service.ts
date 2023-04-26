@@ -36,6 +36,10 @@ export class AuthService {
     return this.httpClient.post<StringBoolObject>(this.baseUrl + `/check`, userDto);
   }
 
+  checkIdentifiedCode(code: string) {
+    return this.httpClient.get<StringBoolObject>(this.baseUrl + `/check?code=${code}`);
+  }
+
   checkEmailInDB(email: string) {
     return this.httpClient.get<StringBoolObject>(this.baseUrl + `/check-email?email=${email}`)
   }

@@ -50,7 +50,7 @@ export class FirebaseService {
                     if (!response.user.emailVerified) {
                         response.user.sendEmailVerification();
                         this.router.navigate(['/auth/email-not-verified']);
-                        resolve(false); // trả về false nếu email chưa được xác thực
+                        resolve(true); // trả về false nếu email chưa được xác thực
                     } else {
                         response.user.getIdToken().then((token: string) => {
                             this.token = token;

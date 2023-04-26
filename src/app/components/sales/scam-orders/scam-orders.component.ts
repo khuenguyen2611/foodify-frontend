@@ -57,52 +57,13 @@ export class ScamOrdersComponent {
   ngOnInit() {
     this.userService.getUserByToken(this.token).subscribe((userInfo) => {
       this.loggedRole = userInfo.userRole;
-      if (this.loggedRole != 'ROLE_ADMIN') {
-        this.isShop = true;
-        this.shopId = userInfo.shopId
-      }
       this.listOrder();
     })
   }
 
   listOrder() {
-    if (this.isShop) {
-      this.orderService.getOrdersByShopId(this.shopId, this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
-        .subscribe(this.processResult());
-
-      this.shipperService.findFreeShopShipper(this.shopId).subscribe((shippers) => {
-        this.shippers = shippers;
-      })
-    }
-    else {
-      this.orderService
-        .getOrdersPagination(this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
-        .subscribe(this.processResult());
-    }
-
-    this.refreshTimeout = setTimeout(() => {
-      this.refreshOrder();
-    }, this.refreshInterval);
-  }
-
-  refreshOrder() {
-    if (this.isShop) {
-      this.orderService.getOrdersByShopId(this.shopId, this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
-        .subscribe(this.refreshResult());
-
-      this.shipperService.findFreeShopShipper(this.shopId).subscribe((shippers) => {
-        this.shippers = shippers;
-      })
-    }
-    else {
-      this.orderService
-        .getOrdersPagination(this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
-        .subscribe(this.refreshResult());
-    }
-
-    this.refreshTimeout = setTimeout(() => {
-      this.refreshOrder();
-    }, this.refreshInterval);
+    this.orderService.findOrderByStatus('REJECT_DELIVERY', this.thePageNumber - 1, this.thePageSize, this.sortBy, this.sortDir)
+      .subscribe(this.processResult());
   }
 
   searchOrder() {
@@ -117,23 +78,12 @@ export class ScamOrdersComponent {
 
   processResult() {
     return (data: any) => {
+      console.log(data)
       this.orders = data.orders;
       this.thePageNumber = data.page.pageNo + 1;
       this.thePageSize = data.page.pageSize;
       this.theTotalElements = data.page.totalElements;
       this.totalOrders = data.page.totalElements;
-    };
-  }
-
-  refreshResult() {
-    return (data: any) => {
-      this.orders = data.orders;
-      this.thePageNumber = data.page.pageNo + 1;
-      this.thePageSize = data.page.pageSize;
-      this.theTotalElements = data.page.totalElements;
-      if (this.totalOrders != this.theTotalElements) {
-        this.totalOrders = this.theTotalElements;
-      }
     };
   }
 
