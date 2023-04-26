@@ -123,13 +123,13 @@ export class NavService {
             ]
         },
         {
-            title: 'Người bán hàng', icon: 'users', type: 'sub', active: false, children: [
+            title: 'Người bán hàng', icon: 'archive', type: 'sub', active: false, children: [
                 { path: '/vendors/list', title: 'Danh sách', type: 'link' },
                 { path: '/vendors/create', title: 'Tạo người bán', type: 'link' }
             ]
         },
         {
-            title: 'Shipper', icon: 'archive', type: 'sub', active: false, children: [
+            title: 'Shipper', icon: 'truck', type: 'sub', active: false, children: [
                 { path: '/shippers/list', title: 'Danh sách', type: 'link' },
                 { path: '/shippers/create', title: 'Tạo shipper', type: 'link' }
             ]
@@ -225,7 +225,7 @@ export class NavService {
         //     ]
         // },
         {
-            title: 'Shipper', icon: 'archive', type: 'sub', active: false, children: [
+            title: 'Shipper', icon: 'truck', type: 'sub', active: false, children: [
                 { path: '/shippers/list', title: 'Danh sách', type: 'link' },
                 { path: '/shippers/create', title: 'Tạo shipper', type: 'link' }
             ]

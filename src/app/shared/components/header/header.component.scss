@@ -1,7 +1,15 @@
 .width-dropdown {
-  width: 180px;
+  width: 190px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   border-radius: 5px;
+
+  .fa {
+    font-size: 24px;
+  }
+
+  .text-dropdowm {
+    font-size: 16px;
+  }
 }
 
 
@@ -23,9 +31,9 @@
         .position-absolute {
             position: absolute;
             top: 66px;
-            right: 0px;
+            right: 12px;
             text-align: start;
-            z-index: 999999;
+            background: #fff;
           }
     }
 }
