@@ -55,6 +55,20 @@
       .forbidden-text {
         text-align: center;
       }
+
+      .forbidden-btn {
+        display: flex;
+        flex-direction: column;
+
+        .btn {
+          padding: 10px 12px;
+        }
+
+        .return-btn {
+          margin-bottom: 10px;
+          width: 230px;
+        }
+      }
     }
   }
 }
