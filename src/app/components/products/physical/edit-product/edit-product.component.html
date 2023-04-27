@@ -340,18 +340,24 @@
 <ng-template #addImg>
     <div class="modal-body text-center">
         <h5 class="text-dark font-weight-bold mb-4">Thêm ảnh</h5>
-        <input class="input-image mb-4" type="file" accept="image/*" (change)="onFileSelected($event)" />
-        <button type="button" class="btn btn-primary" (click)="uploadNewImage(imageSuccess)">Tiếp tục
-        </button>
+        <input class="input-image" name="file" id="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <label class="btn btn-warning mb-4 font-weight-normal" for="file">Chọn ảnh</label>
+        <div>
+            <button type="button" class="btn btn-primary" (click)="uploadNewImage(imageSuccess)">Tiếp tục
+            </button>
+        </div>
     </div>
 </ng-template>
 
 <ng-template #updateImg>
     <div class="modal-body text-center">
         <h5 class="text-dark font-weight-bold mb-4">Chỉnh sửa ảnh</h5>
-        <input class="input-image mb-4" type="file" accept="image/*" (change)="onFileSelected($event)" />
-        <button type="button" class="btn btn-primary" (click)="updateImage(imageSuccess)">Tiếp tục
-        </button>
+        <input class="input-image" name="file" id="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <label class="btn btn-warning mb-4 font-weight-normal" for="file">Chọn ảnh</label>
+        <div>
+            <button type="button" class="btn btn-primary" (click)="updateImage(imageSuccess)">Tiếp tục
+            </button>
+        </div>
     </div>
 </ng-template>
 
