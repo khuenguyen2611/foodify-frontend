@@ -116,8 +116,8 @@
                       </div>
                     </div>
 
-                    <!-- phone number -->
-                    <div class="form-group row">
+                    <!--capcha -->
+                    <div *ngIf="isSend" class="form-group row">
                       <div class="col-xl-3 col-md-4">
                         <label for="validationCustom2"><span></span></label>
                       </div>
@@ -427,6 +427,13 @@
 <ng-template #miss_info>
   <div class="modal-body text-center">
     <h5>Vui lòng điền đầy đủ thông tin trước khi tạo tài khoản.</h5>
+    <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
+  </div>
+</ng-template>
+
+<ng-template #empty_phonenumber>
+  <div class="modal-body text-center">
+    <h5>Số điện thoại không được bỏ trống.</h5>
     <button type="button" class="btn btn-primary" (click)="closeLayer2()">Tiếp tục</button>
   </div>
 </ng-template>
