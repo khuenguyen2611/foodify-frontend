@@ -207,7 +207,8 @@
 
 <ng-template #chooseUserImage>
   <div class="modal-body text-center">
-    <h4 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h4>
-    <input class="" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    <h5 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h5>
+    <input class="input-image" name="file" id="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+      <label class="btn btn-warning font-weight-normal" for="file">Chọn ảnh</label>
   </div>
 </ng-template>

@@ -169,7 +169,7 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Địa chỉ</th>
+                                                    <th style="text-align: center;" scope="col">Địa chỉ</th>
                                                     <th scope="col">Quận</th>
                                                     <th scope="col">Phường</th>
                                                     <th scope="col"></th>
@@ -178,7 +178,7 @@
                                             <tbody>
                                                 <tr *ngFor="let address of user.addresses; let i = index">
                                                     <th scope="row">{{ i + 1 }}</th>
-                                                    <td>{{ address.address }}</td>
+                                                    <td style="text-align: center;">{{ address.address }}</td>
                                                     <td>{{ address.district }}</td>
                                                     <td>{{ address.ward }}</td>
                                                     <td>
@@ -225,14 +225,15 @@
 
 <ng-template #chooseUserImage>
     <div class="modal-body text-center">
-        <p>Vui lòng chọn 1 ảnh</p>
-        <input class="input-image" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <h5 class="modal-title f-w-600 mb-4">Vui lòng chọn 1 ảnh</h5>
+        <input class="input-image" name="file" id="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <label class="btn btn-warning font-weight-normal" for="file">Chọn ảnh</label>
     </div>
 </ng-template>
 
 <ng-template #updateSuccess>
     <div class="modal-body text-center">
-        <p>Cập nhật thông tin thành công</p>
+        <h5 class="modal-title f-w-600  mb-4">Cập nhật thông tin thành công</h5>
         <button type="button" class="btn btn-primary" (click)="continue()">Tiếp tục</button>
     </div>
 </ng-template>

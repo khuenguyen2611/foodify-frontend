@@ -37,18 +37,20 @@
 
 <ng-template #chooseNewImage>
     <div class="modal-body text-center">
-        <p>Vui lòng chọn 1 ảnh</p>
-        <input class="input-image" type="file" accept="image/*" (change)="onFileSelected($event)" />
-        <hr>
-        <button type="button" class="btn btn-secondary" (click)="uploadImage()">Tiếp
-            tục</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="button" class="btn btn-primary" (click)="closeLayer1()">Huỷ bỏ</button>
+        <h5 class="text-dark font-weight-bold mb-4">Vui lòng chọn 1 ảnh</h5>
+        <input class="input-image" name="file" id="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+        <label class="btn btn-warning mb-4 font-weight-normal" for="file">Chọn ảnh</label>
+        <div>
+            <button type="button" class="btn btn-secondary" (click)="uploadImage()">Tiếp
+                tục</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="closeLayer1()">Huỷ bỏ</button>
+        </div>
     </div>
 </ng-template>
 
 <ng-template #deleteImage>
     <div class="modal-body text-center">
-        <p>Bạn chắc chắn muốn xoá slider này ?</p>
+        <h5 class="text-dark font-weight-bold mb-4">Bạn chắc chắn muốn xoá slider này ?</h5>
         <button type="button" class="btn btn-secondary" (click)="deleteChooseImage()">Tiếp
             tục</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button type="button" class="btn btn-primary" (click)="closeLayer1()">Huỷ bỏ</button>
@@ -57,7 +59,7 @@
 
 <ng-template #uploadSuccess>
     <div class="modal-body text-center">
-        <p>{{ sliderAction }} slider thành công</p>
+        <h5 class="text-dark font-weight-bold mb-4">{{ sliderAction }} slider thành công</h5>
         <button type="button" class="btn btn-primary" (click)=" closeLayer1()">Tiếp
             tục</button>
     </div>
