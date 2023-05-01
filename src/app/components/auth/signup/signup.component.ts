@@ -20,6 +20,7 @@ import { Shop } from "src/app/shared/tables/shop";
 import { User } from "src/app/shared/tables/user";
 import { Ward } from "src/app/shared/tables/ward";
 import { environment } from "src/environments/environment";
+import { response } from "express";
 
 @Component({
   selector: "app-signup",
@@ -71,7 +72,6 @@ export class SignupComponent {
   @ViewChild('miss_otp') missOTPModal: TemplateRef<any>;
 
   //Phonenumber
-  isVerified: boolean = false;
   reCaptchaVerifier;
   verify;
 
@@ -209,7 +209,6 @@ export class SignupComponent {
             const credential = firebase.auth.PhoneAuthProvider.credential(this.verify, this.otpCode.value);
             firebase.auth().signInWithCredential(credential).then((credential) => {
               credential.user.delete();
-              this.isVerified = true;
 
               if (this.userImageChoosen && this.shopImageChoosen) {
                 this.uploadUserImage(this.userImageFile).then((url) => {
@@ -351,8 +350,6 @@ export class SignupComponent {
       .then((confirmationResult) => {
 
         this.verify = confirmationResult.verificationId;
-
-        console.log("send code!");
       })
       .catch((error) => {
         //Catch error

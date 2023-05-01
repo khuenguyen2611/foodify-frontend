@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -26,6 +26,7 @@ export class EditProductComponent {
   active = 1;
   oldRandomImg: string;
   editOrDeleteId: number;
+  isEdited: boolean = false;
 
   editProductId: number;
   product: Product;
@@ -34,6 +35,8 @@ export class EditProductComponent {
   imageContent: string;
   imageUploadFile: File;
   downloadURL: Observable<string>;
+
+  @ViewChild('need_img') needImageModal: TemplateRef<any>
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -136,6 +139,7 @@ export class EditProductComponent {
   //Image
   onFileSelected(event) {
     this.imageUploadFile = (event.target as HTMLInputElement).files[0];
+    this.isEdited = true;
   }
 
   uploadProductImage(fileUpload: File): Promise<string> {
@@ -193,6 +197,7 @@ export class EditProductComponent {
   }
 
   openImgModal(id: number, imageTemplate: TemplateRef<any>) {
+    this.isEdited = false;
     if (this.editProductForm.invalid) {
       this.editProductForm.markAllAsTouched()
       return;
@@ -205,26 +210,36 @@ export class EditProductComponent {
     this.imageContent = "Thêm ảnh";
     const newImage = new ProductImage();
     newImage.productId = this.product.id;
-    this.uploadProductImage(this.imageUploadFile).then((url) => {
-      newImage.imageUrl = url;
-      this.productImageService.addProductImage(newImage, this.product.id).subscribe(() => {
-        this.layer1.hide();
-        this.layer1 = this.modalService.show(successTemplate, { class: 'modal-sm' });
+    if (this.isEdited) {
+      this.uploadProductImage(this.imageUploadFile).then((url) => {
+        newImage.imageUrl = url;
+        this.productImageService.addProductImage(newImage, this.product.id).subscribe(() => {
+          this.layer1.hide();
+          this.layer1 = this.modalService.show(successTemplate, { class: 'modal-sm' });
+        })
       })
-    })
+    }
+    else {
+      this.layer1 = this.modalService.show(this.needImageModal, { class: 'modal-sm' })
+    }
   }
 
   updateImage(successTemplate: TemplateRef<any>) {
     this.imageContent = "Chỉnh sửa ảnh";
     const editImage = new ProductImage();
     editImage.productId = this.product.id;
-    this.uploadProductImage(this.imageUploadFile).then((url) => {
-      editImage.imageUrl = url;
-      this.productImageService.updateProductImage(this.product.id, this.editOrDeleteId, editImage).subscribe(() => {
-        this.layer1.hide();
-        this.layer1 = this.modalService.show(successTemplate, { class: 'modal-sm' });
+    if (this.isEdited) {
+      this.uploadProductImage(this.imageUploadFile).then((url) => {
+        editImage.imageUrl = url;
+        this.productImageService.updateProductImage(this.product.id, this.editOrDeleteId, editImage).subscribe(() => {
+          this.layer1.hide();
+          this.layer1 = this.modalService.show(successTemplate, { class: 'modal-sm' });
+        })
       })
-    })
+    }
+    else {
+      this.layer1 = this.modalService.show(this.needImageModal, { class: 'modal-sm' })
+    }
   }
 
   deleteImage(successTemplate: TemplateRef<any>) {
