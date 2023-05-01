@@ -140,7 +140,7 @@
   <div class="modal-change-status">
     <h5 class="modal-confirm-text">Cập nhật đơn hàng</h5>
 
-    <div class="modal-select-option" *ngIf="!isHaveShipper">
+    <div class="modal-select-option" *ngIf="!isAlreadyHaveShipper">
       <select class="width-select" [(ngModel)]="shipper">
         <option [selected]="true" [ngValue]="undefined">Chọn shipper</option>
         <option *ngFor="let shipper of shippers" [ngValue]="shipper">{{ shipper.user.fullName }}</option>

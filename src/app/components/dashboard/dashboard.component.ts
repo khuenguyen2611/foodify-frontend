@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     totalProducts: number = 0;
     totalReviewCount: number = 0;
     totalAverageRating: number = 0;
+    roundedRating: string;
 
     //Orders
     orders: Order[] = [];
@@ -100,7 +101,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                         }
                     });
                     if (i != 0) {
-                        this.totalAverageRating = this.totalAverageRating / i;
+                        this.totalAverageRating = (this.totalAverageRating / i);
+                        this.roundedRating = this.totalAverageRating.toFixed(2);
                     }
                 })
 

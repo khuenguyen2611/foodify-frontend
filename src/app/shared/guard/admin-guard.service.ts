@@ -15,18 +15,35 @@ export class AdminGuard implements CanActivate {
     private userService: UserService,
     private router: Router
   ) {
-    this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+
+  }
+
+  // canActivate(): boolean {
+  //   this.userService.getUserByToken(this.token).subscribe((userInfo) => {
+  //     this.role = userInfo.userRole;
+
+  //     if (this.role == 'ROLE_ADMIN') {
+  //       return true;
+  //     }
+  //     else {
+  //       this.router.navigate(['/dashboard/default']);
+  //       return false;
+  //     }
+  //   })
+  // }
+
+  canActivate(): Promise<boolean> {
+    return this.userService.getUserByToken(this.token).toPromise().then((userInfo) => {
       this.role = userInfo.userRole;
+
+      if (this.role == 'ROLE_ADMIN') {
+        return true;
+      }
+      else {
+        this.router.navigate(['/dashboard/default']);
+        return false;
+      }
     })
   }
 
-  canActivate(): boolean {
-    if (this.role == 'ROLE_ADMIN') {
-      return true;
-    }
-    else {
-      this.router.navigate(['/dashboard/default']);
-      return false;
-    }
-  }
 }
