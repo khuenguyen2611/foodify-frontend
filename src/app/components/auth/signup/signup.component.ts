@@ -70,18 +70,19 @@ export class SignupComponent {
   @ViewChild('error_modal') errorModal: TemplateRef<any>;
   @ViewChild('miss_info') missInfoModal: TemplateRef<any>;
   @ViewChild('miss_otp') missOTPModal: TemplateRef<any>;
+  @ViewChild('empty_phonenumber') emptyPhoneNumber: TemplateRef<any>;
 
   //Phonenumber
+  isSend: boolean = false;
+  isVerified: boolean = false;
   reCaptchaVerifier;
   verify;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private firebaseAuth: AngularFireAuth,
     private districtService: DistrictService,
     private storage: AngularFireStorage,
-    private shopService: ShopService,
     private modalService: BsModalService,
     private router: Router,
     private firebaseService: FirebaseService
@@ -337,29 +338,43 @@ export class SignupComponent {
   }
 
   getOTP() {
-    this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      'recapcha',
-      {
-        size: 'visible',
-      }
-    );
+    const reg: User = new User();
+    reg.phoneNumber = this.userPhoneNumber.value;
 
-    firebase
-      .auth()
-      .signInWithPhoneNumber('+84 ' + this.userPhoneNumber.value, this.reCaptchaVerifier)
-      .then((confirmationResult) => {
+    if (this.userPhoneNumber.value == '') {
+      this.layer2 = this.modalService.show(this.emptyPhoneNumber, { class: 'modal-sm' });
+    }
+    else {
+      this.authService.checkEmailOrPhoneNumberExist(reg).subscribe((response) => {
+        if (response.title == 'phoneNumExist') {
+          this.errorItem = "Số điện thoại"
+          this.layer2 = this.modalService.show(this.errorModal, { class: 'modal-sm' });
+        }
+        else {
+          this.isSend = true;
+          this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+            'recapcha',
+            {
+              size: 'visible',
+            }
+          );
 
-        this.verify = confirmationResult.verificationId;
+          firebase
+            .auth()
+            .signInWithPhoneNumber('+84 ' + this.userPhoneNumber.value, this.reCaptchaVerifier)
+            .then((confirmationResult) => {
+              this.verify = confirmationResult.verificationId;
+            })
+            .catch((error) => {
+              //Catch error
+              alert(error.message);
+              setTimeout(() => {
+                window.location.reload();
+              }, 5000);
+            });
+        }
       })
-      .catch((error) => {
-        //Catch error
-
-        console.log(error.message);
-        alert(error.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
-      });
+    }
   }
 
   //Districts and Wards
