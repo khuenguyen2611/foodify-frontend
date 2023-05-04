@@ -182,8 +182,6 @@ export class OrdersComponent implements OnInit {
     }
     else {
       if (this.isHaveNewShipper) {
-        console.log("Im here")
-        console.log(this.userId + " " + this.orderId + " " + this.shipper.id);
         this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe((res) => {
           console.log(this.userId + " " + this.orderId + " " + this.selectedStatus);
           this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => {
