@@ -35,5 +35,12 @@
           color: #999a9b;
         }
       }
+
+    .link-shipper {
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
 }
 

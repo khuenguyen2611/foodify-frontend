@@ -141,14 +141,14 @@
     <h5 class="modal-confirm-text">Cập nhật đơn hàng</h5>
 
     <div class="modal-select-option" *ngIf="!isHaveShipper">
-      <select [(ngModel)]="shipper">
+      <select class="width-select" [(ngModel)]="shipper">
         <option [selected]="true" [ngValue]="undefined">Chọn shipper</option>
         <option *ngFor="let shipper of shippers" [ngValue]="shipper">{{ shipper.user.fullName }}</option>
       </select>
     </div>
 
     <div class="modal-select-option">
-      <select [(ngModel)]="selectedStatus">
+      <select class="width-select" [(ngModel)]="selectedStatus">
         <option value="AWAITING">Chờ xác nhận</option>
         <option value="CONFIRMED">Đã xác nhận</option>
         <option value="SHIPPING">Đang giao hàng</option>

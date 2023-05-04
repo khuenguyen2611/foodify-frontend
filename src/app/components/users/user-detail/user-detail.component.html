@@ -239,7 +239,7 @@
                                                   'badge-warning': order.status === 'CONFIRMED',
                                                   'badge-info': order.status === 'SHIPPING',
                                                   'badge-success': order.status === 'COMPLETED',
-                                                  'badge-primary': order.status === 'CANCELED'
+                                                  'badge-primary': order.status === 'CANCELED' || order.status === 'REJECT_DELIVERY'
                                                 }">
                                                             {{
                                                             order.status === "AWAITING"
@@ -252,6 +252,8 @@
                                                             ? "Giao thành công"
                                                             : order.status === "CANCELED"
                                                             ? "Đã huỷ đơn"
+                                                            : order.status === "REJECT_DELIVERY"
+                                                            ? "Không nhận hàng"
                                                             : ""
                                                             }}
                                                         </span>
