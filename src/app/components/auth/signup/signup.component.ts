@@ -1,5 +1,4 @@
 import { Component, TemplateRef, ViewChild } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
@@ -13,7 +12,6 @@ import { Validation } from "src/app/constants/Validation";
 import { AuthService } from "src/app/shared/service/auth.service";
 import { DistrictService } from "src/app/shared/service/district.service";
 import { FirebaseService } from "src/app/shared/service/firebase.service";
-import { ShopService } from "src/app/shared/service/shop.service";
 import { Address } from "src/app/shared/tables/address";
 import { District } from "src/app/shared/tables/district";
 import { Shop } from "src/app/shared/tables/shop";
@@ -73,7 +71,6 @@ export class SignupComponent {
 
   //Phonenumber
   isSend: boolean = false;
-  isVerified: boolean = false;
   reCaptchaVerifier;
   verify;
 
@@ -209,7 +206,6 @@ export class SignupComponent {
             const credential = firebase.auth.PhoneAuthProvider.credential(this.verify, this.otpCode.value);
             firebase.auth().signInWithCredential(credential).then((credential) => {
               credential.user.delete();
-              this.isVerified = true;
 
               if (this.userImageChoosen && this.shopImageChoosen) {
                 this.uploadUserImage(this.userImageFile).then((url) => {
@@ -359,9 +355,7 @@ export class SignupComponent {
             }
           );
 
-          firebase
-            .auth()
-            .signInWithPhoneNumber('+84 ' + this.userPhoneNumber.value, this.reCaptchaVerifier)
+          firebase.auth().signInWithPhoneNumber('+84 ' + this.userPhoneNumber.value, this.reCaptchaVerifier)
             .then((confirmationResult) => {
               this.verify = confirmationResult.verificationId;
             })

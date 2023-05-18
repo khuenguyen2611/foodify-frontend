@@ -44,7 +44,8 @@ export class OrdersComponent implements OnInit {
   layer2: BsModalRef;
 
   selectedStatus: string;
-  isHaveShipper: boolean = false;
+  isAlreadyHaveShipper: boolean = false;
+  isHaveNewShipper: boolean = false;
   shipper: Shipper = undefined;
   shippers: Shipper[] = [];
   searchName: string = '';
@@ -67,8 +68,11 @@ export class OrdersComponent implements OnInit {
       if (this.loggedRole != 'ROLE_ADMIN') {
         this.isShop = true;
         this.shopId = userInfo.shopId
+        this.listOrder();
       }
-      this.listOrder();
+      else {
+        this.listOrder();
+      }
     })
   }
 
@@ -146,9 +150,9 @@ export class OrdersComponent implements OnInit {
 
   // Change status order modal
   openStatusModal(confirmBoxChangeStatus: TemplateRef<any>, userId: number, orderId: number, shipper: Shipper) {
-    this.isHaveShipper = false;
+    this.isAlreadyHaveShipper = false;
     if (shipper != undefined) {
-      this.isHaveShipper = true
+      this.isAlreadyHaveShipper = true
     }
 
     this.orderService.getOrderById(userId, orderId).subscribe(
@@ -165,44 +169,34 @@ export class OrdersComponent implements OnInit {
   }
 
   confirmBoxChangeStatus(successChangeStatus: TemplateRef<any>) {
+    this.isHaveNewShipper = false;
     if (this.shipper) {
-      this.isHaveShipper = true;
+      this.isHaveNewShipper = true;
     }
 
-    // console.log(this.isHaveShipper)
-    if (this.isHaveShipper) {
-      this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe(() => {
-        this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
+    if (this.isAlreadyHaveShipper) {
+      this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => {
         this.layer1.hide();
         this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
-      })
+      });
     }
     else {
-      this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
-      this.layer1.hide();
-      this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+      if (this.isHaveNewShipper) {
+        this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe((res) => {
+          console.log(this.userId + " " + this.orderId + " " + this.selectedStatus);
+          this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => {
+            this.layer1.hide();
+            this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+          });
+        });
+      }
+      else {
+        this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => {
+          this.layer1.hide();
+          this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
+        });
+      }
     }
-
-
-    // if (!this.isHaveShipper) {
-    //     if (this.shipper != undefined) {
-    //       this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
-    //       this.layer1.hide();
-    //       this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
-    //     }
-    //     else {
-    //       this.orderService.updateOrderShipper(this.userId, this.orderId, this.shipper.id).subscribe(() => {
-    //         this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
-    //         this.layer1.hide();
-    //         this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
-    //       });
-    //     }
-    //   }
-    //   else {
-    //     this.orderService.updateOrderStatus(this.userId, this.orderId, this.selectedStatus).subscribe((res) => { });
-    //     this.layer1.hide();
-    //     this.layer1 = this.modalService.show(successChangeStatus, { class: "modal-sm" });
-    //   }
   }
 
   decline() {

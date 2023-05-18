@@ -165,7 +165,7 @@
                           <label class="mb-0">Tên shop:</label>
                         </div>
                         <div class="col-xl-8 col-sm-7">
-                          <p class="mb-0 text-size text-dark">{{ shop.name }}</p>
+                          <p class="mb-0 text-size text-dark">{{ shop?.name }}</p>
                         </div>
                       </div>
                     </div>
@@ -177,7 +177,7 @@
                           <label class="mb-0">Mô tả:</label>
                         </div>
                         <div class="col-xl-8 col-sm-7">
-                          <p class="mb-0 text-size text-dark">{{ shop.description }}</p>
+                          <p class="mb-0 text-size text-dark">{{ shop?.description }}</p>
                         </div>
                       </div>
                     </div>
@@ -190,8 +190,8 @@
                         </div>
                         <div class="col-xl-8 col-sm-7">
                           <span class="text-size"
-                            [ngClass]="{badge: true,'badge-success': shop.isEnabled, 'badge-primary': !shop.isEnabled}">
-                            {{ shop.isEnabled ? 'Đang hoạt động' : 'Đang tạm ngưng' }}
+                            [ngClass]="{badge: true,'badge-success': shop?.isEnabled, 'badge-primary': !shop?.isEnabled}">
+                            {{ shop?.isEnabled ? 'Đang hoạt động' : 'Đang tạm ngưng' }}
                           </span>
                         </div>
                       </div>
@@ -206,9 +206,9 @@
                         <div class="col-xl-8 col-sm-7">
                           <!-- <p *ngIf="!shop.isStudent" class="mb-0 text-size text-dark" style="color: #f08080">Cửa hàng thường</p>
                           <p *ngIf="shop.isStudent" class="mb-0 text-size text-dark" style="color: green">Cửa hàng sinh viên</p> -->
-                          <span *ngIf="!shop.isStudent" class="mb-0 text-size badge badge-primary">Cửa hàng
+                          <span *ngIf="!shop?.isStudent" class="mb-0 text-size badge badge-primary">Cửa hàng
                             thường</span>
-                          <span *ngIf="shop.isStudent" class="mb-0 text-size badge badge-success">Cửa hàng sinh
+                          <span *ngIf="shop?.isStudent" class="mb-0 text-size badge badge-success">Cửa hàng sinh
                             viên</span>
                         </div>
                       </div>
@@ -246,10 +246,11 @@
                               <tr *ngFor="let product of products; let i = index">
                                 <th scope="row">{{ i + 1 }}</th>
                                 <td>
-                                  <img [src]="[product.images[0].imageUrl]" class="imgTable" style="width: 20px" />
+                                  <img [src]="[product?.images[0]?.imageUrl]" class="imgTable" style="width: 20px" />
                                 </td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.cost - (product.cost * product.discountPercent) / 100 }}</td>
+                                <td>{{ product?.name }}</td>
+                                <td>{{ product?.cost - (product?.cost * product?.discountPercent) / 100 |
+                                  currency:'VND'}}</td>
                                 <td>
                                   <a [routerLink]="['/products', 'product-detail', product?.id]"><i
                                       class="fa fa-eye f-12"></i></a>

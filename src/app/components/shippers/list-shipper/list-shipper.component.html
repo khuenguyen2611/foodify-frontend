@@ -37,7 +37,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">STT</th>
                                         <th scope="col">Ảnh</th>
                                         <th scope="col">Họ và tên</th>
                                         <th scope="col">Shop</th>
@@ -50,7 +50,7 @@
                                     <tr *ngFor="let shipper of shippers; let i = index">
                                         <th scope="row">{{ i + 1 }}</th>
                                         <td>
-                                            <img [src]="shipper.user.imageUrl" class="imgTable" style="width: 20px">
+                                            <img [src]="shipper.user.imageUrl" class="imgTable mr-0" style="width: 20px">
                                         </td>
                                         <td>{{ shipper.user.fullName }}</td>
                                         <td>{{ shipper.shop.name }}</td>

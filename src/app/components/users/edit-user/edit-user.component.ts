@@ -63,7 +63,6 @@ export class EditUserComponent implements OnInit {
     private districtService: DistrictService,
     private storage: AngularFireStorage,
     private route: ActivatedRoute,
-    private router: Router,
     private formBuilder: FormBuilder,
     private firebaseService: FirebaseService
   ) {

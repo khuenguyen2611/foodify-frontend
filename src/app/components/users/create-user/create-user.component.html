@@ -160,7 +160,7 @@
                               </div>
 
                               <!-- Ward -->
-                              <div class="location-ward" *ngIf="isHaveDistrict">
+                              <div class="location-ward">
                                 <select formControlName="ward" class="ward" id="ward-select">
                                   <option class="text-muted" value="">-- Chọn phường
                                     --</option>
@@ -192,10 +192,9 @@
                       <!-- <input formControlName="password" class="form-control" type="password" placeholder="Mật khẩu" /> -->
                       <div class="form-control input-password-holder">
                         <input formControlName="password" class="input-password"
-                            type="{{ showPassword ? 'text' : 'password' }}"
-                            placeholder="Mật khẩu" />
+                          type="{{ showPassword ? 'text' : 'password' }}" placeholder="Mật khẩu" />
                         <span class="icon-holder-eye" (click)="showPassword = !showPassword">
-                            <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
+                          <i class="{{ showPassword ? 'fa fa-eye-slash' : 'fa fa-eye' }}"></i>
                         </span>
                       </div>
                       <div *ngIf="userPassword?.invalid && (userPassword?.dirty || userPassword?.touched)"
@@ -203,11 +202,11 @@
                         <div *ngIf="userPassword?.errors?.['required']">Vui lòng không
                           được bỏ trống mật khẩu</div>
                         <div *ngIf="userPassword?.errors?.['pattern']">
-                            Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một
-                            chữ hoa, một chữ thường và một ký
-                            tự đặc biệt.
-                            <br />
-                            Mật khẩu không được chứa khoảng trắng.
+                          Mật khẩu phải chứa ít nhất 8 ký tự, trong đó gồm một ký tự số, một
+                          chữ hoa, một chữ thường và một ký
+                          tự đặc biệt.
+                          <br />
+                          Mật khẩu không được chứa khoảng trắng.
                         </div>
                       </div>
                     </div>
@@ -463,7 +462,8 @@
 
 <ng-template #createFailure>
   <div class="modal-body text-center">
-    <h5 class="text-dark font-weight-bold mb-4">{{ failureContent }} đã tồn tại. Vui lòng chọn {{ failureContent.toLowerCase() }} khác.</h5>
+    <h5 class="text-dark font-weight-bold mb-4">{{ failureContent }} đã tồn tại. Vui lòng chọn {{
+      failureContent.toLowerCase() }} khác.</h5>
     <button type="button" class="btn btn-primary" (click)="closeLayer1()">Tiếp tục
     </button>
   </div>
